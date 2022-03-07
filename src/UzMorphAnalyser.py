@@ -1,6 +1,9 @@
 import csv
 data = []
 
+def ng():
+    print("dsfdgg")
+
 def read_data():
     global data
     with open("data.csv", "r") as f:
