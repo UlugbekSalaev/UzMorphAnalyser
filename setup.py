@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="UzMorphAnalyser",
-    version="0.0.1",
+    version="0.0.2",
     author="Ulugbek Salaev",
     author_email="ulugbek0302@gmail.com",
     description="Uzbek Morphological Analyser on Python",
