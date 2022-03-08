@@ -1,40 +1,47 @@
 import csv
-data = []
-
-def ng():
-    print("dsfdgg")
-
-def read_data():
-    global data
-    with open("data.csv", "r") as f:
-        reader = csv.DictReader(f)
-        data = list(reader)
 
 class UzMorphAnalyser:
-    read_data()
+    __data = []
 
-    def GeneratedAffixes(affix):
+    def __init__(self):
+        self.__read_data()
+
+    def __read_data(self):
+        with open("data.csv", "r") as f:
+            reader = csv.DictReader(f)
+            self.__data = list(reader)
+
+    def __GeneratedAllomorph(self, affix):
         GenAff=[]
-        #agar qavsli bulsa
-        if "(" in affix:
-            GenAff.append("nchi")
+        #agar qavsli allomorflari bulsa
+        if affix[0]=="(":
+            GenAff.append( affix[1]+affix[3:] ) #(affix.replace("(","")).replace(")","")
+            GenAff.append( affix[3:] )
             return GenAff
-        #agar Katta harfli allomorf bulsa
+        #agar katta harfli allomorflari bulsa
         if (affix[0]).isupper():
-            affix[0]:
-            case "G":
-            case "K":
-            case "Y":
-            case "T":
-            case "G":
-
-            GenAff.append("gan")
-            GenAff.append("kan")
-            GenAff.append("larning")
+            if affix[0]=="G": #G:g,k,q
+                GenAff.append("g" + affix[1:])
+                GenAff.append("k" + affix[1:])
+                GenAff.append("q" + affix[1:])
+            if affix[0]== "K": #K:g,k
+                GenAff.append("g" + affix[1:])
+                GenAff.append("k" + affix[1:])
+            if affix[0]=="Y": #Y:a,y
+                GenAff.append("a" + affix[1:])
+                GenAff.append("y" + affix[1:])
+            if affix[0]=="T": #T:t,d
+                GenAff.append("t" + affix[1:])
+                GenAff.append("d" + affix[1:])
+            if affix[0]=="Q": #Q:g,g',k,q
+                GenAff.append("g" + affix[1:])
+                GenAff.append("gʻ" + affix[1:])
+                GenAff.append("k" + affix[1:])
+                GenAff.append("q" + affix[1:])
             return GenAff
-        return affix
+        return affix #agar allomorf bulmasa affixni uzini qaytaradi
 
-    def stem(word):
+    def stem(self, word):
         #root=word[:1]
         #affix=word[1:]
         #print(root, ' ', affix)
@@ -46,10 +53,13 @@ class UzMorphAnalyser:
         size=len(word)
         for i in range(1, size):
             affix=word[i:]
-            for item in data:
-                if(affix in UzMorphAnalyser.GeneratedAffixes(item["affix"])):
+            print(affix)
+            for item in self.__data:
+                print(self.__GeneratedAllomorph(item["affix"]))
+                if(affix in self.__GeneratedAllomorph(item["affix"])):
                     return word[:i]
         return word
 
-print(UzMorphAnalyser.stem("ularning"))
-
+#print(UzMorphAnalyser.stem("meniki"))
+obj = UzMorphAnalyser()
+print(obj.stem("meniki"))
