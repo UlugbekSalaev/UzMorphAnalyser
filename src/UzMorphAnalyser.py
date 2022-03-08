@@ -1,3 +1,5 @@
+#from project import class
+#from project.file import class
 import csv
 
 class UzMorphAnalyser:
@@ -11,7 +13,7 @@ class UzMorphAnalyser:
             reader = csv.DictReader(f)
             self.__data = list(reader)
 
-    def __GeneratedAllomorph(self, affix):
+    def __GeneratedAllomorph(self, affix): #return a list that contain all allomorphs of the current affix
         GenAff=[]
         #agar qavsli allomorflari bulsa
         if affix[0]=="(":
@@ -53,13 +55,42 @@ class UzMorphAnalyser:
         size=len(word)
         for i in range(1, size):
             affix=word[i:]
-            print(affix)
             for item in self.__data:
-                print(self.__GeneratedAllomorph(item["affix"]))
                 if(affix in self.__GeneratedAllomorph(item["affix"])):
                     return word[:i]
         return word
 
-#print(UzMorphAnalyser.stem("meniki"))
+    def lemma(self, word):
+        return word
+
+    def lemmatize(self, word: str, POS: str = "n"):
+        return word
+        
+    def analyze(self, word):
+        return word
+
+    def normalize(self, word):
+        return word
+
+    def word_tokenize(self, text):
+        tokens=[]
+        return tokens
+
+    def sent_tokenize(self, text):
+        tokens=[]
+        return tokens
+
 obj = UzMorphAnalyser()
 print(obj.stem("meniki"))
+
+#print(UzMorphAnalyser.stem("meniki"))
+
+#print(analyzer.lemmatize('benim'))
+#[('benim', ['ben'])]
+
+#print(analyzer.analyze('benim'))
+#Parse(word='benim', lemma='ben', pos='Noun', morphemes=['Noun', 'A3sg', 'P1sg'], formatted='[ben:Noun] ben:Noun+A3sg+im:P1sg')
+#Parse(word='benim', lemma='ben', pos='Pron', morphemes=['Pron', 'A1sg', 'Gen'], formatted='[ben:Pron,Pers] ben:Pron+A1sg+im:Gen')
+#Parse(word='benim', lemma='ben', pos='Verb', morphemes=['Noun', 'A3sg', 'Zero', 'Verb', 'Pres', 'A1sg'], formatted='[ben:Noun] ben:Noun+A3sg|Zero→Verb+Pres+im:A1sg')
+#Parse(word='benim', lemma='ben', pos='Verb', morphemes=['Pron', 'A1sg', 'Zero', 'Verb', 'Pres', 'A1sg'], formatted='[ben:Pron,Pers] ben:Pron+A1sg|Zero→Verb+Pres+im:A1sg')
+
