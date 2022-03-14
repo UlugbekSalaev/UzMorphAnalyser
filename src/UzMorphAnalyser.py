@@ -3,7 +3,7 @@
 import csv
 
 class UzMorphAnalyser:
-    __data = []
+    __data = [] #list of affixes table
 
     def __init__(self):
         self.__read_data()
@@ -15,35 +15,35 @@ class UzMorphAnalyser:
 
     def __GeneratedAllomorph(self, affix): #return a list that contain all allomorphs of the current affix
         GenAff=[]
-        #agar qavsli allomorflari bulsa
+        #if allomorph has omitted letter
         if affix[0]=="(":
             GenAff.append( affix[1]+affix[3:] ) #(affix.replace("(","")).replace(")","")
             GenAff.append( affix[3:] )
             return GenAff
-        #agar katta harfli allomorflari bulsa
+        #if allomorph has uppper letter (several letters)
         if (affix[0]).isupper():
-            if affix[0]=="G": #G:g,k,q
+            if affix[0] == "G": #G:g,k,q
                 GenAff.append("g" + affix[1:])
                 GenAff.append("k" + affix[1:])
                 GenAff.append("q" + affix[1:])
-            if affix[0]== "K": #K:g,k
+            if affix[0] == "K": #K:g,k
                 GenAff.append("g" + affix[1:])
                 GenAff.append("k" + affix[1:])
-            if affix[0]=="Y": #Y:a,y
+            if affix[0] == "Y": #Y:a,y
                 GenAff.append("a" + affix[1:])
                 GenAff.append("y" + affix[1:])
-            if affix[0]=="T": #T:t,d
+            if affix[0] == "T": #T:t,d
                 GenAff.append("t" + affix[1:])
                 GenAff.append("d" + affix[1:])
-            if affix[0]=="Q": #Q:g,g',k,q
+            if affix[0] == "Q": #Q:g,g',k,q
                 GenAff.append("g" + affix[1:])
                 GenAff.append("gʻ" + affix[1:])
                 GenAff.append("k" + affix[1:])
                 GenAff.append("q" + affix[1:])
             return GenAff
-        return affix #agar allomorf bulmasa affixni uzini qaytaradi
+        return affix #if the affix does't have allomorph then return itself
 
-    def stem(self, word):
+    def stem(self, word: str):
         #root=word[:1]
         #affix=word[1:]
         #print(root, ' ', affix)
@@ -54,20 +54,23 @@ class UzMorphAnalyser:
 
         size=len(word)
         for i in range(1, size):
-            affix=word[i:]
+            affix = word[i:]
             for item in self.__data:
                 if(affix in self.__GeneratedAllomorph(item["affix"])):
                     return word[:i]
         return word
 
-    def lemma(self, word):
+    def lemma(self, word: str, POS: str="n"):
+
         return word
 
     def lemmatize(self, word: str, POS: str = "n"):
+        #lemmatize da list qaytadi, bir nechta lemmalari bulishi mumkin, barchasi qaytadi
         return word
-        
+
     def analyze(self, word):
         return word
+    #shu yuqoridagi funksiyalarni yozamiz, pastdagilar esa keyinroq
 
     def normalize(self, word):
         return word
@@ -81,7 +84,7 @@ class UzMorphAnalyser:
         return tokens
 
 obj = UzMorphAnalyser()
-print(obj.stem("meniki"))
+print(obj.stem("kelayotganlaringizda"))
 
 #print(UzMorphAnalyser.stem("meniki"))
 
