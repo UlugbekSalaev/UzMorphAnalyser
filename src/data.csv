@@ -1,0 +1,449 @@
+id,root,affix,info,pos,tense,person,cases,singular,plural,question,negative,lexical_affixes,syntactical_affixes
+1,kitob,(i)m,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+2,kitob,(i)miz,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+3,opa,(i)ng,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+4,kitob,(i)ngiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+5,opa,(s)i,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+6,kitob,Ga,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+7,kitob,da,,NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+8,kitob,dan,,NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,NULL,NULL,NULL
+9,kun/oy,igacha,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+10,kitob,lar,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+11,kitob,larda,,NULL,NULL,NULL,Orin-payt,NULL,1,NULL,NULL,NULL,NULL
+12,kitob,lardan,,NULL,NULL,NULL,Chiqish,NULL,1,NULL,NULL,NULL,NULL
+13,kitob,larga,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+14,kitob,lari,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+15,kitob,larimiz,,NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL,NULL
+16,kitob,larimizni,,NULL,NULL,NULL,Tushum,NULL,1,1,NULL,NULL,NULL
+17,kitob,laring,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+18,kitob,laringiz,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+19,kitob,laringizni,,NULL,NULL,NULL,Tushum,NULL,1,NULL,NULL,NULL,NULL
+20,kitob,larni,,NULL,NULL,NULL,Tushum,NULL,1,NULL,NULL,NULL,NULL
+21,kitob,larning,,NULL,NULL,NULL,Qaratqich,NULL,1,NULL,NULL,NULL,NULL
+22,kitob,mi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+23,kitob,ni,,NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+24,kitob,ning,,NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,NULL,NULL,NULL
+27,kitob,larini,,NULL,NULL,NULL,Tushum,NULL,1,NULL,NULL,NULL,NULL
+32,kitob/dada,(i)mmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+33,kitob/dada,(i)mizmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+35,kitob/dada,(i)ngmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+36,kitob/dada,(i)ngizmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+38,kitob/dada,(s)imi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+39,dada,mlar,hurmatlash manosi,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+40,dada,mizlar,hurmatlash manosi,NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL,NULL
+41,dada,ngizlar,hurmatlash manosi,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+42,dada,nglar,hurmatlash manosi,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+43,kitob,dami,,NULL,NULL,NULL,Orin-payt,NULL,NULL,1,NULL,NULL,NULL
+44,kitob,danmi,,NULL,NULL,NULL,Chiqish,NULL,NULL,1,NULL,NULL,NULL
+45,kitob,gami,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+47,o'quvchi,siz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+49,dada,(s)isiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+50,dada,(s)iman,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+51,o'qituvchi,(s)imisiz,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+52,o'qituvchi,(s)imisan,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+54,bor/kuyla,(a)y,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+55,bor/kuyla,(a)ylik,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+56,bor/kuyla,(a)ymi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+57,bor/kuyla,(a)ylikmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+60,bor/kuyla,(i)nglar,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+61,bor/kuyla,sin,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+62,bor/kuyla,gin,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+64,bor/kuyla,(a)yin,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+65,bor/kuyla,moqchi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+66,bor/kuyla,sa,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+68,bor/kuyla,moqda,,NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+70,bor/kuyla/uxla,(a)yotir,Qoida: (a) qirqilmaydigan xolatdagi suzlarni kiritib shularni istisno qilish kerak yoki biron qoida topish kerak a ni qirqmasligi uchun,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+71,bor/kuyla,(a)yotib,Qoida: (a) qirqilmaydigan xolatdagi suzlarni kiritib shularni istisno qilish kerak yoki biron qoida topish kerak a ni qirqmasligi uchun,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+72,bor/kuyla,(a)yapti,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+73,bor/kuyla,(a)r,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+74,bor/kuyla,(a)rdi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+75,bor/kuyla,masdi,utgan zamon,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+76,bor/kuyla,masdim,utgan zamon,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+77,bor/kuyla,masdik,utgan zamon,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+78,bor/kuyla,masdingiz,utgan zamon,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+79,bor/kuyla,masdilar,utgan zamon,NULL,NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL
+80,bor/kuyla/chiq/cho'k,Gan,utgan zamon,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+81,bor/kuyla/chiq/cho'k,Gandi,utgan zamon,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+82,bor/kuyla/chiq/cho'k,Gandim,utgan zamon,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+83,bor/kuyla/chiq/cho'k,Gandik,utgan zamon,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+84,bor/kuyla/chiq/cho'k,Gandilar,utgan zamon,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+85,bor/kuyla/chiq/cho'k,Ganmidi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+86,bor/kuyla/chiq/cho'k,Ganmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+87,bor/kuyla/chiq/cho'k,Ganmidingiz,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+90,bor/kuyla,sinlar,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+91,bor/kuyla,sinmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+93,kel/kuyla,sinlarmi,,NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL,NULL
+96,bor/kuyla/chiq/cho'k,Ganmiz,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+97,bor/kuyla/chiq/cho'k,Gansiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+102,bor/kuyla/chiq/cho'k,Ganing,,NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,NULL,NULL,NULL
+103,bor/kuyla/chiq/cho'k,Ganingdan,,NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,NULL,NULL,NULL
+104,bor/kuyla/chiq/cho'k,Ganingda,,NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+105,bor/kuyla/chiq/cho'k,Ganingga,,NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,NULL,NULL,NULL
+106,bor/kuyla/chiq/cho'k,Ganding,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+108,bor/kuyla/chiq/cho'k,Gandingmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+111,kel/kuyla,(a)yotgan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+112,kel/kuyla,(a)yotganmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+113,kel/kuyla,(a)yotganmidi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+114,kel/kuyla,(a)yotganlar,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+115,kel/kuyla,(a)yotganlardan,,NULL,NULL,NULL,Chiqish,NULL,1,NULL,NULL,NULL,NULL
+116,kel/kuyla,(a)yotganlardanmi,,NULL,NULL,NULL,Chiqish,NULL,1,1,NULL,NULL,NULL
+117,kel/kuyla,(a)yotganlardanmisiz,,NULL,NULL,NULL,Chiqish,NULL,1,1,NULL,NULL,NULL
+121,kitob/oyna,gina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+122,kitob,largina,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+123,kitob,larnigina,,NULL,NULL,NULL,Tushum,NULL,1,NULL,NULL,NULL,NULL
+124,kitob,dek,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+125,rais,lardek,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+127,yugur/sakra,(a)rdilar,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+128,yugur/sakra,(a)rmidi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+130,yugur/sakra,(a)rmiding,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+131,yugur/sakra,(a)rmidingiz,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+132,yugur/sakra,dimi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+133,yugur/sakra,dimilar,,NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL,NULL
+134,yugur/sakra,ding,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+135,yugur/sakra,dingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+136,yugur/sakra,dingizmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+137,yugur/sakra,dingmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+138,yugur/sakra,ma,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+139,yugur/sakra,mading,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+140,yugur/sakra,madingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+141,yugur/sakra,madingizmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL
+142,yugur/sakra,madingmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL
+146,bor/kuyla/chiq/cho'k,Ganingiz,,NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,NULL,NULL,NULL
+148,bor/kuyla/chiq/cho'k,Ganingizni,,NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,NULL,NULL,NULL
+150,yugur/sakra/ek/chiq,Gancha,"G:{g,k,q}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+151,kun/oy/yil,gacha,"faqat vaqtni bildiruvchi suzlardan keyin, asr,qiyomat,yil [sanaladigan sonlardan keyn, keyingi yilgacha, 5-asrgacha]",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+153,qil/et,Tir,"T:{t,d} Qoida: Tir odatda undosh harflardan keyin qushilyapti",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+154,qil/et,Tirildi,Tir nisbatidan keyin il nisbati qo'shilgan holda so'z tamom bo'lmaydi. Maqolada qayd qilish uchun,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+155,qil/et,Tirilgan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+156,fuqaro,lariga,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+157,fuqaro,laridan,,NULL,NULL,NULL,Chiqish,NULL,1,NULL,NULL,NULL,NULL
+158,fuqaro,larida,,NULL,NULL,NULL,Orin-payt,NULL,1,NULL,NULL,NULL,NULL
+159,fuqaro,larining,,NULL,NULL,NULL,Qaratqich,NULL,1,NULL,NULL,NULL,NULL
+164,fuqaro,larimizning,,NULL,NULL,NULL,Qaratqich,NULL,1,1,NULL,NULL,NULL
+165,siz/biz,dagi,,NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+167,u/bu/siz/biz,lardagi,,NULL,NULL,NULL,Orin-payt,NULL,1,NULL,NULL,NULL,NULL
+169,kitob/baho,(s)iga,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+170,kitob/baho,(s)idan,,NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,NULL,NULL,NULL
+171,kitob/baho,(s)ini,,NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+172,kitob/baho,(s)ining,,NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,NULL,NULL,NULL
+173,kitob/baho,(s)ida,,NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+174,ol/qo'y,dik,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+175,ol/bor,dim,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+176,ol/bor,dilar,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+179,ol/bor,dikmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+181,ol/bor,sang,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+185,ayt/kuyla,sak,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+186,ayt/kuyla,sakgina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+187,ayt/kuyla,sam,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+188,ayt/kuyla,sammi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+189,ayt/kuyla,sakmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+191,ayt/kuyla,sangmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+194,ayt/kuyla,moqchimi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+195,ayt/kuyla,moqchisiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+196,ayt/kuyla,moqchisan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+197,ayt/kuyla,moqchimiz,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+212,ayt/kuyla,Y,"Y:{a,y} ayta, kuylay, (sakray boshladi, ayta boshladi) Qoida: undoshdan sung {a}, unlidan sung {y} keladi.",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+213,ayt/kuyla,(i)b,"aytib, kuylab, (sakra{b}, yugur{ib}) Qoida: undoshdan sung {ib}, unlidan sung {b} keladi.",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+214,ayt/kuyla,Gay,"Q:{g,q} aytgay, chiqqay. Qoida: q dan boshqa harf bulan tugasa {g}, q bn tugasas {q} bilan keladi.",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+216,ayt/kuyla,moqchimiding,"Q:{g,q} aytgay, chiqqay. Qoida: q dan boshqa harf bulan tugasa {g}, q bn tugasas {q} bilan keladi.",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+217,ayt/kuyla,moqchimidingiz,"Q:{g,q} aytgay, chiqqay. Qoida: q dan boshqa harf bulan tugasa {g}, q bn tugasas {q} bilan keladi.",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+220,u/siz/biz/kim/sen/men,(n)iki,"biz{niki}, sen{iki}. Qoida: agar n xarfi bilan tugasa {iki}, aks holda {niki} qo'shiladi.",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+221,u/siz/biz/kim/sen/men,(n)ikimi,"biz{niki}, sen{iki}. Qoida: agar n xarfi bilan tugasa {iki}, aks holda {niki} qo'shiladi.",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+222,u/siz/biz/kim/sen/men,(n)ikidir,"biz{niki}, sen{iki}. Qoida: agar n xarfi bilan tugasa {iki}, aks holda {niki} qo'shiladi.",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+223,u/siz/biz/sen/men,(n)ikichalik,"(n)ikicha degan qushimcha bo'lmaydi, (n)iki{cha}+{lik} birga qo'shilib keladi.",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+224,u/siz/biz/,larniki,Qoida: {lar} qushimchasidan keyin albatta {niki} shaklida qo'shiladi.,NULL,NULL,NULL,Tushum,NULL,1,NULL,NULL,NULL,NULL
+225,u/siz/biz/,larnikichalik,Qoida: {lar} qushimchasidan keyin albatta {niki} shaklida qo'shiladi.,NULL,NULL,NULL,Tushum,NULL,1,NULL,NULL,NULL,NULL
+227,yugur/bor/chiq,Ganlaridan,"Q:{g,q}",NULL,NULL,NULL,Chiqish,NULL,1,NULL,NULL,NULL,NULL
+228,yugur/bor/chiq,Ganlarida,"Q:{g,q}",NULL,NULL,NULL,Orin-payt,NULL,1,NULL,NULL,NULL,NULL
+229,yugur/yig'la/chiq,Ganlarini,"Q:{g,q}",NULL,NULL,NULL,Tushum,NULL,1,NULL,NULL,NULL,NULL
+231,yugur/yig'la/chiq,Ganmidik,"Q:{g,q}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+235,yugur/yig'la/chiq,Ganmizmi,"Q:{g,q}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+236,yugur/yig'la/chiq,Ganmisiz,"Q:{g,q}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+237,yugur/yig'la/chiq,Ganmisan,"Q:{g,q}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+240,yugur/yig'la/chiq,Gansizmi,"Q:{g,q}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+242,ayt/uxla,may,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+243,ayt/uxla,maylik,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+244,ayt/uxla,mas,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+245,ayt/uxla,maslikni,uxlamaslikni bahona qilib,NULL,NULL,NULL,Tushum,NULL,NULL,NULL,1,NULL,NULL
+246,ayt/uxla,masdan,uxla{masdan},NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,1,NULL,NULL
+247,ayt/uxla,masliklari,uxla{masliklari} oqibatida axvoli og'irlashdi,NULL,NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL
+248,ayt/uxla,maganligidan,uxla{maganligidan} xavotirda edi,NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,1,NULL,NULL
+249,ayt/uxla,maganligi,uxla{maganligi} xavotirli edi,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+250,ayt/uxla,magan,uxla{magan} ko'rinardi,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+251,ayt/uxla,maganidan,uxla{maganidan} xavotirda edi,NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,1,NULL,NULL
+253,qo'n/uxla,(a)yotgani,qo'n{ayotgani} tasvirlangan video,NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+254,qo'n/uxla,(a)yotganida,qo'n{ayotganida} tasvirga olingan video,NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+255,qo'n/uxla,(a)yotganini,qo'n{ayotganini} tasvirga oldi,NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+256,qo'n/uxla,(a)yotganligi,qo'n{ayotganligi} tasvirga olindi,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+257,qo'n/uxla,(a)yotganligini,qo'n{ayotganligini} bilib qolishdi,NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+258,qo'n/uxla,(a)yotganligidan,qo'n{ayotganligidan} xavotirda edi,NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,NULL,NULL,NULL
+260,bor/ayt,mayotgan,xech narsa sot{mayotgan} sotuvchi bor edi,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+261,bor/ayt,mayotgani,xech narsa sot{mayotgani} uchun maoshsiz qoldi,NULL,NULL,NULL,Tushum,NULL,NULL,NULL,1,NULL,NULL
+262,bor/ayt,mayotganligidan,ayt{mayotganligidan},NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,1,NULL,NULL
+263,bor/ayt,mayotganligi,ayt{mayotganligi},NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+264,bor/ayt,mayotganligini,ayt{mayotganligini},NULL,NULL,NULL,Tushum,NULL,NULL,NULL,1,NULL,NULL
+265,bor/ayt,mayotganini,ayt{mayotganini},NULL,NULL,NULL,Tushum,NULL,NULL,NULL,1,NULL,NULL
+266,bor/ayt/chiq,Ganida,"Q:{g,q} bor{ganida}, chiq{qanida}",NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+267,bor/ayt/chiq,maganida,"bor{maganida}, chiq{maganida}",NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,1,NULL,NULL
+268,bor/ayt/chiq,magani,"Q:{g,q} bor{magani}, chiq{magani}",NULL,NULL,NULL,Tushum,NULL,NULL,NULL,1,NULL,NULL
+269,bor/ayt/chiq,Gani,"G:{g,k,q} bor{gani}, chiq{qani}",NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+271,bor/ayt/chiq,Ganini,"Q:{g,q} bor{ganini}, chiq{qanini}",NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+272,bor/ayt/chiq,Ganidan,"Q:{g,q} ayt{ganidan}, chiq{qanidan}",NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,NULL,NULL,NULL
+274,bor/ayt/chiq,Ganingni,"Q:{g,q} ayt{ganingni}, chiq{qaningni}",NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,NULL,NULL,NULL
+275,bor/ayt/chiq,Ganlari,"Q:{g,q} ayt{ganlari}, chiq{qanlari}",NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+276,bor/ayt/chiq,yapti,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+278,bor/ayt/chiq,salar,{lar} hurmatlash va ko'plik manosida keladi,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+280,bor/ayt/chiq,sangiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+283,bor/ayt/chiq,sangizgina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+284,bor/ayt/chiq,sanggina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+285,bor/ayt/chiq,samgina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+287,o'yla/ayt/chiq,Ganimdek,"Q:{g,k,q}",NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+288,o'yla/ayt/chiq,Ganimni,"Q:{g,k,q}",NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+289,o'yla/ayt/chiq/cho'k,Ganlarim,"Q:{g,k,q}",NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+290,o'yla/ayt/chiq/cho'k,Ganim,"Q:{g,k,q}",NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+292,o'yla/ayt/chiq/cho'k,Ganimdan,"Q:{g,k,q}",NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,NULL,NULL,NULL
+293,o'yla/ayt/chiq/cho'k,Ganimda,"Q:{g,k,q}",NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+294,o'yla/ayt/chiq/cho'k,Ganmidim,"Q:{g,k,q}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+295,o'yla/ayt/chiq/cho'k,Ganmiding,"Q:{g,k,q}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+296,o'yla/ayt/chiq/cho'k,Ganmidingi,"Q:{g,k,q}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+297,o'yla/ayt/chiq/cho'k,Ganmidilar,"Q:{g,k,q}",NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL,NULL
+299,o'yla/ayt/chiq/cho'k,di,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+304,o'yla/ayt/chiq/cho'k,dinglar,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+305,o'yla/ayt/chiq/cho'k,dimmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+311,o'yla/ayt/chiq/cho'k,dilarmi,,NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL,NULL
+314,o'quvchi,san,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+316,o'quvchi,misan,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+317,o'quvchi,misiz,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+318,o'quvchi,miz,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+319,o'quvchi,mizmi,"Qoida: {man},{miz} o'zlik qo'shimchalari kelganda savolning {mi} qushimchasi orqasiga tushadi [o'quvchimanmi, o'quvchimizmi]. Agar {san},{siz} o'zlik qushimchalari kelganda savolning {mi} qushimchasi oldinga tushadi [o'quvchimisan]",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+320,o'quvchi,man,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+322,o'quvchi,manmi,,NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL
+324,o'quvchi,larmi,,NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL,NULL
+326,kitob,larimiznigina,kitoblarimiznigina saqlab qoldik,NULL,NULL,NULL,Tushum,NULL,1,1,NULL,NULL,NULL
+327,kitob,larimizdan,kitoblarimizdan faqat shuni saqlab qoldik,NULL,NULL,NULL,Chiqish,NULL,1,1,NULL,NULL,NULL
+329,kitob,laringizning,kitoblaringizning qiymati,NULL,NULL,NULL,Qaratqich,NULL,1,NULL,NULL,NULL,NULL
+330,kitob,laringizdan,kitoblaringizdan shularni ajratib oldik,NULL,NULL,NULL,Chiqish,NULL,1,NULL,NULL,NULL,NULL
+332,oila/kitob,(i)mizning,"oila{mizning}, kitob{imizning}",NULL,NULL,NULL,Qaratqich,NULL,NULL,1,NULL,NULL,NULL
+333,oila/kitob,(i)mizni,"oila{mizni}, kitob{imizni}",NULL,NULL,NULL,Tushum,NULL,NULL,1,NULL,NULL,NULL
+334,oila/kitob,(i)mizdan,"oila{mizdan}, kitob{imizdan}",NULL,NULL,NULL,Chiqish,NULL,NULL,1,NULL,NULL,NULL
+335,oila/kitob,(i)mizda,"oila{mizda}, kitob{imizda}",NULL,NULL,NULL,Orin-payt,NULL,NULL,1,NULL,NULL,NULL
+336,oila/kitob,(i)mizga,"oila{mizga}, kitob{imizga}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+339,oila/kitob,(i)ngni,"oila{ngni}, kitob{ingni}",NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+340,oila/kitob,(i)ngda,"oila{ngda}, kitob{ingda}",NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+341,oila/kitob,(i)ngdan,"oila{ngdan}, kitob{ingdan}",NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,NULL,NULL,NULL
+342,oila/kitob,(i)ngning,"oila{ngning}, kitob{ingning}",NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,NULL,NULL,NULL
+343,oila/kitob,(i)ngga,"oila{ngga}, kitob{ingga}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+345,oila/kitob,(i)ngizni,"oila{ngizni}, kitob{ingizni}",NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+346,oila/kitob,(i)ngizning,"oila{ngizning}, kitob{ingizning}",NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,NULL,NULL,NULL
+347,oila/kitob,(i)ngizda,"oila{ngizda}, kitob{ingizda}",NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+348,oila/kitob,(i)ngizdan,"oila{ngizdan}, kitob{ingizdan}",NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,NULL,NULL,NULL
+350,oila/kitob,(i)mda,"oila{mda}, kitob{imda}",NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+351,oila/kitob,(i)mdan,"oila{mdan}, kitob{imdan}",NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,NULL,NULL,NULL
+352,oila/kitob,(i)mga,"oila{mga}, kitob{imga}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+353,oila/kitob,(i)mni,"oila{mni}, kitob{imni}",NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+354,oila/kitob,(i)mning,"oila{mning}, kitob{imning}",NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,NULL,NULL,NULL
+355,ruchka/kitob,larim,kitob{larim},NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+358,ruchka/kitob,larimni,kitob{larimni},NULL,NULL,NULL,Tushum,NULL,1,NULL,NULL,NULL,NULL
+359,ruchka/kitob,larimda,kitob{larimda},NULL,NULL,NULL,Orin-payt,NULL,1,NULL,NULL,NULL,NULL
+360,ruchka/kitob,larimdan,kitob{larimdan},NULL,NULL,NULL,Chiqish,NULL,1,NULL,NULL,NULL,NULL
+361,ruchka/kitob,larimga,kitob{larimga},NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+363,ruchka/kitob,larimning,kitob{larimning},NULL,NULL,NULL,Qaratqich,NULL,1,NULL,NULL,NULL,NULL
+365,ruchka/kitob,(i)mnigina,"ruchka{mnigina}, kitob{imnigina}",NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+367,ruchka/kitob,(i)mnimi,"ruchka{mnimi}, kitob{imnimi}",NULL,NULL,NULL,Tushum,NULL,NULL,1,NULL,NULL,NULL
+369,ruchka/kitob,(i)mchalik,"ruchka{mchalik}, kitob{imchalik} Qoida: {chalik} bu yerda yaxlit qushimcha",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+371,o'tir/kuyla,Ydigan,"o'tir{adigan}, kuyla{ydigan} Qoida: undosh bilan tugasa (a), unli bilan tugasa (y) holida qo'shimcha yasaladi",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+372,o'tir/kuyla,Ydi,"o'tir{adi}, kuyla{ydi} Qoida: undosh bilan tugasa (a), unli bilan tugasa (y) holida qo'shimcha yasaladi",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+373,o'tir/kuyla,Ydilar,"o'tir{adilar}, kuyla{ydilar}",NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+374,yugur/kuyla,Ydimi,"yugur{adimi}, kuyla{ydimi}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+375,yugur/kuyla,madi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+376,yugur/kuyla,madilar,,NULL,NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL
+377,yugur/kuyla,magandi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL
+378,yugur/kuyla,magandilar,,NULL,NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL
+379,yugur/kuyla,maganmidi,,NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL
+380,yugur/kuyla,maganmidilar,,NULL,NULL,NULL,NULL,NULL,1,1,1,NULL,NULL
+381,yugur/kuyla,maganing,yugur{maganing},NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,1,NULL,NULL
+382,yugur/kuyla,maganingdan,yugur{maganingdan},NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,1,NULL,NULL
+383,yugur/kuyla,maganingda,yugur{maganingda},NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,1,NULL,NULL
+384,yugur/kuyla,maganingni,yugur{maganingni},NULL,NULL,NULL,Qaratqich,NULL,NULL,NULL,1,NULL,NULL
+388,uch/olti,(i)nchi,"Sonlar uchun: uch{inchi}, olti{nchi} Qoida: undosh bilan tugasa {inchi} qushimchasi qushiladi, unli bilan tugasa {nchi} qushimchasi qo'shiladi",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+389,uch/olti,ta,"Sonlar uchun: uch{ta}, olti{ta} ",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+390,uch/olti,tacha,"Sonlar uchun: uch{tacha}, olti{tacha} ",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+391,o'n/yuz/ming,larcha,"Sonlar uchun: o'n{larcha}, yuz{larcha}",NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+392,uch/besh,ala,"Sonlar uchun: uch{ala}, besh{ala}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+393,ikki/o'n,lab,"Sonlar uchun: ikki{lab}, o'n{lab}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+394,uch/besh,ov,"Sonlar uchun: uch{ov}, besh{ov}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+395,uch/besh,ovi,"Sonlar uchun: uch{ovi}, besh{ovi}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+396,uch/besh,ovlab,"Sonlar uchun: uch{ovlab}, besh{ovlab}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+397,uch/besh,ovlash,"Sonlar uchun: uch{ovlash}, besh{ovlash}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+398,uch/besh,ovlashib,"Sonlar uchun: uch{ovlashib}, besh{ovlashib}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+399,uch/besh,ovlon,"Sonlar uchun: uch{ovlon}, besh{ovlon}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+400,o'qituvchi,mikan,OT ,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+402,man/san/siz/biz/,day,OT ,NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+404,u/bu/shu,nday,"OT Qoida: faqatgina [u,bu,shu] suzlaridan keyin keladi u{nday},bu{nday},shu{nday}",NULL,NULL,NULL,Orin-payt,NULL,NULL,NULL,NULL,NULL,NULL
+405,o'qituvchi,mish,OT. gumon manosida,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
+406,ayt/ek/chiq,Ganmish,"G:{g,k,q} FEL. Gumon manosida",,Otgan,,,,,1,,,
+414,ishchi,larimniki,,NULL,NULL,NULL,Tushum,NULL,NULL,NULL,NULL,NULL,NULL
+415,ishla,t,FEL nisbat,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+416,ishla,tdi,FEL nisbat,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+417,ishla,tdimi,FEL nisbat,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+418,ishla,tmoqchi,FEL nisbat,Fel,Kelasi,3,,1,,,,,
+419,ko'r,sat,"FEL, {sat} fel nisbati, Qoida: faqatgina ko'rmoq feliga qo'shiladi. ",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+421,kitob/ko'cha,larimizgina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+422,kitob,larimizdangina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+423,yugur/uxla/ek/chiq,Ganlarimiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+424,yugur/uxla/ek/chiq,Ganlarimizni,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+426,yugur/uxla/ek/chiq,Ganimiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+427,yugur/uxla/ek/chiq,Ganimizda,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+428,yugur/uxla/ek/chiq,Ganimizni,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+429,yugur/uxla/ek/chiq,Ganimiznigina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+430,yugur/uxla/ek/chiq,Ganimizdagina,"G:{g,k,q}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+431,yugur/uxla/ek/chiq,Ganimizday,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+432,ishla,ttir,FEL nisbat ishla{ttir},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+433,ishla,ttirgan,FEL nisbat,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+434,ishla,ttirgandi,FEL nisbat,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+435,ishla,ttirganmidi,FEL nisbat,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+436,ishla,ttirgandilar,FEL nisbat,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+437,ishla,ttirganding,FEL nisbat,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+438,ishla,ttirgandingiz,FEL nisbat,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+439,ishla,ttirganmidingiz,FEL nisbat,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+440,ishla,ttirganmiding,FEL nisbat,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+442,yugur/uxla/ek/chiq,Gach,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+443,yugur/uxla/ek/chiq,Gachgina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+444,yugur/uxla/ek/chiq,(i)bgina,"Qoida: qushimchadagi b harfidan oldin i dan farqli unli kelsa, bu asosga tegishli buladi",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+445,yugur/uxla/ek/chiq,Guncha,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+446,yugur/uxla/ek/chiq,Gudek,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+447,yugur/uxla/ek/chiq,(i)bdi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+448,yugur/uxla/ek/chiq,(i)bdimi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+449,yugur/uxla/ek/chiq,(i)bdilar,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+450,yugur/uxla/ek/chiq,(i)bdilarmi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+452,yugur/uxla/ek/chiq,Ganinglar,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+453,yugur/uxla/ek/chiq,Ganinglarni,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+454,yugur/uxla/ek/chiq,Ganinglarda,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+455,yugur/uxla/ek/chiq,Ganinglardan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+457,yugur/uxla/ek/chiq,Gandan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+458,yugur/uxla/ek/chiq,Ganda,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+459,yugur/uxla/ek/chiq,Ganni,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+462,yugur/uxla/ek/chiq,Ganimday,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+463,yugur/uxla/ek/chiq,Ganingday,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+464,yugur/uxla/ek/chiq,Ganingizday,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+465,yugur/uxla/ek/chiq,Ganingizdek,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+466,yugur/uxla/ek/chiq,Ganingdek,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+468,yugur/uxla/ek/chiq,Ganimizdek,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+470,yugur/uxla/ek/chiq,Ganchalik,sakra{ganchalik},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+472,yugur/uxla/ek/chiq,Ganimning,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+473,yugur/uxla/ek/chiq,Ganimnigina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+474,yugur/uxla/ek/chiq,Ganingnigina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+475,yugur/uxla/ek/chiq,Ganingiznigina,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+478,yur/uxla,(i)sh,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+479,yur/uxla,(i)shni,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+480,yur/uxla,(i)shning,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+481,yur/uxla,(i)shdan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+482,yur/uxla,(i)shda,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+483,yur/uxla,(i)shim,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+484,yur/uxla,(i)shing,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+485,yur/uxla,(i)shingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+486,yur/uxla,(i)shimiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+487,yur/uxla,(i)shimizni,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+488,yur/uxla,(i)shimizda,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+489,yur/uxla,(i)shimizdan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+490,yur/uxla,(i)shimizning,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+491,yur/uxla,(i)shimni,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+492,yur/uxla,(i)shimning,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+493,yur/uxla,(i)shimda,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+494,yur/uxla,(i)shimdan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+495,yur/uxla,(i)shingni,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+496,yur/uxla,(i)shingning,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+497,yur/uxla,(i)shingda,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+498,yur/uxla,(i)shingdan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+499,yur/uxla,(i)shingizni,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+500,yur/uxla,(i)shingizning,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+501,yur/uxla,(i)shingizda,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+502,yur/uxla,(i)shingizdan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+510,yur/uxla,(i)shimizga,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+511,yur/uxla,(i)shingizga,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+512,yur/uxla,(i)shingga,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+514,yur/uxla,(i)shimga,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+516,bor/yur/uxla,moq,FEL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+520,kurash/sakra,(i)shida,FEL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+523,tayyor,ligini,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+524,yugur/ek/chiq/sakra,Ganligini,"G:{g,k,q}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+529,qil/qala,(i)ndi,"o't qala{ndi}, qil{indi}",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+530,qil/qala,(i)ngan,o't qala{ngan},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+531,qil/qala,(i)ndimi,o't qala{ndimi},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+532,qil/qala,(i)nganmi,o't qala{ngan},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+533,qil/qala,(i)nganmidi,o't qala{ngan},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+534,qil/qala,(i)nganligi,o't qala{ngan},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+535,kurash/sakra/o'tkaz,(i)shiga,o't qala{ngan},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+536,qil/qala,(i)nmoqda,o't qala{nmoqda},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+537,qil/qala,(i)nayotgan,himoya qil{inayotgan},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+538,qil/qala,(i)nayotganligi,himoya qil{inayotganligi},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+539,qil/qala,(i)nayotganda,himoya qil{inayotganda},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+540,qil/qala,(i)nayotgandan,himoya qil{inayotgandan},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+541,qil/qala,(i)nayotgandek,himoya qil{inayotgandek},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+542,qil/qala,(i)nayotgandagina,himoya qil{inayotgandagina},NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+545,qo'shil/sakra,(i)shidan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+546,qo'shil/sakra,(i)shi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+547,qo'shil/sakra,(i)shini,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+550,qo'shil/sakra,(i)shdimi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+551,qo'shil/sakra,(i)shdingmi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+552,qo'shil/sakra,(i)shdingizmi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+553,qo'shil/sakra,(i)shdikmi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+555,qo'shil/sakra,(i)shganmidingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+556,qo'shil/sakra,(i)shganmiding,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+557,qo'shil/sakra,(i)shmagan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+558,qo'shil/sakra,(i)shmaganligi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+559,qo'shil/sakra,(i)shmagandi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+560,qo'shil/sakra,(i)shmaganing,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+561,qo'shil/sakra,(i)shmaganingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+562,qo'shil/sakra,(i)shmagani,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+564,qo'shil/ayt,masligi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+565,qo'shil/ayt,masligidan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+566,qo'shil/ayt,masligini,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+567,qo'shil/ayt,masliging,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+568,qo'shil/ayt,masligingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+570,qo'shil/ayt,maslik,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+571,qo'shil/ayt,masligim,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+573,qo'shil/ayt,masligingdan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+575,buyur/ayt/qil,Tirgan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+576,buyur/ayt/qil,Tirdi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+577,buyur/ayt/qil,Tirdimi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+578,buyur/ayt/qil,Tirding,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+579,buyur/ayt/qil,Tirdik,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+580,buyur/ayt/qil,Tirdingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+581,buyur/ayt/qil,Tirdim,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+582,buyur/ayt/qil,Tirdilar,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+589,buyur/ayt/qil,Tirdingizmi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+590,buyur/ayt/qil,Tirdingmi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+591,buyur/ayt/qil,Tirdikmi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+592,buyur/ayt/qil,Tirdimmi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+593,buyur/ayt/qil,Tirmadi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+594,buyur/ayt/qil,Tirmadik,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+595,buyur/ayt/qil,Tirmading,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+596,buyur/ayt/qil,Tirmadingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+597,buyur/ayt/qil,Tirmagan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+598,buyur/ayt/qil,Tirmagandi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+599,buyur/ayt/qil,Tirmaganding,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+600,buyur/ayt/qil,Tirmagandingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+601,buyur/ayt/qil,Tirmagandik,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+602,buyur/ayt/qil,Tirmagandim,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+604,ishla/sakra,ttirdi,"{t} FEL nisbatidan keyin {tir} nisbati qushilganda suz bu bn tugay olmaydi, masalan {ishla+t+tir} ishlattir degan suz bulmaydi",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+605,ishla/sakra,ttirdim,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+606,ishla/sakra,ttirdik,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+607,ishla/sakra,ttirding,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+608,ishla/sakra,ttirdingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+609,ishla/sakra,ttirildi,{t+tir+il}+di 3 ta FEL nisbati,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+610,ishla/sakra,ttirilgan,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+611,ishla/sakra,ttirildimi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+612,ishla/sakra,ttirilganmi,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+613,ishla/sakra,ttirilganmidik,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+614,ishla/sakra,ttirilganmiding,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+615,ishla/sakra,ttirilganmidingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+616,ishla/sakra,ttirilganing,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+617,ishla/sakra,ttirilganingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+618,ishla/sakra,ttirilganim,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+619,ishla/sakra,ttirilgandim,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+620,ishla/sakra,ttirilganding,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+621,ishla/sakra,ttirilgandingiz,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+622,yur/uxla,(i)shimgacha,tur{ishimgacha} gapirishdi,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+623,yur/uxla,(i)shinggacha,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+628,tur/uxla,(i)shingizgacha,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
