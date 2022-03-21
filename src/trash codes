@@ -1,0 +1,8 @@
+    def stem(self, word: str):
+        #root=word[:1]
+        #affix=word[1:]
+        #print(root, ' ', affix)
+        #row=next((item for item in data if item["affix"] == affix), None)
+        #if row==None:
+        #    print(row)
+        #else: print(row["affix"])
