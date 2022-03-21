@@ -9,6 +9,7 @@ id,root,affix,confidence,info,pos,tense,person,cases,singular,plural,question,ne
 8,kitob,dan,1,,NULL,NULL,NULL,Chiqish,NULL,NULL,NULL,NULL,NULL,NULL
 9,kun/oy,igacha,1,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
 10,kitob,lar,1,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
+10,kel/kuyla,(a)yotgandi,1,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
 11,kitob,larda,1,,NULL,NULL,NULL,Orin-payt,NULL,1,NULL,NULL,NULL,NULL
 12,kitob,lardan,1,,NULL,NULL,NULL,Chiqish,NULL,1,NULL,NULL,NULL,NULL
 13,kitob,larga,1,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
@@ -207,7 +208,7 @@ id,root,affix,confidence,info,pos,tense,person,cases,singular,plural,question,ne
 295,o'yla/ayt/chiq/cho'k,Ganmiding,1,"Q:{g,k,q}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
 296,o'yla/ayt/chiq/cho'k,Ganmidingi,1,"Q:{g,k,q}",NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
 297,o'yla/ayt/chiq/cho'k,Ganmidilar,1,"Q:{g,k,q}",NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL,NULL
-299,o'yla/ayt/chiq/cho'k,di,1,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+299,o'yla/ayt/chiq/cho'k,di,0.1,,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
 304,o'yla/ayt/chiq/cho'k,dinglar,1,,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL
 305,o'yla/ayt/chiq/cho'k,dimmi,1,,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL
 311,o'yla/ayt/chiq/cho'k,dilarmi,1,,NULL,NULL,NULL,NULL,NULL,1,1,NULL,NULL,NULL

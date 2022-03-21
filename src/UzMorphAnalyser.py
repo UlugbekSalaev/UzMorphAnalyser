@@ -76,8 +76,10 @@ class UzMorphAnalyser:
                         #print(self.__exception_words)
                         #print(item["confidence"])
                         if float(item["confidence"]) < 0.3:
-                            if word in [ex_word['word'] for ex_word in self.__exception_words]:
-                                return word
+                            if word[:i] in [ex_word['word'] for ex_word in self.__exception_words]:
+                                return word[:i]
+                            else:
+                                break
                         return word[:i]
             return word
         #end of stem_find
@@ -107,7 +109,9 @@ class UzMorphAnalyser:
         return word
     #shu yuqoridagi funksiyalarni yozamiz, pastdagilar esa keyinroq
 
-    def normalize(self, word):
+    def normalize(self, text:str):
+        #normalize text is making stemming and lemmatization
+        # Mening maktabim senikidan chiroyliroq -> men maktab sen chiroyli
         return word
 
     def word_tokenize(self, text):
@@ -119,9 +123,13 @@ class UzMorphAnalyser:
         return tokens
 
 obj = UzMorphAnalyser()
-sent = "kitob daftar"
+sent = "masjid masjidi kitobi kitobing opasi kursi kurs opam"
+with open('test.txt', 'r', encoding='utf8') as file:
+    sent1 = file.read().rstrip()
+sent1=sent1.replace(',', ' ')
+sent1=sent1.replace('.', ' ')
 for token in sent.split(" "):
-    print(obj.stem(token))
+    print(token+' '+obj.stem(token))
 
 #print(UzMorphAnalyser.stem("meniki"))
 
