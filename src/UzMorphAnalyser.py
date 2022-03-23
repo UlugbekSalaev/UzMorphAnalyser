@@ -4,9 +4,11 @@ import csv
 
 class UzMorphAnalyser:
     __affixes = [] #list of affixes table from affixes.csv file
-    __small_words = [] #list of small words from small_words.csv file
-    __non_affixed_words = []  # list of non affixed words from non_affixed_words.csv file
-    __exception_words = []  # list of exception words from exception_words.csv file
+    __small_stems = [] #list of small stems from small_stems.csv file
+    __non_affixed_stems = []  # list of non affixed stems from non_affixed_stems.csv file
+    __number_stems = [] #list of number stems from number_stems.csv file
+    #__ambiguity_stems = []  # list of ambiguity stems from ambiguity_stems.csv file | oxiri affix bn tugaydigan asos suzlar
+    __exception_stems = []  # list of exception stems from exception_stems.csv file
 
     def __init__(self):
         self.__read_data()
@@ -15,17 +17,24 @@ class UzMorphAnalyser:
         with open("affixes.csv", "r") as f:
             reader = csv.DictReader(f)
             self.__affixes = list(reader)
-        with open("small_words.csv", "r") as f:
+        with open("small_stems.csv", "r") as f:
             reader = csv.reader(f)
-            #self.__small_words = list(reader)
-            self.__small_words = [item for sublist in list(reader) for item in sublist]
-        with open("non_affixed_words.csv", "r") as f:
+            #self.__small_stems = list(reader)
+            self.__small_stems = [item for sublist in list(reader) for item in sublist]
+        with open("non_affixed_stems.csv", "r") as f:
             reader = csv.reader(f)
-            #self.__small_words = list(reader)
-            self.__non_affixed_words = [item for sublist in list(reader) for item in sublist]
-        with open("exception_words.csv", "r") as f:
+            #self.__small_stems = list(reader)
+            self.__non_affixed_stems = [item for sublist in list(reader) for item in sublist]
+        with open("number_stems.csv", "r") as f:
+            reader = csv.reader(f)
+            #self.__small_stems = list(reader)
+            self.__number_stems = [item for sublist in list(reader) for item in sublist]
+        #with open("ambiguity_stems.csv", "r") as f:
+        #    reader = csv.DictReader(f)
+        #    self.__ambiguity_stems = list(reader)
+        with open("exception_stems.csv", "r") as f:
             reader = csv.DictReader(f)
-            self.__exception_words = list(reader)
+            self.__exception_stems = list(reader)
     #enf of read_data
 
     #affixes.csv da barcha allomorphlarni qulda generate qilib yozib quyamiz, dastur yordamida qilmaymiz, chalkash joylari kup
@@ -64,8 +73,16 @@ class UzMorphAnalyser:
 
     def stem(self, word: str):
 
-        def stem_find(self, word:str, position:int=2):
+        def stem_find_exceptions(self, word:str, position:int):
+            for i in range(position,len(word)+1):
+                #print("suz "+word[:i])
+                if word[:i] in [ex_stem['stem'] for ex_stem in self.__exception_stems]:
+                    return word[:i], True  #return two value
+            return word, False
+
+        def stem_find(self, word:str, position:int=1):
             for i in range(position, len(word)):
+                #predict_as_stem = word[:i]
                 #predict_as_affix = word[i:]
                 for item in self.__affixes:
                     if word[i:] in self.__GeneratedAllomorph(item["affix"]):
@@ -73,26 +90,42 @@ class UzMorphAnalyser:
                         #print(self.__GeneratedAllomorph(item["affix"]))
                         #print(word[i:])
                         #print(item["affix"])
-                        #print(self.__exception_words)
+                        #print(self.__exception_stems)
                         #print(item["confidence"])
-                        if float(item["confidence"]) < 0.3:
-                            if word[:i] in [ex_word['word'] for ex_word in self.__exception_words]:
-                                return word[:i]
-                            else:
+
+                        #6-rule Ga{ga,ka,qa,} bulardan ka, qa g'a uchun undan oldingi xarf shu affixni birinchi harfi bn tugagan bulishi kerak
+
+                        #1-rule
+                        if item['pos']=='Son':
+                            if not word[:i] in self.__number_stems:
                                 break
-                        return word[:i]
+                        #2-rule confidence past bulgan suzlarni exwords dan qaraydi. exwords da faqat affix bn tugaydigan suzlar turadi. agar suz exwordda bulsa qirqmaydi va alternativini qaraydi, aks holda yani suz exwordda bulmasa qirqib tashlaydi
+                        if float(item["confidence"]) <= 0.1:
+                            #print("affix "+item['affix'])
+                            #3-rule
+                            #if word in [ambg_stem['stem'] for ambg_stem in self.__ambiguity_stems]:
+                            #    return word
+                            #4-rule
+                            stem_ex, result = stem_find_exceptions(self, word, i)
+                            if result:
+                                return stem_ex
+
+                        return word[:i] #chop with 100% confidence
             return word
         #end of stem_find
 
         #algorithm
-        #1. check non affixed words list
-        if word in self.__non_affixed_words:
+        #1-rule check non affixed words list
+        if word in self.__non_affixed_stems:
             return word
+        #2-rule sat faqat ko'rsat bulganda qirqiladi
+        if word[:7]=="ko'rsat":
+            return "ko'r"
 
         #2. find stem by affix checking from affixes list
         stem = stem_find(self, word)
         if len(stem)<=2:
-            if not stem in self.__small_words:
+            if not stem in self.__small_stems:
                 stem=stem_find(self, word, 3)
 
         return stem
@@ -123,13 +156,14 @@ class UzMorphAnalyser:
         return tokens
 
 obj = UzMorphAnalyser()
-sent = "masjid masjidi kitobi kitobing opasi kursi kurs opam"
+sent = "yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
 with open('test.txt', 'r', encoding='utf8') as file:
     sent1 = file.read().rstrip()
 sent1=sent1.replace(',', ' ')
 sent1=sent1.replace('.', ' ')
-for token in sent.split(" "):
-    print(token+' '+obj.stem(token))
+sent1=sent1.replace('\n', ' ')
+for token in sent1.split(" "):
+    print(token+' '+obj.stem(token.lower()))
 
 #print(UzMorphAnalyser.stem("meniki"))
 
