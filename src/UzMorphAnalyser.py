@@ -165,6 +165,9 @@ sent1=sent1.replace('\n', ' ')
 for token in sent1.split(" "):
     print(token+' '+obj.stem(token.lower()))
 
+while(True):
+    s=input()
+    print(s + ' ' + obj.stem(s.lower()))
 #print(UzMorphAnalyser.stem("meniki"))
 
 #print(analyzer.lemmatize('benim'))
