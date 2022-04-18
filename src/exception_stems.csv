@@ -10,7 +10,8 @@ opa,{}
 barmoq,{moq fel qushumchasi}
 muzqaymoq,{moq fel qushimchasi}
 qaymoq,{moq fel qushimchasi}
-kurs,{},{kurs}
+kursi,{},{kurs+i}
+olma,{},{ol+ma VERB}
 chiroyli,{(s)i egalik qushimchasi}
 sara,{a}
 yarim,{im egalik}
@@ -43,7 +44,7 @@ seshanba,{}
 chorshanba,{}
 payshanba,{}
 juma,{}
-shanbae,{}
+shanba,{}
 yakshanba,{}
 qanday,{}
 ma'lum,{}

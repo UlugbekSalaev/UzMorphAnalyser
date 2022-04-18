@@ -9,14 +9,18 @@ class UzMorphAnalyser:
     __number_stems = [] #list of number stems from number_stems.csv file
     #__ambiguity_stems = []  # list of ambiguity stems from ambiguity_stems.csv file | oxiri affix bn tugaydigan asos suzlar
     __exception_stems = []  # list of exception stems from exception_stems.csv file
-
+    __vovel = ['a','u','e','i','o']
+    __consonant_jarangli = ['b','d','g','j','l','m','n','r','v','y','z',"g'",'ng']
+    __consonant_jarangsiz = ['f','h','k','p','q','s','t','x','sh','ch']
     def __init__(self):
         self.__read_data()
 
     def __read_data(self):
+        #url = 'http://u92156l3.beget.tech/affix/export.php'
         with open("affixes.csv", "r") as f:
             reader = csv.DictReader(f)
             self.__affixes = list(reader)
+
         with open("small_stems.csv", "r") as f:
             reader = csv.reader(f)
             #self.__small_stems = list(reader)
@@ -72,13 +76,12 @@ class UzMorphAnalyser:
     #end of Generate
 
     def stem(self, word: str):
-
         def stem_find_exceptions(self, word:str, position:int):
             for i in range(position,len(word)+1):
                 #print("suz "+word[:i])
                 if word[:i] in [ex_stem['stem'] for ex_stem in self.__exception_stems]:
                     return word[:i], True  #return two value
-            return word, False
+            return "", False
 
         def stem_find(self, word:str, position:int=1):
             for i in range(position, len(word)):
@@ -95,11 +98,14 @@ class UzMorphAnalyser:
 
                         #6-rule Ga{ga,ka,qa,} bulardan ka, qa g'a uchun undan oldingi xarf shu affixni birinchi harfi bn tugagan bulishi kerak
 
-                        #1-rule
+                        #1-support rule:
                         if item['pos']=='Son':
                             if not word[:i] in self.__number_stems:
                                 break
-                        #2-rule confidence past bulgan suzlarni exwords dan qaraydi. exwords da faqat affix bn tugaydigan suzlar turadi. agar suz exwordda bulsa qirqmaydi va alternativini qaraydi, aks holda yani suz exwordda bulmasa qirqib tashlaydi
+                        #2-rule confidence past bulgan suzlarni exception_words dan qaraydi.
+                        # exwords da faqat affix bn tugaydigan suzlar turadi.
+                        # agar suz exwordda bulsa qirqmaydi va alternativini qaraydi,
+                        # aks holda yani suz exwordda bulmasa qirqib tashlaydi
                         if float(item["confidence"]) <= 0.1:
                             #print("affix "+item['affix'])
                             #3-rule
@@ -115,21 +121,20 @@ class UzMorphAnalyser:
         #end of stem_find
 
         #algorithm
-        #1-rule check non affixed words list
+        #1-step check non affixed words list
         if word in self.__non_affixed_stems:
             return word
-        #2-rule sat faqat ko'rsat bulganda qirqiladi
+        #2-step sat faqat ko'rsat bulganda qirqiladi
         if word[:7]=="ko'rsat":
             return "ko'r"
-
-        #2. find stem by affix checking from affixes list
+        #3-step find stem by affix checking from affixes list
         stem = stem_find(self, word)
-        if len(stem)<=2:
+        if len(stem)<=2:    #checking the small stem is exist or not
             if not stem in self.__small_stems:
                 stem=stem_find(self, word, 3)
 
         return stem
-        #end of stem
+    #end of stem
 
     def lemma(self, word: str, POS: str="n"):
         return word
@@ -156,13 +161,15 @@ class UzMorphAnalyser:
         return tokens
 
 obj = UzMorphAnalyser()
-sent = "yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
+sent = "olmasi taqgandim olma tadqim taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
+
 with open('test.txt', 'r', encoding='utf8') as file:
     sent1 = file.read().rstrip()
+
 sent1=sent1.replace(',', ' ')
 sent1=sent1.replace('.', ' ')
 sent1=sent1.replace('\n', ' ')
-for token in sent1.split(" "):
+for token in sent.split(" "):
     print(token+' '+obj.stem(token.lower()))
 
 while(True):
@@ -178,4 +185,3 @@ while(True):
 #Parse(word='benim', lemma='ben', pos='Pron', morphemes=['Pron', 'A1sg', 'Gen'], formatted='[ben:Pron,Pers] ben:Pron+A1sg+im:Gen')
 #Parse(word='benim', lemma='ben', pos='Verb', morphemes=['Noun', 'A3sg', 'Zero', 'Verb', 'Pres', 'A1sg'], formatted='[ben:Noun] ben:Noun+A3sg|Zero→Verb+Pres+im:A1sg')
 #Parse(word='benim', lemma='ben', pos='Verb', morphemes=['Pron', 'A1sg', 'Zero', 'Verb', 'Pres', 'A1sg'], formatted='[ben:Pron,Pers] ben:Pron+A1sg|Zero→Verb+Pres+im:A1sg')
-
