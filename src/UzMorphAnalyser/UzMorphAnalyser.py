@@ -1,6 +1,8 @@
 #from project import class
 #from project.file import class
 import csv
+import os
+
 
 class UzMorphAnalyser:
     __affixes = [] #list of affixes table from affixes.csv file
@@ -17,26 +19,28 @@ class UzMorphAnalyser:
 
     def __read_data(self):
         #url = 'http://u92156l3.beget.tech/affix/export.php'
-        with open("affixes.csv", "r") as f:
+        dirname = os.path.dirname(__file__) + "/"
+
+        with open(os.path.join(dirname + "affixes.csv"), "r") as f:
             reader = csv.DictReader(f)
             self.__affixes = list(reader)
 
-        with open("small_stems.csv", "r") as f:
+        with open(os.path.join(dirname + "small_stems.csv"), "r") as f:
             reader = csv.reader(f)
             #self.__small_stems = list(reader)
             self.__small_stems = [item for sublist in list(reader) for item in sublist]
-        with open("non_affixed_stems.csv", "r") as f:
+        with open(os.path.join(dirname + "non_affixed_stems.csv"), "r") as f:
             reader = csv.reader(f)
             #self.__small_stems = list(reader)
             self.__non_affixed_stems = [item for sublist in list(reader) for item in sublist]
-        with open("number_stems.csv", "r") as f:
+        with open(os.path.join(dirname + "number_stems.csv"), "r") as f:
             reader = csv.reader(f)
             #self.__small_stems = list(reader)
             self.__number_stems = [item for sublist in list(reader) for item in sublist]
         #with open("ambiguity_stems.csv", "r") as f:
         #    reader = csv.DictReader(f)
         #    self.__ambiguity_stems = list(reader)
-        with open("exception_stems.csv", "r") as f:
+        with open(os.path.join(dirname + "exception_stems.csv"), "r") as f:
             reader = csv.DictReader(f)
             self.__exception_stems = list(reader)
     #enf of read_data
@@ -150,7 +154,7 @@ class UzMorphAnalyser:
     def normalize(self, text:str):
         #normalize text is making stemming and lemmatization
         # Mening maktabim senikidan chiroyliroq -> men maktab sen chiroyli
-        return word
+        return "word"
 
     def word_tokenize(self, text):
         tokens=[]
@@ -160,10 +164,11 @@ class UzMorphAnalyser:
         tokens=[]
         return tokens
 
+'''
 obj = UzMorphAnalyser()
 sent = "olmasi taqgandim olma tadqim taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
 
-with open('test.txt', 'r', encoding='utf8') as file:
+with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
     sent1 = file.read().rstrip()
 
 sent1=sent1.replace(',', ' ')
@@ -175,6 +180,8 @@ for token in sent.split(" "):
 while(True):
     s=input()
     print(s + ' ' + obj.stem(s.lower()))
+
+'''
 #print(UzMorphAnalyser.stem("meniki"))
 
 #print(analyzer.lemmatize('benim'))

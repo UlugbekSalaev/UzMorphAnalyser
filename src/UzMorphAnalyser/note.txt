@@ -1,5 +1,13 @@
+exception_stems faylida
+1. asosga qo'shilgan affixdan sung, ushbu suz oxirida yana asosni harflari bn birga boshqa affix yasaladigan suzlar kiritiladi,
+    masalan:masjidi(masjid+i)->masji+di
+2. suz oxirida affix keladigan asoslar kiritiladi, masalan: kitob(kito+b), arra(arr+a, felga qushiladigan -a affixsi)
+
+----------------
 1) small_stem.csv faylida "va" suzi mavjud emas, chunki u exception_stem.csv da mavjud.
+
 2) keyinchalik number_stem dagi xammasini exception_stem ga utirib quysak xam buladimi menimcha
+
 3) maqola uchun, porter stemmer algoritmi (https://devopedia.org/stemming) 51ta suffix va 60 ta qoidani o'z ichiga oladi.
     lekin uzbek tili juda inflectional bulganligi sababli (bitta stemga juda kup suffix qo'shila olishi)
     stemmer uchun bunday qoidalarni yozish juda qiyin va chalkash bo'ladi. Shuni uchun CSE jadvali

@@ -1,8 +1,83 @@
-# UzMorphAnalyser
-Morphological Analyser for Uzbek language on Python
+<div id="top"></div>
 
-All studies on uzbek language stemmers have a common statement: stemming of Uzbek language is hard. Uzbek is an agglutinative language with a highly rich morphological structure. Uzbek words are composed of a stem and of affix(es). In Uzbek language, there is two form of affixes: prefixes and suffixes. Affixes are affixed to the stem according to definite grammatical rules. In addition, both stem and affixes may be transformed according to the harmony rules. Those rules and their exceptions make stemming harder for Uzbek texts. For more about stemming Uzbek language please see the article titled "UZBEK AFFIX FINITE STATE MACHINE FOR STEMMING."
+<!-- PROJECT SHIELDS -->
 
-All text analysis studies require a stemmer at one point. This Python code attempts to stem Uzbek words with a simple approach. It first extracts syllables of the given word and then tries to identify the stem by comparing syllables with a list of affixes and their allomorphs. If any affix is identified it is removed and then remaining word is searched in a list of Uzbek words. If there is a match in the word list, it is returned as the stem. Otherwise function reiterates with the new word. If it can't stem, it returns the given word.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <h3 align="center">UzMorphAnalyser | Morphological analyser for Uzbek language</h3>
+  <p align="center">
+    Morphological Analyser for Uzbek language on Python
+  </p>
+</div>
 
-Once the functions are loaded into Python environment you can begin to stem by using <code>stem</code> function: <pre>stem("maktablarimizning")</pre>
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+<div align="center">
+<img src="https://github.com/UlugbekSalaev/UzMorphAnalyser/blob/main/src/web-uinterface.png?raw=true" width = "600" Alt = "Web-interface of the tool">
+</div>
+
+
+Feel free to use the tool presented in this project, and if you find it useful, plese make sure to cite the paper [here](...) (coming soon...)
+Demo of the web-based transliteration tool can be seen [here](https://nlp.urdu.uz/?menu=translit).
+
+
+In this paper, we presented a Python code, a web tool, and an API created for the Uzbek language that performs machine transliteration between two popularly used Cyrillic and Latin alphabets, as well as a newly reformed version of the Latin alphabet, which, according to the governmental decree, all legal texts will have been completely adapted to by year 2023.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Installation
+### Python
+<code>pip install UzTransliterator</code>
+<br><b>Source:</b> https://pypi.org/project/UzMorphAnalyser/
+<br><br><b>Using</b><br>
+<code>from UzTransliterator import UzTransliterator</code>
+<br><code>obj = UzTransliterator.UzTransliterator()</code>
+<br><code>print(obj.transliterate("маткаб", from_="cyr", to="lat"))</code>
+<br>Output: <code>maktab</code>
+
+### Options 
+<code>from_='cyr', to='lat'</code><br>
+<code>from_='cyr', to='nlt'</code><br>
+<code>from_='lat', to='cyr'</code><br>
+<code>from_='lat', to='nlt'</code><br>
+<code>from_='nlt', to='cyr'</code><br>
+<code>from_='nlt', to='lat'</code><br>
+
+### Web Interface
+ https://nlp.urdu.uz/?menu=translit
+    
+### API
+<b>URL:</b> https://uz-translit.herokuapp.com/translit
+<br><b>Methods:</b> GET, POST<br><b>Parametres:</b> <code>text:str</code>, <code>from_:str</code>, <code>to:str</code>
+<br><b>Example Request:</b> https://uz-translit.herokuapp.com/translit?text=мактаб&from_=cyr&to=lat
+
+## Note
+New latin alphabet has some difference than Latin. Main changing is presented in following as format Latin - New Latin:
+<br>“G‘, g‘” — “Ḡ, ḡ”
+<br>“O‘, o‘” — “Ō, ō”
+<br>“Sh, sh” — “Ş, ş”
+<br>“Ch, ch” — “Ç ç”
+
+### Built With
+
+Programming language used:
+
+* [Python](https://www.python.org/)
+
+These are the major libraries used inside Python:
+
+* [scikit-learn : A set of python modules for machine learning](https://scikit-learn.org/stable/)
+
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT LICENSE. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
