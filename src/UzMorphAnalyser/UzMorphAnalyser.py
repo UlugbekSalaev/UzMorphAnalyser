@@ -140,10 +140,10 @@ class UzMorphAnalyser:
         return stem
     #end of stem
 
-    def lemma(self, word: str, POS: str="n"):
+    def lemmatize(self, word: str, POS: str="n"):
         return word
 
-    def lemmatize(self, word: str, POS: str = "n"):
+    def lemmatize1(self, word: str, POS: str = "n"):
         #lemmatize da list qaytadi, bir nechta lemmalari bulishi mumkin, barchasi qaytadi
         return word
 
