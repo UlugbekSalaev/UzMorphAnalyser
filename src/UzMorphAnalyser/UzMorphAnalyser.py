@@ -51,34 +51,76 @@ class UzMorphAnalyser:
     def __GeneratedAllomorph(self, affix): #return a list that contain all allomorphs of the current affix
         GenAff=[]
         #if allomorph has omitted letter # qavsli faqat affix boshida keladi
-        if affix[0]=="(":
-            GenAff.append( affix.replace("(", "").replace(")","")  ) #affix[1]+affix[3:] #qavsdagi bilan olish
-            GenAff.append( affix[affix.find(")")+1:] ) #qavsdan keyingilarini olish
-            return GenAff
+        parentesis = False # is exist parentesis
+        affix_v1, affix_v2 = "", "" # v1-qavs ichidagi bn, v2-qavs ichidagisiz qushimcha
+        uc_v1, uc_v2 = -1, -1   # postion of uppercase in affix
+
+        if affix[0] == "(":
+            affix_v1 = affix.replace("(", "").replace(")","")   # affix[1]+affix[3:] #qavs ichidagi bilan olish
+            affix_v2 = affix[affix.find(")")+1:]  # qavs ichidagisiz olish
+            parentesis = True
+        else:
+            affix_v1 = affix
+
         #if allomorph has uppper letter (several letters)
-        if (affix[0]).isupper():
-            if affix[0] == "G": #G:g,k,q
-                GenAff.append("g" + affix[1:])
-                GenAff.append("k" + affix[1:])
-                GenAff.append("q" + affix[1:])
-            if affix[0] == "K": #K:g,k
-                GenAff.append("g" + affix[1:])
-                GenAff.append("k" + affix[1:])
-            if affix[0] == "Y": #Y:a,y
-                GenAff.append("a" + affix[1:])
-                GenAff.append("y" + affix[1:])
-            if affix[0] == "T": #T:t,d
-                GenAff.append("t" + affix[1:])
-                GenAff.append("d" + affix[1:])
-            if affix[0] == "Q": #Q:g,g',k,q
-                GenAff.append("g" + affix[1:])
-                GenAff.append("gʻ" + affix[1:])
-                GenAff.append("k" + affix[1:])
-                GenAff.append("q" + affix[1:])
+        for i in range(len(affix_v1)):
+            if affix_v1[i].isupper():
+                uc_v1 = i
+                break
+        for i in range(len(affix_v2)):
+            if affix_v2[i].isupper():
+                uc_v2 = i
+                break
+
+        if uc_v1 > -1:
+            if affix_v1[uc_v1] == "G": #G:g,k,q
+                GenAff.append(affix_v1[:uc_v1] + "g" + affix_v1[uc_v1+1:])
+                GenAff.append(affix_v1[:uc_v1] + "k" + affix_v1[uc_v1 + 1:])
+                GenAff.append(affix_v1[:uc_v1] + "q" + affix_v1[uc_v1 + 1:])
+            if affix_v1[uc_v1] == "K":  # K:g,k
+                GenAff.append(affix_v1[:uc_v1] + "g" + affix_v1[uc_v1 + 1:])
+                GenAff.append(affix_v1[:uc_v1] + "k" + affix_v1[uc_v1 + 1:])
+            if affix_v1[uc_v1] == "Y":  # Y:a,y
+                GenAff.append(affix_v1[:uc_v1] + "a" + affix_v1[uc_v1 + 1:])
+                GenAff.append(affix_v1[:uc_v1] + "y" + affix_v1[uc_v1 + 1:])
+            if affix_v1[uc_v1] == "T":  # T:t,d
+                GenAff.append(affix_v1[:uc_v1] + "t" + affix_v1[uc_v1 + 1:])
+                GenAff.append(affix_v1[:uc_v1] + "d" + affix_v1[uc_v1 + 1:])
+            if affix_v1[uc_v1] == "Q":  # Q:g,g',k,q
+                GenAff.append(affix_v1[:uc_v1] + "g" + affix_v1[uc_v1 + 1:])
+                GenAff.append(affix_v1[:uc_v1] + "gʻ" + affix_v1[uc_v1 + 1:])
+                GenAff.append(affix_v1[:uc_v1] + "k" + affix_v1[uc_v1 + 1:])
+                GenAff.append(affix_v1[:uc_v1] + "q" + affix_v1[uc_v1 + 1:])
+
+            if uc_v2 > -1: # bu uc_v1 bulgandagina bulishi mumkin, shuni uchun uni ichida
+                if affix_v2[uc_v2] == "G":  # G:g,k,q
+                    GenAff.append(affix_v2[:uc_v2] + "g" + affix_v2[uc_v2 + 1:])
+                    GenAff.append(affix_v2[:uc_v2] + "k" + affix_v2[uc_v2 + 1:])
+                    GenAff.append(affix_v2[:uc_v2] + "q" + affix_v2[uc_v2 + 1:])
+                if affix_v2[uc_v2] == "K":  # K:g,k
+                    GenAff.append(affix_v2[:uc_v2] + "g" + affix_v2[uc_v2 + 1:])
+                    GenAff.append(affix_v2[:uc_v2] + "k" + affix_v2[uc_v2 + 1:])
+                if affix_v2[uc_v2] == "Y":  # Y:a,y
+                    GenAff.append(affix_v2[:uc_v2] + "a" + affix_v2[uc_v2 + 1:])
+                    GenAff.append(affix_v2[:uc_v2] + "y" + affix_v2[uc_v2 + 1:])
+                if affix_v2[uc_v2] == "T":  # T:t,d
+                    GenAff.append(affix_v2[:uc_v2] + "t" + affix_v2[uc_v2 + 1:])
+                    GenAff.append(affix_v2[:uc_v2] + "d" + affix_v2[uc_v2 + 1:])
+                if affix_v2[uc_v2] == "Q":  # Q:g,g',k,q
+                    GenAff.append(affix_v2[:uc_v2] + "g" + affix_v2[uc_v2 + 1:])
+                    GenAff.append(affix_v2[:uc_v2] + "gʻ" + affix_v2[uc_v2 + 1:])
+                    GenAff.append(affix_v2[:uc_v2] + "k" + affix_v2[uc_v2 + 1:])
+                    GenAff.append(affix_v2[:uc_v2] + "q" + affix_v2[uc_v2 + 1:])
+
             return GenAff
-        GenAff.append(affix)
-        return GenAff #if the affix does't have allomorph then return itself
-    #end of Generate
+
+        if parentesis: # agar yuqorida return bub ketmasa
+            GenAff.append(affix_v1)
+            GenAff.append(affix_v2)
+        else:
+            GenAff.append(affix)
+        return GenAff
+    #end of Generate Allmorph
 
     def stem(self, word: str):
         def stem_find_exceptions(self, word: str, position: int):
@@ -94,10 +136,12 @@ class UzMorphAnalyser:
                 #predict_as_affix = word[i:]
                 for item in self.__affixes:
                     if word[i:] in self.__GeneratedAllomorph(item["affix"]):
+                        print(self.__GeneratedAllomorph(item["affix"]))
                         #print(position)
                         #print(self.__GeneratedAllomorph(item["affix"]))
-                        print(word[i:])
-                        print(item["affix"])
+                        print(word[:i]+" "+word[i:]+" "+item["affix"])
+                        #print(word[i:])
+                        #print(item["affix"])
                         #print(self.__exception_stems)
                         #print(item["confidence"])
 
@@ -110,7 +154,8 @@ class UzMorphAnalyser:
                             else:
                                 break
                         #2.1-rule qushimchasi topilgandan keyin oldingi turgan stem small_stemni ichida bormi yuqmi
-                        if i < 2:
+                        print(word[:i] + " sttt")
+                        if i <= 2:  # i==2 bulsa 0 va 1 belgini oladi, [:2] da 2 ikkini uzi kirmaydi
                             if word[:i] in self.__small_stems:
                                 return word[:i]
                         #2.2-rule confidence past bulgan suzlarni exception_words dan qaraydi.
@@ -190,7 +235,6 @@ while(True):
     s=input()
     print(s + ' ' + obj.stem(s.lower()))
 
-
 #print(UzMorphAnalyser.stem("meniki"))
 
 #print(analyzer.lemmatize('benim'))
@@ -201,3 +245,5 @@ while(True):
 #Parse(word='benim', lemma='ben', pos='Pron', morphemes=['Pron', 'A1sg', 'Gen'], formatted='[ben:Pron,Pers] ben:Pron+A1sg+im:Gen')
 #Parse(word='benim', lemma='ben', pos='Verb', morphemes=['Noun', 'A3sg', 'Zero', 'Verb', 'Pres', 'A1sg'], formatted='[ben:Noun] ben:Noun+A3sg|Zero→Verb+Pres+im:A1sg')
 #Parse(word='benim', lemma='ben', pos='Verb', morphemes=['Pron', 'A1sg', 'Zero', 'Verb', 'Pres', 'A1sg'], formatted='[ben:Pron,Pers] ben:Pron+A1sg|Zero→Verb+Pres+im:A1sg')
+
+# (s)i opasi kitobi larda yi varianti xam bor, avzoyi, obro'yi (S)i shaklida olsak, bunda S{s,y} buladi. Manba:https://lex.uz/docs/-1625271
