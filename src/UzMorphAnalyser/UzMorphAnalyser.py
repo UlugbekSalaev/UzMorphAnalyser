@@ -24,15 +24,16 @@ class UzMorphAnalyser:
         with open(os.path.join(dirname + "affixes.csv"), "r") as f:
             reader = csv.DictReader(f)
             self.__affixes = list(reader)
-
         with open(os.path.join(dirname + "small_stems.csv"), "r") as f:
             reader = csv.reader(f)
             #self.__small_stems = list(reader)
             self.__small_stems = [item for sublist in list(reader) for item in sublist]
         with open(os.path.join(dirname + "non_affixed_stems.csv"), "r") as f:
-            reader = csv.reader(f)
-            #self.__small_stems = list(reader)
-            self.__non_affixed_stems = [item for sublist in list(reader) for item in sublist]
+            reader = csv.DictReader(f)
+            self.__non_affixed_stems = list(reader)
+            #reader = csv.reader(f)
+            #self.__non_affixed_stems = [item for sublist in list(reader) for item in sublist]
+
         with open(os.path.join(dirname + "number_stems.csv"), "r") as f:
             reader = csv.reader(f)
             #self.__small_stems = list(reader)
@@ -80,11 +81,11 @@ class UzMorphAnalyser:
     #end of Generate
 
     def stem(self, word: str):
-        def stem_find_exceptions(self, word:str, position:int):
-            for i in range(position,len(word)+1):
-                #print("suz "+word[:i])
+        def stem_find_exceptions(self, word: str, position: int):
+            for i in range(position, len(word)+1):  # +1 bu word[:i] i+1 yani oxirgisigacha olishi uchun
+                print("suz == "+word[:i])
                 if word[:i] in [ex_stem['stem'] for ex_stem in self.__exception_stems]:
-                    return word[:i], True  #return two value
+                    return word[:i], True  #return two value, stem from exception
             return "", False
 
         def stem_find(self, word:str, position:int=1):
@@ -103,8 +104,10 @@ class UzMorphAnalyser:
                         #6-rule Ga{ga,ka,qa,} bulardan ka, qa g'a uchun undan oldingi xarf shu affixni birinchi harfi bn tugagan bulishi kerak
 
                         #1-support rule:
-                        if item['pos']=='Son':
-                            if not word[:i] in self.__number_stems:
+                        if item['pos'] == 'Son':
+                            if word[:i] in self.__number_stems:
+                                return word[:i]
+                            else:
                                 break
                         #2-rule confidence past bulgan suzlarni exception_words dan qaraydi.
                         # exwords da faqat affix bn tugaydigan suzlar turadi.
@@ -119,23 +122,26 @@ class UzMorphAnalyser:
                             stem_ex, result = stem_find_exceptions(self, word, i)
                             if result:
                                 return stem_ex
-
-                        return word[:i] #chop with 100% confidence
+                            else:
+                                break   # confidence past bulgan qushimchasi bn borib ex_stemni qidiradi, buni ichida bundin stem bulmasa qirqmay utib ketadi
+                        return word[:i] #chopping with 100% confidence
             return word
         #end of stem_find
 
-        #algorithm
-        #1-step check non affixed words list
-        if word in self.__non_affixed_stems:
+        #algorithm for stem
+        #1-step: check non affixed words list
+        if word in [na_stem['stem'] for na_stem in self.__non_affixed_stems]: # in self.__non_affixed_stems
             return word
-        #2-step sat faqat ko'rsat bulganda qirqiladi
+        #2-step sat faqat ko'rsat bulganda qirqiladi (so'zni boshi ko'rsat ga teng bulganda)
         if word[:7]=="ko'rsat":
             return "ko'r"
         #3-step find stem by affix checking from affixes list
         stem = stem_find(self, word)
+        print("1-stem==" + stem)
         if len(stem)<=2:    #checking the small stem is exist or not
             if not stem in self.__small_stems:
                 stem=stem_find(self, word, 3)
+                print("2-stem==" + stem)
 
         return stem
     #end of stem
@@ -164,9 +170,8 @@ class UzMorphAnalyser:
         tokens=[]
         return tokens
 
-'''
 obj = UzMorphAnalyser()
-sent = "olmasi taqgandim olma tadqim taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
+sent = "olmasi taqgandim olma taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
 
 with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
     sent1 = file.read().rstrip()
@@ -181,7 +186,7 @@ while(True):
     s=input()
     print(s + ' ' + obj.stem(s.lower()))
 
-'''
+
 #print(UzMorphAnalyser.stem("meniki"))
 
 #print(analyzer.lemmatize('benim'))

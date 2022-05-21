@@ -13,3 +13,9 @@ exception_stems faylida
     stemmer uchun bunday qoidalarni yozish juda qiyin va chalkash bo'ladi. Shuni uchun CSE jadvali
     asosida ishlash ma'qul kurildi.
 
+csv fayllar buyicha
+- non_affixed_stem.csv garak
+- affixes.csv garak
+- number_stem.csv garak
+- small_stem.csv garak
+- exception_stem.csv
