@@ -96,8 +96,8 @@ class UzMorphAnalyser:
                     if word[i:] in self.__GeneratedAllomorph(item["affix"]):
                         #print(position)
                         #print(self.__GeneratedAllomorph(item["affix"]))
-                        #print(word[i:])
-                        #print(item["affix"])
+                        print(word[i:])
+                        print(item["affix"])
                         #print(self.__exception_stems)
                         #print(item["confidence"])
 
@@ -109,7 +109,11 @@ class UzMorphAnalyser:
                                 return word[:i]
                             else:
                                 break
-                        #2-rule confidence past bulgan suzlarni exception_words dan qaraydi.
+                        #2.1-rule qushimchasi topilgandan keyin oldingi turgan stem small_stemni ichida bormi yuqmi
+                        if i < 2:
+                            if word[:i] in self.__small_stems:
+                                return word[:i]
+                        #2.2-rule confidence past bulgan suzlarni exception_words dan qaraydi.
                         # exwords da faqat affix bn tugaydigan suzlar turadi.
                         # agar suz exwordda bulsa qirqmaydi va alternativini qaraydi,
                         # aks holda yani suz exwordda bulmasa qirqib tashlaydi
@@ -120,6 +124,7 @@ class UzMorphAnalyser:
                             #    return word
                             #4-rule
                             stem_ex, result = stem_find_exceptions(self, word, i)
+                            print(stem_ex+" "+str(result))
                             if result:
                                 return stem_ex
                             else:
@@ -136,12 +141,11 @@ class UzMorphAnalyser:
         if word[:7]=="ko'rsat":
             return "ko'r"
         #3-step find stem by affix checking from affixes list
+        print("stem_find")
         stem = stem_find(self, word)
-        print("1-stem==" + stem)
-        if len(stem)<=2:    #checking the small stem is exist or not
-            if not stem in self.__small_stems:
-                stem=stem_find(self, word, 3)
-                print("2-stem==" + stem)
+        #if len(stem)<=2:    #checking the small stem is exist or not
+        #    if not stem in self.__small_stems:
+        #        stem=stem_find(self, word, 3)
 
         return stem
     #end of stem
