@@ -2,11 +2,26 @@ exception_stems faylida
 1. asosga qo'shilgan affixdan sung, ushbu suz oxirida yana asosni harflari bn birga boshqa affix yasaladigan suzlar kiritiladi,
     masalan:masjidi(masjid+i)->masji+di
 2. suz oxirida affix keladigan asoslar kiritiladi, masalan: kitob(kito+b), arra(arr+a, felga qushiladigan -a affixsi)
-
+3. suz oxirida keladigan qo'shimcha bula oladigan xarflarni uzunligi maksimal 3 belgidan iborat deb olindi dasturda, len()<=3
 ----------------
-1) small_stem.csv faylida "va" suzi mavjud emas, chunki u exception_stem.csv da mavjud.
+lemma_map.csv faylida
+- word: bunda stem qilinganda lemmasi uzgarishi kerak bulgan suzlarni ajratiladigan joyigacha olinadi, minimal holatda, yani:
+    [bag'rim, bag'ri, -> bag'ri]
+    ayrildi (stem=ayr, affix=ildi, lemma=ayir)
+    ayril,ayrilib,ayrilgach,ayrildi,.... bulganda faqatgina ayril qismini word=ayril sifatida yoziladi
+- lemma: bunda ushbu suz bn boshlanuvchi suzlar uchun lemma yoziladi, lemma=ayir
+- affix: bunda ushbu suzdagi affix qismi yoziladi, affix=il
 
-2) keyinchalik number_stem dagi xammasini exception_stem ga utirib quysak xam buladimi menimcha
+qisqacha tushuntrish
+word:ayril, lemma:ayir, affix:il
+word:meni, lemma:men, affix:ni
+
+ALGORITMni
+Lemmalar ruyhati berilgan suzni boshidan qidiriladi, agar topilsa, affix + suzni qolgan qismindagi affikslar qushilib affixes jadvalidan qidiriladi,
+va shuni affixes dagi malumotlari olinadi, va ushbu yerdagi lemma taqdim qilinadi
+-----------------------
+
+1) small_stem.csv faylida "va" suzi mavjud emas, chunki u exception_stem.csv da mavjud.
 
 3) maqola uchun, porter stemmer algoritmi (https://devopedia.org/stemming) 51ta suffix va 60 ta qoidani o'z ichiga oladi.
     lekin uzbek tili juda inflectional bulganligi sababli (bitta stemga juda kup suffix qo'shila olishi)
@@ -19,3 +34,4 @@ csv fayllar buyicha
 - number_stem.csv garak
 - small_stem.csv garak
 - exception_stem.csv
+- lemma_map.csv

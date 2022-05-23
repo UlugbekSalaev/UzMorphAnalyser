@@ -10,7 +10,9 @@ class UzMorphAnalyser:
     __non_affixed_stems = []  # list of non affixed stems from non_affixed_stems.csv file
     __number_stems = []  # list of number stems from number_stems.csv file
     __exception_stems = []  # list of exception stems from exception_stems.csv file
+    __lemma_map = []  # list of lemma convertion mapping from lemma_map.csv file
     # __ambiguity_stems = []  # list of ambiguity stems from ambiguity_stems.csv file | oxiri affix bn tugaydigan asos suzlar
+
     __vovel = ['a', 'u', 'e', 'i', 'o']
     __consonant_hard = ['b', 'd', 'g', 'j', 'l', 'm', 'n', 'r', 'v', 'y', 'z', "g'", 'ng']  # jarangli undosh
     __consonant_soft = ['f', 'h', 'k', 'p', 'q', 's', 't', 'x', 'sh', 'ch']  # jarangsiz undosh
@@ -45,6 +47,9 @@ class UzMorphAnalyser:
         with open(os.path.join(dirname + "exception_stems.csv"), "r") as f:
             reader = csv.DictReader(f)
             self.__exception_stems = list(reader)
+        with open(os.path.join(dirname + "lemma_map.csv"), "r") as f:
+            reader = csv.DictReader(f)
+            self.__lemma_map = list(reader)
         # enf of read_data
 
     # affixes.csv da barcha allomorphlarni qulda generate qilib yozib quyamiz, dastur yordamida qilmaymiz, chalkash joylari kup
@@ -124,7 +129,12 @@ class UzMorphAnalyser:
 
     # stemni ichidagilarni alohida metodni ichiga ol, keyin undan umumiy holda yani stem, lemma, analyse metodlaridan foydalanamiz
 
-    def __processing(self, word: str, pos: str = None):
+    def __processing(self, word: str, pos: str = None, is_lemmatize: bool = False):
+        affixes = []
+        if pos is not None:  # if "pos" argument is given, "pos" argument may be given in lemmatize
+            affixes = [i for i in self.__affixes if i['pos'] == pos]
+        else:
+            affixes = self.__affixes
 
         def stem_find_exceptions(self, word: str, pos: str, position: int):
             if pos is not None:
@@ -133,9 +143,12 @@ class UzMorphAnalyser:
                 ex_stem_list = [ex_stem for ex_stem in self.__exception_stems]
 
             for i in range(position, len(word) + 1):  # +1 bu word[:i] i+1 yani oxirgisigacha olishi uchun
-                print("cnf suz == " + word[:i])
-                ex_stem_find = list(filter(lambda ex_stem: ex_stem['stem'] == word[:i], ex_stem_list))  # pythonic way -> https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search
+                print("find from excp == " + word[:i])
+                ex_stem_find = list(filter(lambda ex_stem: ex_stem['stem'] == word[:i],
+                                           ex_stem_list))  # pythonic way -> https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search
                 if ex_stem_find:
+                    ex_stem_find[0]['affixed'] = word[i:]
+                    print('found from excp')
                     print(ex_stem_find)
                     return True, ex_stem_find[0]
                 # if word[:i] in ex_stem_list:
@@ -143,12 +156,6 @@ class UzMorphAnalyser:
             return False, ""
 
         def stem_find(self, word: str, pos: str, position: int = 1):
-            affixes = []
-            if pos is not None:  # if "pos" argument is given, "pos" argument may be given in lemmatize
-                affixes = [i for i in self.__affixes if i['pos'] == pos]
-            else:
-                affixes = self.__affixes
-
             for i in range(position, len(word)):
                 # predict_as_stem = word[:i]
                 # predict_as_affix = word[i:]
@@ -168,22 +175,28 @@ class UzMorphAnalyser:
                         # 1-support rule:
                         if item['pos'] == self.POS.NUM:
                             if word[:i] in self.__number_stems:
-                                item['stem'] = word[:i]  # add stem key_value to item dictionary from affixes
+                                item['stem'], item['affixed'] = word[:i], word[
+                                                                          i:]  # add stem key_value to item dictionary from affixes
                                 return item
                             else:
                                 break
 
                         # exception dan suzlarni tekshirib olish
-                        if len(word[i:]) <= 3:  # 3 bu yerda fine-tuning qilingan, yani 3 harfdan katta qushimchalarda xatolik bulmaydi va bundaylarni tugri qirqsak buladi
-                            result, stem_ex = stem_find_exceptions(self, word, pos, i + 1)
+                        if len(word[
+                               i:]) <= 3:  # 3 bu yerda fine-tuning qilingan, yani 3 harfdan katta qushimchalarda xatolik bulmaydi va bundaylarni tugri qirqsak buladi
+                            result, item_ex = stem_find_exceptions(self, word, pos, i + 1)
                             if result:
-                                return stem_ex
-                        #
+                                for i_affixes in affixes:  # agar exception.csv dan topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
+                                    if item_ex['affixed'] in self.__GeneratedAllomorph(i_affixes["affix"]):
+                                        i_affixes['stem'], i_affixes['affixed'] = item_ex['stem'], item_ex['affixed']
+                                        return i_affixes
+                                return item_ex  # agar suz exceptionda bor bulsa va unda umuman qushimchasi bulmasa
+                            # end of stem_find_exception
 
                         # 2.1-rule qushimchasi topilgandan keyin oldingi turgan stem small_stemni ichida bormi yuqmi
                         if i <= 2:  # i==2 bulsa 0 va 1 belgini oladi, [:2] da 2 ikkini uzi kirmaydi
                             if word[:i] in self.__small_stems:
-                                item['stem'] = word[:i]
+                                item['stem'], item['affixed'] = word[:i], word[i:]
                                 return item
                             else:
                                 break
@@ -204,65 +217,85 @@ class UzMorphAnalyser:
                                 return stem_ex
                             else:
                                 break  # confidence past bulgan qushimchasi bn borib ex_stemni qidiradi, buni ichida bundin stem bulmasa qirqmay utib ketadi
-                        item['stem'] = word[:i]
-                        return item  # chopping with 100% confidence
-            return {'stem': word}
 
-        # end of stem_find
+                        item['stem'], item['affixed'] = word[:i], word[i:]
+                        return item  # chopping with 100% confidence
+
+            return {'stem': word, 'affixed': ''}
+            # end of stem_find
 
         # algorithm for stem
         # 1-step: check non affixed words list
         for na_stem in self.__non_affixed_stems:
             if word in na_stem['stem']:
-                return {'stem': word, 'pos': na_stem['pos']}
+                na_stem['affixed'] = ''
+                return na_stem
 
         ##if word in [na_stem['stem'] for na_stem in self.__non_affixed_stems]: # in self.__non_affixed_stems
         ##    return word
 
         # 2-step sat faqat ko'rsat bulganda qirqiladi (so'zni boshi ko'rsat ga teng bulganda)
         if word[:7] == "ko'rsat":
-            return {'stem': "ko'r", 'pos': self.POS.VERB}
+            for i_affixes in affixes:  # agar kursat topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
+                if word[7:] in self.__GeneratedAllomorph(i_affixes["affix"]):
+                    i_affixes['stem'], i_affixes['affixed'] = word[:4], word[
+                                                                        4:]  # bu dictga kursat felini nisbati haqidagi informatsiyani qushib yuborsa xam buladi
+                    return i_affixes
+            return {'stem': "ko'r", 'affixed': "sat", 'pos': self.POS.VERB}
+
+        if is_lemmatize:
+            for item_lemma in self.__lemma_map:  # agar exception.csv dan topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
+                if word.startswith(item_lemma['word']):
+                    lemma = item_lemma['lemma']
+                    full_affix = item_lemma['affix'] + word[len(
+                        item_lemma['word']):]  # [-n:] bunda suzdagi qolganlar harflarni oxirigacha olamiz
+                    print(full_affix)
+                    for i_affixes in affixes:  # qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
+                        if full_affix in self.__GeneratedAllomorph(i_affixes["affix"]):
+                            i_affixes['stem'], i_affixes['affixed'] = lemma, full_affix
+                            return i_affixes
+            # enf of is_lemmatize
+
         # 3-step find stem by affix checking from affixes list
         # print("stem_find")
         result = stem_find(self, word, pos)
         # if len(stem)<=2:    #checking the small stem is exist or not
         #    if not stem in self.__small_stems:
         #        stem=stem_find(self, word, 3)
-
         return result
         # end of processing
 
     def stem(self, word: str):
-        ff = self.__processing(word)
-        print(ff)
-        return ff['stem']  # dict['stem] == dict.get('stem')
+        item = self.__processing(word)
+        print(item)
+        return item['stem']  # dict['stem] == dict.get('stem')
 
     def lemmatize(self, word: str, pos: str = None):
-        # lemmatize da list qaytadi, bir nechta lemmalari bulishi mumkin, barchasi qaytadi
-        ff = self.__processing(word, pos)
-        print(ff)
-        return ff['stem']  # .get('stem')
+        print(self.__lemma_map)
+        item = self.__processing(word, pos, is_lemmatize=True)
+        print(item)
+        return item['stem']  # .get('stem')
 
     def analyze(self, word: str, pos: str = None):
-        stem, affix = self.__processing(word, pos)
         # morpheme, bound morpheme [maktablar, maktab=morphem, lar=bound morphem]
+        item = self.__processing(word, pos, is_lemmatize=True)
+        print(item)
+        res_dict = {'word': word, 'lemma': item['stem'], 'pos': item['pos']}
+        for key in ['affixed','tense','person','cases','singular','plural','question','negative','impulsion','copula']:   # impulsion=mayl, copula=boglama
+            if key in item:
+                if item[key] != "":
+                    res_dict[key] = item[key]
+        # nominative, genitive, dative, accusative, ablative
+        #  Parse(word='benim', lemma='ben', pos='Noun', morphemes=['Noun', 'A3sg', 'P1sg'], formatted='[ben:Noun] ben:Noun+A3sg+im:P1sg')
 
-        return
+        return res_dict
+        # {'affix': 'larni', 'pos': '', 'tense': '', 'person': '', 'cases': 'Tushum', 'singular': '', 'plural': '1', 'question': '', 'negative': '',
+        # 'lexical_affixes': '', 'syntactical_affixes': '', 'stem': 'maktab', 'affixed': 'larni'}
 
     def morphemes(self, word: str, pos: str = None):
         # preprocessing       ['pre', 'process', 'ing']
         # https://github.com/aboSamoor/polyglot/blob/master/notebooks/MorphologicalAnalysis.ipynb
         pass
-
-    def pos(self):
-        return (
-            {'pos': 'NOUN', 'def': 'Noun'},
-            {'pos': 'VERB', 'def': 'Verb'},
-            {'pos': 'ADJ', 'def': 'Adjective'},
-            {'pos': 'NUM', 'def': 'Number'},
-            {'pos': 'ADV', 'def': 'Adverb'},
-            {'pos': 'PRN', 'def': 'Pronoun'}
-        )
 
     class POS:
         NOUN = "NOUN"  # Noun
@@ -271,6 +304,16 @@ class UzMorphAnalyser:
         NUM = "NUM"  # Numeric
         ADV = "ADV"  # Adverb
         PRN = "PRN"  # Pronoun
+
+    def pos(self):
+        return (
+            {'pos': self.POS.NOUN, 'def': 'Noun'},
+            {'pos': self.POS.VERB, 'def': 'Verb'},
+            {'pos': self.POS.ADJ, 'def': 'Adjective'},
+            {'pos': self.POS.NUM, 'def': 'Number'},
+            {'pos': self.POS.ADV, 'def': 'Adverb'},
+            {'pos': self.POS.PRN, 'def': 'Pronoun'}
+        )
 
     # shu yuqoridagi funksiyalarni yozamiz, pastdagilar esa keyinroq
 
@@ -291,7 +334,7 @@ class UzMorphAnalyser:
 obj = UzMorphAnalyser()
 
 sent = "olmasi taqgandim olma taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
-
+'''
 with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
     sent1 = file.read().rstrip()
 
@@ -300,12 +343,10 @@ sent1 = sent1.replace('.', ' ')
 sent1 = sent1.replace('\n', ' ')
 for token in sent.split(" "):
     print(token + ' ' + obj.stem(token.lower()))
-
+'''
 while (True):
     s = input()
-    print(s + ' ' + obj.lemmatize(s.lower(), obj.POS.NUM))
-
-# print(UzMorphAnalyser.stem("meniki"))
+    print(obj.analyze(s.lower()))
 
 # print(analyzer.lemmatize('benim'))
 # [('benim', ['ben'])]
@@ -319,5 +360,13 @@ while (True):
 # (s)i opasi kitobi larda yi varianti xam bor, avzoyi, obro'yi (S)i shaklida olsak, bunda S{s,y} buladi. Manba:https://lex.uz/docs/-1625271
 
 # tovush uzgarishlarini lemmatize ga kiritish
-anylyse kurinishini qilish parse ga uxshab
-bazani tuliq holga keltirish
+
+'''
+Zeyrek's morphological analyzer returns instances of Parse object (based on pymorphy2's Parse), which is a wrapper of namedtuple class.
+Parse object fields include:
+ word: the word itself
+ lemma: base form of the word, as found in a dictionary
+ pos: part of speech of the word. Note: Turkish is an agglutinative language, which makes it quite different from widespread European languages. A word can usually be much longer, made of Inflection Groups (IG), which can correspond to words in other languages. Each of these IGs can have its own part of speech, and the part of speech of the word as a whole is determined by the part of speech of the last IG.
+ morphemes: sequence of morphemes in the word, a list of strings - abbreviations of English names of morphemes.
+ formatted: a human-readable string representation of the analysis. There are several kinds of possible formats. Default formatter shows the dictionary item and its part of speech, and morphemes (with their surfaces, if available), divided into inflectional groups by | character.
+'''
