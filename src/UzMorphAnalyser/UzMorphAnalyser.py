@@ -143,13 +143,12 @@ class UzMorphAnalyser:
                 ex_stem_list = [ex_stem for ex_stem in self.__exception_stems]
 
             for i in range(position, len(word) + 1):  # +1 bu word[:i] i+1 yani oxirgisigacha olishi uchun
-                print("find from excp == " + word[:i])
-                ex_stem_find = list(filter(lambda ex_stem: ex_stem['stem'] == word[:i],
-                                           ex_stem_list))  # pythonic way -> https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search
+                #print("find from excp == " + word[:i])
+                ex_stem_find = list(filter(lambda ex_stem: ex_stem['stem'] == word[:i], ex_stem_list))  # pythonic way -> https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search
                 if ex_stem_find:
                     ex_stem_find[0]['affixed'] = word[i:]
-                    print('found from excp')
-                    print(ex_stem_find)
+                    #print('found from excp')
+                    #print(ex_stem_find)
                     return True, ex_stem_find[0]
                 # if word[:i] in ex_stem_list:
                 #    return True, {'stem': word[:i], 'pos':}  #return two value, stem from exception
@@ -159,9 +158,10 @@ class UzMorphAnalyser:
             for i in range(position, len(word)):
                 # predict_as_stem = word[:i]
                 # predict_as_affix = word[i:]
+                result_items = []
                 for item in affixes:
                     if word[i:] in self.__GeneratedAllomorph(item["affix"]):
-                        print(self.__GeneratedAllomorph(item["affix"]))
+                        # print(self.__GeneratedAllomorph(item["affix"]))
                         # print(position)
                         # print(self.__GeneratedAllomorph(item["affix"]))
                         # print(word[:i]+" "+word[i:]+" "+item["affix"])
@@ -175,8 +175,7 @@ class UzMorphAnalyser:
                         # 1-support rule:
                         if item['pos'] == self.POS.NUM:
                             if word[:i] in self.__number_stems:
-                                item['stem'], item['affixed'] = word[:i], word[
-                                                                          i:]  # add stem key_value to item dictionary from affixes
+                                item['stem'], item['affixed'] = word[:i], word[i:]  # add stem key_value to item dictionary from affixes
                                 return item
                             else:
                                 break
@@ -221,12 +220,12 @@ class UzMorphAnalyser:
                         item['stem'], item['affixed'] = word[:i], word[i:]
                         return item  # chopping with 100% confidence
 
-            return {'stem': word, 'affixed': ''}
+            return {'stem': word, 'affixed': '', 'pos': None}
             # end of stem_find
 
         # algorithm for stem
         # 1-step: check non affixed words list
-        for na_stem in self.__non_affixed_stems:
+        for na_stem in self.__non_affixed_stems: #stem,pos,affixed
             if word in na_stem['stem']:
                 na_stem['affixed'] = ''
                 return na_stem
@@ -238,8 +237,7 @@ class UzMorphAnalyser:
         if word[:7] == "ko'rsat":
             for i_affixes in affixes:  # agar kursat topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
                 if word[7:] in self.__GeneratedAllomorph(i_affixes["affix"]):
-                    i_affixes['stem'], i_affixes['affixed'] = word[:4], word[
-                                                                        4:]  # bu dictga kursat felini nisbati haqidagi informatsiyani qushib yuborsa xam buladi
+                    i_affixes['stem'], i_affixes['affixed'] = word[:4], word[4:]  # bu dictga kursat felini nisbati haqidagi informatsiyani qushib yuborsa xam buladi
                     return i_affixes
             return {'stem': "ko'r", 'affixed': "sat", 'pos': self.POS.VERB}
 
@@ -247,9 +245,8 @@ class UzMorphAnalyser:
             for item_lemma in self.__lemma_map:  # agar exception.csv dan topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
                 if word.startswith(item_lemma['word']):
                     lemma = item_lemma['lemma']
-                    full_affix = item_lemma['affix'] + word[len(
-                        item_lemma['word']):]  # [-n:] bunda suzdagi qolganlar harflarni oxirigacha olamiz
-                    print(full_affix)
+                    full_affix = item_lemma['affix'] + word[len(item_lemma['word']):]  # [-n:] bunda suzdagi qolganlar harflarni oxirigacha olamiz
+                    # print(full_affix)
                     for i_affixes in affixes:  # qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
                         if full_affix in self.__GeneratedAllomorph(i_affixes["affix"]):
                             i_affixes['stem'], i_affixes['affixed'] = lemma, full_affix
@@ -267,19 +264,19 @@ class UzMorphAnalyser:
 
     def stem(self, word: str):
         item = self.__processing(word)
-        print(item)
+        # print(item)
         return item['stem']  # dict['stem] == dict.get('stem')
 
     def lemmatize(self, word: str, pos: str = None):
-        print(self.__lemma_map)
+        # print(self.__lemma_map)
         item = self.__processing(word, pos, is_lemmatize=True)
-        print(item)
+        # print(item)
         return item['stem']  # .get('stem')
 
     def analyze(self, word: str, pos: str = None):
         # morpheme, bound morpheme [maktablar, maktab=morphem, lar=bound morphem]
         item = self.__processing(word, pos, is_lemmatize=True)
-        print(item)
+        # print(item)
         res_dict = {'word': word, 'lemma': item['stem'], 'pos': item['pos']}
         for key in ['affixed','tense','person','cases','singular','plural','question','negative','impulsion','copula']:   # impulsion=mayl, copula=boglama
             if key in item:
@@ -287,7 +284,6 @@ class UzMorphAnalyser:
                     res_dict[key] = item[key]
         # nominative, genitive, dative, accusative, ablative
         #  Parse(word='benim', lemma='ben', pos='Noun', morphemes=['Noun', 'A3sg', 'P1sg'], formatted='[ben:Noun] ben:Noun+A3sg+im:P1sg')
-
         return res_dict
         # {'affix': 'larni', 'pos': '', 'tense': '', 'person': '', 'cases': 'Tushum', 'singular': '', 'plural': '1', 'question': '', 'negative': '',
         # 'lexical_affixes': '', 'syntactical_affixes': '', 'stem': 'maktab', 'affixed': 'larni'}
@@ -330,23 +326,25 @@ class UzMorphAnalyser:
         tokens = []
         return tokens
 
-
 obj = UzMorphAnalyser()
 
 sent = "olmasi taqgandim olma taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
-'''
+
 with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
     sent1 = file.read().rstrip()
 
 sent1 = sent1.replace(',', ' ')
 sent1 = sent1.replace('.', ' ')
 sent1 = sent1.replace('\n', ' ')
-for token in sent.split(" "):
-    print(token + ' ' + obj.stem(token.lower()))
-'''
+sent1 = sent1.replace('(', ' ')
+sent1 = sent1.replace(')', ' ')
+
+for token in sent1.split(" "):
+    token = token.lower()
+    print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
 while (True):
-    s = input()
-    print(obj.analyze(s.lower()))
+    s = input().lower()
+    print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
 
 # print(analyzer.lemmatize('benim'))
 # [('benim', ['ben'])]
