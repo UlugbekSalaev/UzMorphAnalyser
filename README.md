@@ -45,7 +45,6 @@ pip install UzMorphAnalyser
 ```
 
 After installation, use in python like following:
-
 ```yml
 # import the library
 from UzMorphAnalyser import UzMorphAnalyser
