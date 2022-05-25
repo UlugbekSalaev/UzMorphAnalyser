@@ -1,202 +1,135 @@
-<div align="center">
-  <img src="https://github.com/UlugbekSalaev/UzMorphAnalyser/blob/main/docs/images/web-interface-ui.png?raw=true">
-</div>
+# UzMorphAnalyser
 
-# doccano
+https://pypi.org/project/UzMorphAnalyser
+https://github.com/UlugbekSalaev/UzMorphAnalyser
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/35ac8625a2bc4eddbff23dbc61bc6abb)](https://www.codacy.com/gh/doccano/doccano/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=doccano/doccano&amp;utm_campaign=Badge_Grade)
-[![doccano CI](https://github.com/doccano/doccano/actions/workflows/ci.yml/badge.svg)](https://github.com/doccano/doccano/actions/workflows/ci.yml)
+UzMorpAnalyser tool is focused to make morphological analysis of Uzbek word based on morphemes. The tool includes Stemmer, Lemmatizer, Morphological Analyze methods.
+It is created as a python library and uploaded to [PyPI](https://pypi.org/). It is simply easy to use in your python project or other programming language projects via API. 
 
-doccano is an open source text annotation tool for humans. It provides annotation features for text classification, sequence labeling and sequence to sequence tasks. So, you can create labeled data for sentiment analysis, named entity recognition, text summarization and so on. Just create a project, upload data and start annotating. You can build a dataset in hours.
+## About project
+The tool is focused to make morphological analysis of Uzbek word based on morphemes. The tool includes Stemmer, Lemmatizer, Morphological Analyze methods.
+
+## Quick links
+
+- [Github](https://github.com/UlugbekSalaev/UzMorphAnalyser)
+- [PyPI](https://pypi.org/project/UzMorphAnalyser/)
+- [Web-UI](https://nlp.urdu.uz/?menu=morphanalyser)
 
 ## Demo
 
-You can try the [annotation demo](http://doccano.herokuapp.com).
-
-![Demo image](https://raw.githubusercontent.com/doccano/doccano/master/docs/images/demo/demo.gif)
+You can use [web interface](http://nlp.urdu.uz/?menu=morphanalyser).
 
 ## Features
 
-- Collaborative annotation
-- Multi-language support
-- Mobile support
-- Emoji :smile: support
-- Dark theme
-- RESTful API
+- Stemmer
+- Lemmatizer
+- Lemmatizer with POS tag
+- Extract Morphemes list
+- Analyzer
+- Analyzer with POS tag
 
 ## Usage
 
-Three options to run doccano:
+Three options to run UzMorphAnalyser:
 
-- pip(experimental)
-- Docker
-- Docker Compose
-  - production
-  - development
-
-For docker and docker compose, you need to install dependencies:
-
-- [Git](https://git-scm.com)
-- [Docker](https://www.docker.com)
-- [Docker Compose](https://docs.docker.com/compose)
+- pip
+- API 
+- Web interface
 
 ### pip installation
 
-To install doccano, simply run:
+To install UzMorphAnalyser, simply run:
 
 ```bash
-pip install doccano
+pip install UzMorphAnalyser
 ```
 
-After installation, simply run the following command:
+After installation, use in python like following:
 
 ```bash
-# Initialize database.
-doccano init
-# Create a super user.
-doccano createuser --username admin --password pass
-# Start the webserver.
-doccano webserver --port 8000
+# import the library
+from UzMorphAnalyser import UzMorphAnalyser
+# create an object 
+analyzer = UzMorphAnalyser.UzMorphAnalyser()
+# call stem method
+analyzer.stem('maktabimda')
+# call lemmatize method
+analyzer.lemmatize('maktabimda')
+# call lemmatize method with POS tag
+analyzer.stem('maktabimda', analyzer.POS.NOUN)
+# call analyze method
+analyzer.analyze('maktabimda')
+# call analyze method with POS tag
+analyzer.analyze('maktabimda', analyzer.POS.NOUN)
 ```
 
-And in another terminal, run the following command:
+### API
+API configurations: 
+ - Method: GET
+ - Response type: <code>string</code>
+ 
+ 
+ - URL: https://uz-translit.herokuapp.com/stem
+ - Parameters: <code>word:string</code></code>
+ - Sample Request: https://uztranslit.herokuapp.com/stem?word=maktabimda
 
-```bash
-# Start the task queue.
-doccano task
-```
 
-Go to <http://0.0.0.0:8000/>.
+ - https://uz-translit.herokuapp.com/lemmatize
+ - Parameters: <code>word:string</code>, <code>pos:string</code>
+ - Sample Request: https://uztranslit.herokuapp.com/lemmatize?word=maktabimda&pos=NOUN
 
-### Docker
 
-As a one-time setup, create a Docker container as follows:
+ - https://uz-translit.herokuapp.com/analyze
+ - Parameters: <code>word:string</code>, <code>pos:string</code>
+ - Sample Request: https://uztranslit.herokuapp.com/analyze?word=maktabimda&pos=NOUN
 
-```bash
-docker pull doccano/doccano
-docker container create --name doccano \
-  -e "ADMIN_USERNAME=admin" \
-  -e "ADMIN_EMAIL=admin@example.com" \
-  -e "ADMIN_PASSWORD=password" \
-  -p 8000:8000 doccano/doccano
-```
+### Web-UI
 
-Next, start doccano by running the container:
+The web interface created to use easily the library:
+You can use web interface [here](http://nlp.urdu.uz/?menu=morphanalyser).
 
-```bash
-docker container start doccano
-```
+![Demo image](https://raw.githubusercontent.com/UlugbekSalaev/UzMorphAnalyser/main/docs/images/web-interface-ui.png?token=GHSAT0AAAAAABUTGMMUIGMI4GLC36KLDBHWYUOGWWQ)
 
-To stop the container, run `docker container stop doccano -t 5`.
-All data created in the container will persist across restarts.
 
-Go to <http://127.0.0.1:8000/>.
+### Options
+When you use PyPI or API, you should use following options as POS tag of a word which is optional parameters of `lemmatize()` and `analyze()` metods:<br>
+`NOUN`  Noun<br>
+`VERB`  Verb<br>
+`ADJ`   Adjective<br>
+`NUM`   Numerical<br>
+`PRN`   Pronoun<br>
+`ADV`   Adverb
 
-### Docker Compose
+_`pos` parameters is optional for `lemmatize` and `analyze` metods._
 
-You need to clone the repository:
+### Result Explaining
 
-```bash
-git clone https://github.com/doccano/doccano.git
-cd doccano
-```
-
-_Note for Windows developers:_ Be sure to configure git to correctly handle line endings or you may encounter `status code 127` errors while running the services in future steps. Running with the git config options below will ensure your git directory correctly handles line endings.
-
-```bash
-git clone https://github.com/doccano/doccano.git --config core.autocrlf=input
-```
-
-#### Production
-
-Set the superuser account credentials in the `docker-compose.prod.yml` file:
-
+It returns single word in a string type from each method, `stem` and `lemmatize`, that is stem and lemma of given word, respectively. 
+#### Result from `analyze` method
+`analyze` method returns a response as list of dictionary which is may contain following keys: 
 ```yml
-ADMIN_USERNAME: "admin"
-ADMIN_PASSWORD: "password"
+ {'word', 'lemma', 'pos', 'affixed', 'tense', 
+   'person', 'cases', 'singular', 'plural', 'question', 
+   'negative', 'impulsion', 'copula'}: 
 ```
-
-If you use Google Analytics, set the tracking:
-
-```yml
-GOOGLE_TRACKING_ID: "UA-12345678-1"
-```
-
-Run doccano:
-
-```bash
-$ docker-compose -f docker-compose.prod.yml --env-file ./config/.env.example up
-```
-
-Go to <http://0.0.0.0/>.
-
-#### Development
-
-Set the superuser account credentials in the `docker-compose.dev.yml` file:
-
-```yml
-ADMIN_USERNAME: "admin"
-ADMIN_PASSWORD: "password"
-```
-
-Run Doccano:
-
-```bash
-$ docker-compose -f docker-compose.dev.yml --env-file ./config/.env.example up
-```
-
-Go to <http://127.0.0.1:3000/>.
-
-
-Run Backend API-Tests:
-
-You can run the API-Tests for the backend with the following command:
-```bash
-docker exec doccano_backend_1 pipenv run app/manage.py test api
-```
-
-### Add annotators (optionally)
-
-If you want to add annotators/annotation approvers, see [Frequently Asked Questions](./docs/faq.md)
-
-## One-click Deployment
-
-| Service | Button |
-|---------|---|
-| AWS[^1]   | [![AWS CloudFormation Launch Stack SVG Button](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://console.aws.amazon.com/cloudformation/home?#/stacks/new?stackName=doccano&templateURL=https://doccano.s3.amazonaws.com/public/cloudformation/template.aws.yaml)  |
-| GCP[^2] | [![GCP Cloud Run PNG Button](https://storage.googleapis.com/gweb-cloudblog-publish/images/run_on_google_cloud.max-300x300.png)](https://console.cloud.google.com/cloudshell/editor?shellonly=true&cloudshell_image=gcr.io/cloudrun/button&cloudshell_git_repo=https://github.com/doccano/doccano.git&cloudshell_git_branch=CloudRunButton)  |
-| Heroku  | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fdoccano%2Fdoccano)  |
-
-> [^1]: (1) EC2 KeyPair cannot be created automatically, so make sure you have an existing EC2 KeyPair in one region. Or [create one yourself](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair). (2) If you want to access doccano via HTTPS in AWS, here is an [instruction](https://github.com/doccano/doccano/wiki/HTTPS-setting-for-doccano-in-AWS).
-> [^2]: Although this is a very cheap option, it is only suitable for very small teams (up to 80 concurrent requests). Read more on [Cloud Run docs](https://cloud.google.com/run/docs/concepts).
 
 ## Documentation
 
-See [here](https://doccano.github.io/doccano/).
-
-## Contribution
-
-As with any software, doccano is under continuous development. If you have requests for features, please file an issue describing your request. Also, if you want to see work towards a specific feature, feel free to contribute by working towards it. The standard procedure is to fork the repository, add a feature, fix a bug, then file a pull request that your changes are to be merged into the main repository and included in the next release.
-
-Here are some tips might be helpful. [How to Contribute to Doccano Project](https://github.com/doccano/doccano/wiki/How-to-Contribute-to-Doccano-Project)
+See [here](https://github.com/UlugbekSalaev/UzMorphAnalyser).
 
 ## Citation
 
 ```tex
-@misc{doccano,
-  title={{doccano}: Text Annotation Tool for Human},
-  url={https://github.com/doccano/doccano},
-  note={Software available from https://github.com/doccano/doccano},
+@misc{UzMorphAnalyser,
+  title={{UzMorphAnalyser}: Morphological Analyser Tool for Uzbek},
+  url={https://github.com/UlugbekSalaev/UzMorphAnalyser},
+  note={Software available from https://github.com/UlugbekSalaev/UzMorphAnalyser},
   author={
-    Hiroki Nakayama and
-    Takahiro Kubo and
-    Junya Kamura and
-    Yasufumi Taniguchi and
-    Xu Liang},
-  year={2018},
+    Ulugbek Salaev},
+  year={2022},
 }
 ```
 
 ## Contact
 
-For help and feedback, please feel free to contact [the author](https://github.com/Hironsan).
+For help and feedback, please feel free to contact [the author](https://github.com/UlugbekSalaev).
