@@ -87,7 +87,7 @@ API configurations:
 The web interface created to use easily the library:
 You can use web interface [here](http://nlp.urdu.uz/?menu=morphanalyser).
 
-![Demo image](https://github.com/UlugbekSalaev/UzMorphAnalyser/blob/dad2132bc53610f90f34d580836763755cb16c72/docs/images/web-interface-ui.png)
+![Demo image](./docs/images/web-interface-ui.png)
 
 
 ### Options
