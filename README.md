@@ -1,6 +1,6 @@
 # UzMorphAnalyser
 
-https://pypi.org/project/UzMorphAnalyser
+https://pypi.org/project/UzMorphAnalyser <br>
 https://github.com/UlugbekSalaev/UzMorphAnalyser
 
 UzMorpAnalyser tool is focused to make morphological analysis of Uzbek word based on morphemes. The tool includes Stemmer, Lemmatizer, Morphological Analyze methods.
