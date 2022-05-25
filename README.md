@@ -40,13 +40,13 @@ Three options to run UzMorphAnalyser:
 
 To install UzMorphAnalyser, simply run:
 
-```bash
+```code
 pip install UzMorphAnalyser
 ```
 
 After installation, use in python like following:
 
-```bash
+```yml
 # import the library
 from UzMorphAnalyser import UzMorphAnalyser
 # create an object 
