@@ -4,7 +4,7 @@ https://pypi.org/project/UzMorphAnalyser <br>
 https://github.com/UlugbekSalaev/UzMorphAnalyser
 
 UzMorpAnalyser tool is focused to make morphological analysis of Uzbek word based on morphemes. The tool includes Stemmer, Lemmatizer, Morphological Analyze methods.
-It is created as a python library and uploaded to [PyPI](https://pypi.org/). It is simply easy to use in your python project or other programming language projects via API. 
+It is created as a python library and uploaded to [PyPI](https://pypi.org/). It is simply easy to use in your python project or other programming language projects via the API. 
 
 ## About project
 The tool is focused to make morphological analysis of Uzbek word based on morphemes. The tool includes Stemmer, Lemmatizer, Morphological Analyze methods.
@@ -67,21 +67,21 @@ analyzer.analyze('maktabimda', analyzer.POS.NOUN)
 API configurations: 
  - Method: GET
  - Response type: <code>string</code>
- 
- 
+
+
  - URL: https://uz-translit.herokuapp.com/stem
- - Parameters: <code>word:string</code></code>
- - Sample Request: https://uztranslit.herokuapp.com/stem?word=maktabimda
+   - Parameters: <code>word:string</code></code>
+   - Sample Request: https://uztranslit.herokuapp.com/stem?word=maktabimda
 
 
  - https://uz-translit.herokuapp.com/lemmatize
- - Parameters: <code>word:string</code>, <code>pos:string</code>
- - Sample Request: https://uztranslit.herokuapp.com/lemmatize?word=maktabimda&pos=NOUN
+   - Parameters: <code>word:string</code>, <code>pos:string</code>
+   - Sample Request: https://uztranslit.herokuapp.com/lemmatize?word=maktabimda&pos=NOUN
 
 
  - https://uz-translit.herokuapp.com/analyze
- - Parameters: <code>word:string</code>, <code>pos:string</code>
- - Sample Request: https://uztranslit.herokuapp.com/analyze?word=maktabimda&pos=NOUN
+   - Parameters: <code>word:string</code>, <code>pos:string</code>
+   - Sample Request: https://uztranslit.herokuapp.com/analyze?word=maktabimda&pos=NOUN
 
 ### Web-UI
 
