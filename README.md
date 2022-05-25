@@ -87,17 +87,17 @@ API configurations:
 The web interface created to use easily the library:
 You can use web interface [here](http://nlp.urdu.uz/?menu=morphanalyser).
 
-![Demo image](https://raw.githubusercontent.com/UlugbekSalaev/UzMorphAnalyser/main/docs/images/web-interface-ui.png?token=GHSAT0AAAAAABUTGMMUIGMI4GLC36KLDBHWYUOGWWQ)
+![Demo image](https://github.com/UlugbekSalaev/UzMorphAnalyser/blob/dad2132bc53610f90f34d580836763755cb16c72/docs/images/web-interface-ui.png)
 
 
 ### Options
 When you use PyPI or API, you should use following options as POS tag of a word which is optional parameters of `lemmatize()` and `analyze()` metods:<br>
-`NOUN`  Noun<br>
-`VERB`  Verb<br>
-`ADJ`   Adjective<br>
-`NUM`   Numerical<br>
-`PRN`   Pronoun<br>
-`ADV`   Adverb
+    `NOUN`  Noun<br>
+    `VERB`  Verb<br>
+    `ADJ`   Adjective<br>
+    `NUM`   Numerical<br>
+    `PRN`   Pronoun<br>
+    `ADV`   Adverb
 
 _`pos` parameters is optional for `lemmatize` and `analyze` metods._
 
