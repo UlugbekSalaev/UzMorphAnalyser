@@ -19,6 +19,8 @@ word:meni, lemma:men, affix:ni
 ALGORITMni
 Lemmalar ruyhati berilgan suzni boshidan qidiriladi, agar topilsa, affix + suzni qolgan qismindagi affikslar qushilib affixes jadvalidan qidiriladi,
 va shuni affixes dagi malumotlari olinadi, va ushbu yerdagi lemma taqdim qilinadi
+Malumot: https://teletype.in/@masofatalim/tovush-ozgarishlari
+         https://lex.uz/docs/-1625271
 -----------------------
 
 1) small_stem.csv faylida "va" suzi mavjud emas, chunki u exception_stem.csv da mavjud.
