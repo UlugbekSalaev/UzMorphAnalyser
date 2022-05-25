@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/doccano/doccano/master/docs/images/logo/doccano.png">
+  <img src="https://github.com/UlugbekSalaev/UzMorphAnalyser/blob/main/docs/images/web-interface-ui.png?raw=true">
 </div>
 
 # doccano
