@@ -297,7 +297,7 @@ class UzMorphAnalyser:
                 if word.startswith(item_lemma['word']):
                     lemma = item_lemma['lemma']
                     full_affix = item_lemma['affix'] + word[len(item_lemma['word']):]  # [-n:] bunda suzdagi qolganlar harflarni oxirigacha olamiz
-                    # print(full_affix)
+                    print(lemma + '\t' + full_affix)
                     result_items = []
                     for i_affixes in affixes:  # qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
                         if full_affix in self.__GeneratedAllomorph(i_affixes["affix"]):
@@ -413,7 +413,6 @@ while (True):
     s = input().lower()
     print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
 '''
-
 # print(analyzer.lemmatize('benim'))
 # [('benim', ['ben'])]
 
