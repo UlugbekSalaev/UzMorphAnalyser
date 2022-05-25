@@ -2,7 +2,7 @@
 # from project.file import class
 import csv
 import os
-import time
+#import time
 
 class UzMorphAnalyser:
     __affixes = []  # list of affixes table from affixes.csv file
@@ -51,6 +51,14 @@ class UzMorphAnalyser:
             reader = csv.DictReader(f)
             self.__lemma_map = list(reader)
         # enf of read_data
+
+    def __rules_affixation(self, affix: str, word: str, i: int):
+        # 1-rule
+        if affix == "(i)m":  # (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
+            if word[i:] == "m" and word[i-1] not in ['a']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
+                return True
+
+        return False
 
     # affixes.csv da barcha allomorphlarni qulda generate qilib yozib quyamiz, dastur yordamida qilmaymiz, chalkash joylari kup
     # bu generate funksiya faqat qavs ichida bitta harf (katta/kichik) turganda va bitta katta harf mavjud bulganda tugri keladi.
@@ -140,8 +148,9 @@ class UzMorphAnalyser:
 
     # stemni ichidagilarni alohida metodni ichiga ol, keyin undan umumiy holda yani stem, lemma, analyse metodlaridan foydalanamiz
 
-    def __processing(self, word: str, pos: str = None, is_lemmatize: bool = False):
+    def __processing(self, word: str, pos: str = None, is_lemmatize: bool = False, multi_item: bool = False):
         affixes = []
+
         if pos is not None:  # if "pos" argument is given, "pos" argument may be given in lemmatize
             affixes = [i for i in self.__affixes if i['pos'] == pos]
         else:
@@ -189,6 +198,8 @@ class UzMorphAnalyser:
                             if word[:i] in self.__number_stems:
                                 item['stem'], item['affixed'] = word[:i], word[i:]  # add stem key_value to item dictionary from affixes
                                 result_items.append(item)
+                                if multi_item:  # bu kod stem va lemmatize metodlari chaqirlganda faqat bitta asosni topsa bulgani va shuni qaytaradi, anaylyse metodi orqali kirganda barcha affixeslarni kurib chiqin multi_item xolida chiqarish uchun yozildi, agar multi_item bulsa sikl aylanaveradi, aks holda return bub tuxtaydi
+                                    return result_items
                                 continue
                                 ###return item
                             else:
@@ -197,6 +208,8 @@ class UzMorphAnalyser:
 
                         # exception dan suzlarni tekshirib olish
                         if len(word[i:]) <= 3:  # 3 bu yerda fine-tuning qilingan, yani 3 harfdan katta qushimchalarda xatolik bulmaydi va bundaylarni tugri qirqsak buladi
+                            if self.__rules_affixation(item['affix'], word, i):  # xar xil qoidalar, biron qushimchalar buyicah, masalan, (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
+                                continue
                             result, item_ex = stem_find_exceptions(self, word, pos, i + 1)
                             if result:
                                 flag = False
@@ -205,10 +218,15 @@ class UzMorphAnalyser:
                                         i_affixes['stem'], i_affixes['affixed'] = item_ex['stem'], item_ex['affixed']
                                         result_items.append(i_affixes)
                                         flag = True
+                                        if multi_item:
+                                            return result_items
+
                                         break
                                         ###return i_affixes
                                 if not flag:
                                     result_items.append(item_ex)
+                                    if multi_item:
+                                        return result_items
                                 continue
                                 ###return item_ex  # agar suz exceptionda bor bulsa va unda umuman qushimchasi bulmasa
                             # end of stem_find_exception
@@ -262,10 +280,16 @@ class UzMorphAnalyser:
 
         # 2-step sat faqat ko'rsat bulganda qirqiladi (so'zni boshi ko'rsat ga teng bulganda)
         if word[:7] == "ko'rsat":
+            result_items = []
             for i_affixes in affixes:  # agar kursat topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
                 if word[7:] in self.__GeneratedAllomorph(i_affixes["affix"]):
                     i_affixes['stem'], i_affixes['affixed'] = word[:4], word[4:]  # bu dictga kursat felini nisbati haqidagi informatsiyani qushib yuborsa xam buladi
-                    return [i_affixes]
+                    result_items.append(i_affixes)
+                    if multi_item:
+                        return result_items
+                    ###return [i_affixes]
+            if result_items:  # if not empty
+                return result_items
             return [{'stem': "ko'r", 'affixed': "sat", 'pos': self.POS.VERB}]
 
         if is_lemmatize:
@@ -279,6 +303,8 @@ class UzMorphAnalyser:
                         if full_affix in self.__GeneratedAllomorph(i_affixes["affix"]):
                             i_affixes['stem'], i_affixes['affixed'] = lemma, full_affix
                             result_items.append(i_affixes)
+                            if multi_item:
+                                return result_items
                             ###return i_affixes
                     if result_items:  # if not empty
                         return result_items
@@ -307,7 +333,7 @@ class UzMorphAnalyser:
 
     def analyze(self, word: str, pos: str = None):
         # morpheme, bound morpheme [maktablar, maktab=morphem, lar=bound morphem]
-        list_item = self.__processing(word, pos, is_lemmatize=True)
+        list_item = self.__processing(word, pos, is_lemmatize=True, multi_item=True)
         # print(list_item)
         res_list_item = []
         for item in list_item:
@@ -365,7 +391,8 @@ class UzMorphAnalyser:
     def sent_tokenize(self, text):
         tokens = []
         return tokens
-
+'''
+import time
 start_time = time.time()
 
 obj = UzMorphAnalyser()
@@ -380,11 +407,12 @@ sent1 = sent1.replace(')', ' ')
 
 for token in sent1.split(" "):
     token = token.lower()
-    print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+    #print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
 print("--- %s seconds ---" % (time.time() - start_time))
 while (True):
     s = input().lower()
     print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
+'''
 
 # print(analyzer.lemmatize('benim'))
 # [('benim', ['ben'])]

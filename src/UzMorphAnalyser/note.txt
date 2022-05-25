@@ -37,3 +37,6 @@ csv fayllar buyicha
 - small_stem.csv garak
 - exception_stem.csv
 - lemma_map.csv
+-------------------------------------
+nisbat shaklidagi Y:a,y quhsimchalarini uchirihs kerak, chunki bular kup xatolikka olib keladi
+mayl shaklidagi (a)y: ay,y quhsimchalarini uchirish garak, chunki bular kup xatolikka olib keladi

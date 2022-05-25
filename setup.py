@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="UzMorphAnalyser",
-    version="0.0.4",
+    version="0.0.6",
     author="Ulugbek Salaev",
     author_email="ulugbek0302@gmail.com",
     description="UzMorphAnalyser | Uzbek Morphological Analyser on Python",
@@ -20,7 +20,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    keywords=['python', 'mophology', 'uzbek-language'],
+    keywords=['mophology', 'uzbek-language', 'stemmer', 'lemmatize', 'morphological analysis'],
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     install_requires=[],
