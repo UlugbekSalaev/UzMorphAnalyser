@@ -55,7 +55,7 @@ analyzer.stem('maktabimda')
 # call lemmatize method
 analyzer.lemmatize('maktabimda')
 # call lemmatize method with POS tag
-analyzer.stem('maktabimda', analyzer.POS.NOUN)
+analyzer.lemmatize('maktabimda', analyzer.POS.NOUN)
 # call analyze method
 analyzer.analyze('maktabimda')
 # call analyze method with POS tag
