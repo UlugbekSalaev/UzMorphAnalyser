@@ -17,49 +17,6 @@ class UzMorphAnalyser:
     __consonant_hard = ['b', 'd', 'g', 'j', 'l', 'm', 'n', 'r', 'v', 'y', 'z', "g'", 'ng']  # jarangli undosh
     __consonant_soft = ['f', 'h', 'k', 'p', 'q', 's', 't', 'x', 'sh', 'ch']  # jarangsiz undosh
 
-    def __init__(self):
-        self.__read_data()
-
-    def __read_data(self):
-        # url = 'http://u92156l3.beget.tech/affix/export.php', it couldn't be get from url
-        dirname = os.path.dirname(__file__) + "/"
-
-        with open(os.path.join(dirname + "affixes.csv"), "r") as f:
-            reader = csv.DictReader(f)
-            self.__affixes = list(reader)
-        with open(os.path.join(dirname + "small_stems.csv"), "r") as f:
-            reader = csv.reader(f)
-            # self.__small_stems = list(reader)
-            self.__small_stems = [item for sublist in list(reader) for item in sublist]
-        with open(os.path.join(dirname + "non_affixed_stems.csv"), "r") as f:
-            reader = csv.DictReader(f)
-            self.__non_affixed_stems = list(reader)
-            # reader = csv.reader(f)
-            # self.__non_affixed_stems = [item for sublist in list(reader) for item in sublist]
-
-        with open(os.path.join(dirname + "number_stems.csv"), "r") as f:
-            reader = csv.reader(f)
-            # self.__small_stems = list(reader)
-            self.__number_stems = [item for sublist in list(reader) for item in sublist]
-        # with open("ambiguity_stems.csv", "r") as f:
-        #    reader = csv.DictReader(f)
-        #    self.__ambiguity_stems = list(reader)
-        with open(os.path.join(dirname + "exception_stems.csv"), "r") as f:
-            reader = csv.DictReader(f)
-            self.__exception_stems = list(reader)
-        with open(os.path.join(dirname + "lemma_map.csv"), "r") as f:
-            reader = csv.DictReader(f)
-            self.__lemma_map = list(reader)
-        # enf of read_data
-
-    def __rules_affixation(self, affix: str, word: str, i: int):
-        # 1-rule
-        if affix == "(i)m":  # (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
-            if word[i:] == "m" and word[i-1] not in ['a']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
-                return True
-
-        return False
-
     # affixes.csv da barcha allomorphlarni qulda generate qilib yozib quyamiz, dastur yordamida qilmaymiz, chalkash joylari kup
     # bu generate funksiya faqat qavs ichida bitta harf (katta/kichik) turganda va bitta katta harf mavjud bulganda tugri keladi.
     def __GeneratedAllomorph(self, affix):  # return a list that contain all allomorphs of the current affix
@@ -146,6 +103,54 @@ class UzMorphAnalyser:
         return GenAff
         # end of Generate Allmorph
 
+    def __init__(self):
+        self.__read_data()
+
+    def __read_data(self):
+        # url = 'http://u92156l3.beget.tech/affix/export.php', it couldn't be get from url
+        dirname = os.path.dirname(__file__) + "/"
+
+        with open(os.path.join(dirname + "affixes.csv"), "r") as f:
+            reader = csv.DictReader(f)
+            self.__affixes = list(reader)
+
+        with open(os.path.join(dirname + "small_stems.csv"), "r") as f:
+            reader = csv.reader(f)
+            # self.__small_stems = list(reader)
+            self.__small_stems = [item for sublist in list(reader) for item in sublist]
+        with open(os.path.join(dirname + "non_affixed_stems.csv"), "r") as f:
+            reader = csv.DictReader(f)
+            self.__non_affixed_stems = list(reader)
+            # reader = csv.reader(f)
+            # self.__non_affixed_stems = [item for sublist in list(reader) for item in sublist]
+
+        with open(os.path.join(dirname + "number_stems.csv"), "r") as f:
+            reader = csv.reader(f)
+            # self.__small_stems = list(reader)
+            self.__number_stems = [item for sublist in list(reader) for item in sublist]
+        # with open("ambiguity_stems.csv", "r") as f:
+        #    reader = csv.DictReader(f)
+        #    self.__ambiguity_stems = list(reader)
+        with open(os.path.join(dirname + "exception_stems.csv"), "r") as f:
+            reader = csv.DictReader(f)
+            self.__exception_stems = list(reader)
+        with open(os.path.join(dirname + "lemma_map.csv"), "r") as f:
+            reader = csv.DictReader(f)
+            self.__lemma_map = list(reader)
+
+        # generate all allomorphs for each affix and allomorph list to affixes list
+        for item in self.__affixes:
+            item['allomorphs'] = self.__GeneratedAllomorph(item['affix'])
+
+        # enf of read_data
+
+    def __rules_affixation(self, affix: str, word: str, i: int):
+        # 1-rule
+        if affix == "(i)m":  # (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
+            if word[i:] == "m" and word[i-1] not in ['a']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
+                return True
+        return False
+
     # stemni ichidagilarni alohida metodni ichiga ol, keyin undan umumiy holda yani stem, lemma, analyse metodlaridan foydalanamiz
 
     def __processing(self, word: str, pos: str = None, is_lemmatize: bool = False, multi_item: bool = False):
@@ -181,7 +186,8 @@ class UzMorphAnalyser:
                 # predict_as_affix = word[i:]
                 result_items = []  # list of dictionary [{'stem':'biz', 'affixed':'lar', ...},{...}]
                 for item in affixes:
-                    if word[i:] in self.__GeneratedAllomorph(item["affix"]):
+                    # if word[i:] in self.__GeneratedAllomorph(item["affix"]):
+                    if word[i:] in item["allomorphs"]:
                         # print(self.__GeneratedAllomorph(item["affix"]))
                         # print(position)
                         # print(self.__GeneratedAllomorph(item["affix"]))
@@ -214,7 +220,7 @@ class UzMorphAnalyser:
                             if result:
                                 flag = False
                                 for i_affixes in affixes:  # agar exception.csv dan topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
-                                    if item_ex['affixed'] in self.__GeneratedAllomorph(i_affixes["affix"]):
+                                    if item_ex['affixed'] in i_affixes["allomorphs"]:
                                         i_affixes['stem'], i_affixes['affixed'] = item_ex['stem'], item_ex['affixed']
                                         result_items.append(i_affixes)
                                         flag = True
@@ -282,7 +288,7 @@ class UzMorphAnalyser:
         if word[:7] == "ko'rsat":
             result_items = []
             for i_affixes in affixes:  # agar kursat topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
-                if word[7:] in self.__GeneratedAllomorph(i_affixes["affix"]):
+                if word[7:] in i_affixes["allomorphs"]:
                     i_affixes['stem'], i_affixes['affixed'] = word[:4], word[4:]  # bu dictga kursat felini nisbati haqidagi informatsiyani qushib yuborsa xam buladi
                     result_items.append(i_affixes)
                     if multi_item:
@@ -300,7 +306,7 @@ class UzMorphAnalyser:
                     print(lemma + '\t' + full_affix)
                     result_items = []
                     for i_affixes in affixes:  # qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
-                        if full_affix in self.__GeneratedAllomorph(i_affixes["affix"]):
+                        if full_affix in i_affixes["allomorphs"]:
                             i_affixes['stem'], i_affixes['affixed'] = lemma, full_affix
                             result_items.append(i_affixes)
                             if multi_item:
@@ -391,7 +397,7 @@ class UzMorphAnalyser:
     def sent_tokenize(self, text):
         tokens = []
         return tokens
-'''
+
 import time
 start_time = time.time()
 
@@ -407,12 +413,12 @@ sent1 = sent1.replace(')', ' ')
 
 for token in sent1.split(" "):
     token = token.lower()
-    #print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+    print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
 print("--- %s seconds ---" % (time.time() - start_time))
 while (True):
     s = input().lower()
     print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
-'''
+
 # print(analyzer.lemmatize('benim'))
 # [('benim', ['ben'])]
 
