@@ -144,10 +144,10 @@ class UzMorphAnalyser:
 
         # enf of read_data
 
-    def __rules_affixation(self, affix: str, word: str, i: int):
-        # 1-rule
+    def __is_ok_affixation_rules(self, affix: str, word: str, i: int):
+        # 1-rule  True = affix qirqilsin, aks holda qirqilmasin
         if affix == "(i)m":  # (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
-            if word[i:] == "m" and word[i-1] not in ['a']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
+            if word[i:] == "m" and word[i-1] in ['a']:  # agar oldigi harfi a ga teng bulsa bunda m ni qirqsin, bulmasa yuq
                 return True
         return False
 
@@ -204,36 +204,38 @@ class UzMorphAnalyser:
                             if word[:i] in self.__number_stems:
                                 item['stem'], item['affixed'] = word[:i], word[i:]  # add stem key_value to item dictionary from affixes
                                 result_items.append(item)
-                                if multi_item:  # bu kod stem va lemmatize metodlari chaqirlganda faqat bitta asosni topsa bulgani va shuni qaytaradi, anaylyse metodi orqali kirganda barcha affixeslarni kurib chiqin multi_item xolida chiqarish uchun yozildi, agar multi_item bulsa sikl aylanaveradi, aks holda return bub tuxtaydi
+                                if not multi_item:  # bu kod stem va lemmatize metodlari chaqirlganda faqat bitta asosni topsa bulgani va shuni qaytaradi, anaylyse metodi orqali kirganda barcha affixeslarni kurib chiqin multi_item xolida chiqarish uchun yozildi, agar multi_item bulsa sikl aylanaveradi, aks holda return bub tuxtaydi
                                     return result_items
-                                continue
+                            continue
                                 ###return item
-                            else:
-                                continue
                                 ###break
 
                         # exception dan suzlarni tekshirib olish
                         if len(word[i:]) <= 3:  # 3 bu yerda fine-tuning qilingan, yani 3 harfdan katta qushimchalarda xatolik bulmaydi va bundaylarni tugri qirqsak buladi
-                            if self.__rules_affixation(item['affix'], word, i):  # xar xil qoidalar, biron qushimchalar buyicah, masalan, (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
+
+                            if not self.__is_ok_affixation_rules(item['affix'], word, i):  # xar xil qoidalar, biron qushimchalar buyicha, masalan, (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
                                 continue
+
                             result, item_ex = stem_find_exceptions(self, word, pos, i + 1)
                             if result:
-                                flag = False
+                                found_aff = False
                                 for i_affixes in affixes:  # agar exception.csv dan topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
                                     if item_ex['affixed'] in i_affixes["allomorphs"]:
                                         i_affixes['stem'], i_affixes['affixed'] = item_ex['stem'], item_ex['affixed']
                                         result_items.append(i_affixes)
-                                        flag = True
-                                        if multi_item:
+                                        found_aff = True
+                                        if not multi_item:
                                             return result_items
 
-                                        break
+                                        #####break
                                         ###return i_affixes
-                                if not flag:
+                                if found_aff:
+                                    return result_items
+                                else:
                                     result_items.append(item_ex)
-                                    if multi_item:
-                                        return result_items
-                                continue
+                                    return result_items
+
+                                break  # agar len(affix)<=3 bulsa va stem exception.csv dan topilmasa, bu affixni qirqmay, navbatdagi affixni yasash uchun bu sikl sindiriladi
                                 ###return item_ex  # agar suz exceptionda bor bulsa va unda umuman qushimchasi bulmasa
                             # end of stem_find_exception
 
@@ -242,6 +244,8 @@ class UzMorphAnalyser:
                             if word[:i] in self.__small_stems:
                                 item['stem'], item['affixed'] = word[:i], word[i:]
                                 result_items.append(item)
+                                if not multi_item:
+                                    return result_items
                                 continue
                                 ###return item
                             else:
@@ -252,7 +256,9 @@ class UzMorphAnalyser:
                         # exwords da faqat affix bn tugaydigan suzlar turadi.
                         # agar suz exwordda bulsa qirqmaydi va alternativini qaraydi,
                         # aks holda yani suz exwordda bulmasa qirqib tashlaydi
-                        if float(item["confidence"]) <= 0.1 and False:
+
+                        #if float(item["confidence"]) <= 0.1 and False:
+                        if False:
                             # print("affix "+item['affix'])
                             # 3-rule
                             # if word in [ambg_stem['stem'] for ambg_stem in self.__ambiguity_stems]:
@@ -277,7 +283,7 @@ class UzMorphAnalyser:
         # algorithm for stem
         # 1-step: check non affixed words list
         for na_stem in self.__non_affixed_stems: #stem,pos,affixed
-            if word in na_stem['stem']:
+            if word == na_stem['stem']:
                 na_stem['affixed'] = ''
                 return [na_stem]
 
