@@ -40,3 +40,21 @@ csv fayllar buyicha
 -------------------------------------
 nisbat shaklidagi Y:a,y quhsimchalarini uchirihs kerak, chunki bular kup xatolikka olib keladi
 mayl shaklidagi (a)y: ay,y quhsimchalarini uchirish garak, chunki bular kup xatolikka olib keladi
+
+OverStemming
+Over-stemming is when two words with different stems are stemmed to the same root.
+This is also known as a false positive.
+universal
+university
+universe
+All the above 3 words are stemmed to univers which is wrong behavior.
+
+UnderStemming
+Under-stemming is when two words that should be stemmed to the same root are not.
+This is also known as a false negative. Below is the example for the same.
+alumnus
+alumni
+alumnae
+https://medium.com/@tusharsri/nlp-a-quick-guide-to-stemming-60f1ca5db49e
+
+Resource: https://www.researchgate.net/publication/340672608_Empirical_evaluation_and_study_of_text_stemming_algorithms

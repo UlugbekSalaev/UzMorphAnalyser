@@ -147,9 +147,9 @@ class UzMorphAnalyser:
     def __is_ok_affixation_rules(self, affix: str, word: str, i: int):
         # 1-rule  True = affix qirqilsin, aks holda qirqilmasin
         if affix == "(i)m":  # (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
-            if word[i:] == "m" and word[i-1] in ['a']:  # agar oldigi harfi a ga teng bulsa bunda m ni qirqsin, bulmasa yuq
-                return True
-        return False
+            if word[i:] == "m" and word[i-1] not in ['a']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
+                return False  # don't chop, break it
+        return True  # it is ok, go on chopping
 
     # stemni ichidagilarni alohida metodni ichiga ol, keyin undan umumiy holda yani stem, lemma, analyse metodlaridan foydalanamiz
 
@@ -188,6 +188,7 @@ class UzMorphAnalyser:
                 for item in affixes:
                     # if word[i:] in self.__GeneratedAllomorph(item["affix"]):
                     if word[i:] in item["allomorphs"]:
+
                         # print(self.__GeneratedAllomorph(item["affix"]))
                         # print(position)
                         # print(self.__GeneratedAllomorph(item["affix"]))
@@ -211,7 +212,7 @@ class UzMorphAnalyser:
                                 ###break
 
                         # exception dan suzlarni tekshirib olish
-                        if len(word[i:]) <= 3:  # 3 bu yerda fine-tuning qilingan, yani 3 harfdan katta qushimchalarda xatolik bulmaydi va bundaylarni tugri qirqsak buladi
+                        if len(word[i:]) <= 5:  # 3 bu yerda fine-tuning qilingan, yani 3 harfdan katta qushimchalarda xatolik bulmaydi va bundaylarni tugri qirqsak buladi
 
                             if not self.__is_ok_affixation_rules(item['affix'], word, i):  # xar xil qoidalar, biron qushimchalar buyicha, masalan, (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
                                 continue
@@ -273,10 +274,13 @@ class UzMorphAnalyser:
 
                         item['stem'], item['affixed'] = word[:i], word[i:]
                         result_items.append(item)
+                        if not multi_item:
+                            return result_items
                         ###return item  # chopping with 100% confidence
 
                 if result_items:  # if not empty
                     return result_items
+
             return [{'stem': word, 'affixed': '', 'pos': None}]
             # end of stem_find
 
@@ -297,7 +301,7 @@ class UzMorphAnalyser:
                 if word[7:] in i_affixes["allomorphs"]:
                     i_affixes['stem'], i_affixes['affixed'] = word[:4], word[4:]  # bu dictga kursat felini nisbati haqidagi informatsiyani qushib yuborsa xam buladi
                     result_items.append(i_affixes)
-                    if multi_item:
+                    if not multi_item:
                         return result_items
                     ###return [i_affixes]
             if result_items:  # if not empty
@@ -309,7 +313,6 @@ class UzMorphAnalyser:
                 if word.startswith(item_lemma['word']):
                     lemma = item_lemma['lemma']
                     full_affix = item_lemma['affix'] + word[len(item_lemma['word']):]  # [-n:] bunda suzdagi qolganlar harflarni oxirigacha olamiz
-                    print(lemma + '\t' + full_affix)
                     result_items = []
                     for i_affixes in affixes:  # qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
                         if full_affix in i_affixes["allomorphs"]:
@@ -335,7 +338,7 @@ class UzMorphAnalyser:
         list_item = self.__processing(word)
         #print(list_item)
         # return str([d['stem'] for d in list_item])
-        return list_item[0]['stem']  # dict['stem] == dict.get('stem')
+        return list_item[0]['stem']    # dict['stem] == dict.get('stem')
 
     def lemmatize(self, word: str, pos: str = None):
         # print(self.__lemma_map)
@@ -350,7 +353,7 @@ class UzMorphAnalyser:
         res_list_item = []
         for item in list_item:
             res_dict = {'word': word, 'lemma': item['stem'], 'pos': item['pos']}
-            for key in ['affixed','tense','person','cases','singular','plural','question','negative','impulsion','copula']:   # impulsion=mayl, copula=boglama
+            for key in ['id','affix','affixed','tense','person','cases','singular','plural','question','negative','impulsion','copula','verb_voice','verb_func']:   # impulsion=mayl, copula=boglama
                 if key in item:
                     if item[key] != "":
                         res_dict[key] = item[key]
@@ -408,9 +411,15 @@ import time
 start_time = time.time()
 
 obj = UzMorphAnalyser()
+'''
 sent = "olmasi taqgandim olma taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
 with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
     sent1 = file.read().rstrip()
+sent1 = sent1.replace('	', ' ')
+sent1 = sent1.replace('!', ' ')
+sent1 = sent1.replace('?', ' ')
+sent1 = sent1.replace('“', ' ')
+sent1 = sent1.replace('”', ' ')
 sent1 = sent1.replace(',', ' ')
 sent1 = sent1.replace('.', ' ')
 sent1 = sent1.replace('\n', ' ')
@@ -419,8 +428,17 @@ sent1 = sent1.replace(')', ' ')
 
 for token in sent1.split(" "):
     token = token.lower()
+    if token == "":
+        continue
     print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
 print("--- %s seconds ---" % (time.time() - start_time))
+'''
+with open(os.path.join(os.path.dirname(__file__) + "/" + "test_token.txt"), 'r', encoding='utf8') as file:
+    for token in file:
+        token = token.rstrip()
+        print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+print("--- %s seconds ---" % (time.time() - start_time))
+
 while (True):
     s = input().lower()
     print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
@@ -447,3 +465,9 @@ Parse object fields include:
  morphemes: sequence of morphemes in the word, a list of strings - abbreviations of English names of morphemes.
  formatted: a human-readable string representation of the analysis. There are several kinds of possible formats. Default formatter shows the dictionary item and its part of speech, and morphemes (with their surfaces, if available), divided into inflectional groups by | character.
 '''
+
+#(i)t kirit, (i)l ko'ril, (i)n ko'rin, Y{bora,kuylay}, (a)r{borar,kuylar} qo'shimchalarini uchiramiz bazadan, chunki bir xarfli qushimchalar suzlarni oxirini kup qirqib yuboradi
+
+# test file statistics:
+# source:daryo.uz, category:4, documents for each category: 10
+# 5,288 unique words of 11,952 total (44.24%):
