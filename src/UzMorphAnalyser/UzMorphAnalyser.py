@@ -144,14 +144,33 @@ class UzMorphAnalyser:
 
         # enf of read_data
 
-    def __is_ok_affixation_rules(self, affix: str, word: str, i: int):
-        # 1-rule  True = affix qirqilsin, aks holda qirqilmasin
-        if affix == "(i)m":  # (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
-            if word[i:] == "m" and word[i-1] not in ['a']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
+    def __check_affixation_rules(self, affix: str, word: str, i: int):
+        # True = affix qirqilsin, aks holda qirqilmasin
+        # 1-rule
+        if affix.startswith("(i)m"):  # (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
+            if word[i] == "m" and word[i-1] not in ['a','i']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
                 return False  # don't chop, break it
+        # 2-rule
+        if affix.startswith("(S)i"):  # (S)i {S=s,y}  quchimchasidan oldin a,i harfi keladi. bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
+            if word[i] == "s" and word[i-1] not in ['a','i']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
+                return False  # don't chop, break it
+        # 3-rule
+        if affix.startswith('G'):  # Guncha, Gani,Gan,Gancha,Gani {G=g,k,q}  qushimchasidan oldin k,q harfi kelishi kerak, agar bunday bulmasa bu qushimchani qirqamay utirib yuboramiz
+            if (word[i] == "k" and word[i-1] not in ['k']) or (word[i] == "q" and word[i-1] not in ['q']):  # bulsa qushimchani qirqmasin
+                return False  # don't chop, break it
+        # 4-rule
+        if affix.startswith("ir"):  # ir  qushimchasi t,ch,sh harflaridan keyin qushiladi faqat. botir,ichir,shishir
+            if word[i-1] != "t" and word[i-2:i] not in ["ch", "sh"]:  # bulsa bunda qushimchani qirqmasin
+                return False  # don't chop, break it
+
         return True  # it is ok, go on chopping
 
-    # stemni ichidagilarni alohida metodni ichiga ol, keyin undan umumiy holda yani stem, lemma, analyse metodlaridan foydalanamiz
+    def __correction_stem(self, self1, result):
+        # 1-rule
+
+        return result
+
+    #  umumiy holda yani stem, lemma, analyse metodlaridan turib __processing metodidan foydalanamiz
 
     def __processing(self, word: str, pos: str = None, is_lemmatize: bool = False, multi_item: bool = False):
         affixes = []
@@ -185,6 +204,7 @@ class UzMorphAnalyser:
                 # predict_as_stem = word[:i]
                 # predict_as_affix = word[i:]
                 result_items = []  # list of dictionary [{'stem':'biz', 'affixed':'lar', ...},{...}]
+
                 for item in affixes:
                     # if word[i:] in self.__GeneratedAllomorph(item["affix"]):
                     if word[i:] in item["allomorphs"]:
@@ -211,11 +231,12 @@ class UzMorphAnalyser:
                                 ###return item
                                 ###break
 
+                        # check different kind of affixation rules
+                        if not self.__check_affixation_rules(item['affix'], word, i):  # xar xil qoidalar, biron qushimchalar buyicha, masalan, (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
+                           continue
+
                         # exception dan suzlarni tekshirib olish
                         if len(word[i:]) <= 5:  # 3 bu yerda fine-tuning qilingan, yani 3 harfdan katta qushimchalarda xatolik bulmaydi va bundaylarni tugri qirqsak buladi
-
-                            if not self.__is_ok_affixation_rules(item['affix'], word, i):  # xar xil qoidalar, biron qushimchalar buyicha, masalan, (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
-                                continue
 
                             result, item_ex = stem_find_exceptions(self, word, pos, i + 1)
                             if result:
@@ -331,6 +352,10 @@ class UzMorphAnalyser:
         # if len(stem)<=2:    #checking the small stem is exist or not
         #    if not stem in self.__small_stems:
         #        stem=stem_find(self, word, 3)
+
+        #check stem after chopped affixs, if it should be change, corrected it as lemma, for example: [qiyinchilig+i ->qiyinchilik (xarf uzgarishi)], [avzoy+im->avzo, (xarf ortishi)]
+        result = self.__correction_stem(self, result)
+
         return result
         # end of processing
 
@@ -436,7 +461,7 @@ print("--- %s seconds ---" % (time.time() - start_time))
 with open(os.path.join(os.path.dirname(__file__) + "/" + "test_token.txt"), 'r', encoding='utf8') as file:
     for token in file:
         token = token.rstrip()
-        print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+        # print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
 print("--- %s seconds ---" % (time.time() - start_time))
 
 while (True):

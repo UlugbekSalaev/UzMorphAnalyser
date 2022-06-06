@@ -82,6 +82,7 @@ API configurations:
    - Parameters: <code>word:string</code>, <code>pos:string</code>
    - Sample Request: https://uztranslit.herokuapp.com/analyze?word=maktabimda&pos=NOUN
 
+<i>Note: argument <code>pos</code> is optional in all methods</i>
 ### Web-UI
 
 The web interface created to use easily the library:
@@ -107,9 +108,7 @@ It returns single word in a string type from each method, `stem` and `lemmatize`
 #### Result from `analyze` method
 `analyze` method returns a response as list of dictionary which is may contain following keys: 
 ```yml
- {'word', 'lemma', 'pos', 'affixed', 'tense', 
-   'person', 'cases', 'singular', 'plural', 'question', 
-   'negative', 'impulsion', 'copula'}: 
+ {'word', 'lemma', 'pos', 'affix','affixed','tense','person','cases','singular','plural','question','negative','impulsion','copula','verb_voice','verb_func'}: 
 ```
 
 ## Documentation
