@@ -145,13 +145,14 @@ class UzMorphAnalyser:
         # enf of read_data
 
     def __check_affixation_rules(self, affix: str, word: str, i: int):
+
         # True = affix qirqilsin, aks holda qirqilmasin
         # 1-rule
         if affix.startswith("(i)m"):  # (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
             if word[i] == "m" and word[i-1] not in ['a','i']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
                 return False  # don't chop, break it
         # 2-rule
-        if affix.startswith("(S)i"):  # (S)i {S=s,y}  quchimchasidan oldin a,i harfi keladi. bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
+        if affix.startswith("(s)i"):  # (s)i quchimchasidan oldin a,i harfi keladi. bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
             if word[i] == "s" and word[i-1] not in ['a','i']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
                 return False  # don't chop, break it
         # 3-rule
@@ -162,13 +163,34 @@ class UzMorphAnalyser:
         if affix.startswith("ir"):  # ir  qushimchasi t,ch,sh harflaridan keyin qushiladi faqat. botir,ichir,shishir
             if word[i-1] != "t" and word[i-2:i] not in ["ch", "sh"]:  # bulsa bunda qushimchani qirqmasin
                 return False  # don't chop, break it
+        # 5-rule
+        if affix.startswith("iz"):  # iz  qushimchasi q,m harflaridan keyin qushiladi faqat. oqiz, tomiz
+            if word[i-1] not in ["q", "m"]:  # bulsa bunda qushimchani qirqmasin
+                return False  # don't chop, break it
+        # 6-rule
+        if affix.startswith("(i)b"):  # (i)b  qushimchasi a,i harflaridan keyin qushiladi faqat. aytib,kuylab
+            if word[i] == "b" and word[i-1] not in ["i", "a"]:  # bulsa bunda qushimchani qirqmasin
+                return False  # don't chop, break it
 
         return True  # it is ok, go on chopping
 
     def __correction_stem(self, self1, result):
-        # 1-rule
+        for item in result:  # result is list
+            # I-type: xarf ortishi (avzoy+im->avzo, bun+da->bu)
+            # 1-rule [avzoy+im->avzo, (xarf ortishi)] mavqe,azvo,obro',mavzu
+            if item['affixed'].startswith("i") and item['stem'][-2:] in ["ey", "oy", "uy", "'y"]:
+                item['stem'] = item['stem'][:-1]
+            # 2-rule [bun+da->bu, (xarf ortishi)] unda,unday,bunda,bunday,shunda,shunday, shunga,bunga
+            if (item['affixed'].startswith("d") or item['affixed'].startswith("g")) and item['stem'] in ["un", "bun", "shun"]:
+                item['stem'] = item['stem'][:-1] # remove last letter which is n from stem
+
+            # II-type: Xarf uzgarishi
+            # 1-rule [qiyinchilig+i ->qiyinchilik (xarf uzgarishi)]
+            if item['affixed'].startswith("i") and (item["stem"][-3:] == "lig" or item['stem'][-2] in ['a']): # -2 = a bulsa, yurag
+                item['stem'] = item['stem'][:-1] + "k"
 
         return result
+        #end of correction_stem
 
     #  umumiy holda yani stem, lemma, analyse metodlaridan turib __processing metodidan foydalanamiz
 
@@ -378,7 +400,7 @@ class UzMorphAnalyser:
         res_list_item = []
         for item in list_item:
             res_dict = {'word': word, 'lemma': item['stem'], 'pos': item['pos']}
-            for key in ['id','affix','affixed','tense','person','cases','singular','plural','question','negative','impulsion','copula','verb_voice','verb_func']:   # impulsion=mayl, copula=boglama
+            for key in ['id','affix','affixed','tense','person','possession','cases','verb_voice','verb_func','impulsion','copula','singular','plural','question','negative']:   # impulsion=mayl, copula=boglama
                 if key in item:
                     if item[key] != "":
                         res_dict[key] = item[key]
