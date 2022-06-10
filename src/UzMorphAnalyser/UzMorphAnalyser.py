@@ -13,7 +13,7 @@ class UzMorphAnalyser:
     __lemma_map = []  # list of lemma convertion mapping from lemma_map.csv file
     # __ambiguity_stems = []  # list of ambiguity stems from ambiguity_stems.csv file | oxiri affix bn tugaydigan asos suzlar
 
-    __vovel = ['a', 'u', 'e', 'i', 'o']
+    __vovel = ['a', 'u', 'e', 'i', 'o',"o'"]
     __consonant_hard = ['b', 'd', 'g', 'j', 'l', 'm', 'n', 'r', 'v', 'y', 'z', "g'", 'ng']  # jarangli undosh
     __consonant_soft = ['f', 'h', 'k', 'p', 'q', 's', 't', 'x', 'sh', 'ch']  # jarangsiz undosh
 
@@ -145,16 +145,28 @@ class UzMorphAnalyser:
         # enf of read_data
 
     def __check_affixation_rules(self, affix: str, word: str, i: int):
-
         # True = affix qirqilsin, aks holda qirqilmasin
-        # 1-rule
+        '''
+        # 0-rule Suz harflarini joylashuviga kura suz oxirida 2ta unli yoki 2 ta undosh bilan asos tugamaydi, agar bunday hol bulayotgan bulsa, undan bu qushimchani qirqishni otkaz qilamiz
+        buf = word[:i]
+        if len(buf[-3:].replace("'","")) == 2:
+            buf = buf[-3:].replace("'", "")
+        else:
+            buf = buf[-2:]
+        if not buf in ['sh', 'ch']:
+            if (buf[0] in self.__vovel and buf[1] in self.__vovel) or (buf[0] not in self.__vovel and buf[1] not in self.__vovel): # asosdagi oxirgi 2 harfni 2lasi xam unli yoki undosh bulsa
+                return False
+        '''
+
+        # 1.1-rule
         if affix.startswith("(i)m"):  # (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
             if word[i] == "m" and word[i-1] not in ['a','i']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
                 return False  # don't chop, break it
-        # 2-rule
+        # 1.2-rule
         if affix.startswith("(s)i"):  # (s)i quchimchasidan oldin a,i harfi keladi. bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
             if word[i] == "s" and word[i-1] not in ['a','i']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
                 return False  # don't chop, break it
+
         # 3-rule
         if affix.startswith('G'):  # Guncha, Gani,Gan,Gancha,Gani {G=g,k,q}  qushimchasidan oldin k,q harfi kelishi kerak, agar bunday bulmasa bu qushimchani qirqamay utirib yuboramiz
             if (word[i] == "k" and word[i-1] not in ['k']) or (word[i] == "q" and word[i-1] not in ['q']):  # bulsa qushimchani qirqmasin
@@ -186,7 +198,10 @@ class UzMorphAnalyser:
 
             # II-type: Xarf uzgarishi
             # 1-rule [qiyinchilig+i ->qiyinchilik (xarf uzgarishi)]
-            if item['affixed'].startswith("i") and (item["stem"][-3:] == "lig" or item['stem'][-2] in ['a']): # -2 = a bulsa, yurag
+            if item['affixed'].startswith("i") and item["stem"][-3:] == "lig": # [-3:] = oxirgi 3 harf = "lig" bulsa
+                item['stem'] = item['stem'][:-1] + "k"
+            # 2-rule [bilag+i ->bilak (xarf uzgarishi)]
+            if item['affixed'].startswith("i") and item["stem"][-2:] == "ag": #  [-2:] = oxirgi 2 harfi = "ag" bulsa
                 item['stem'] = item['stem'][:-1] + "k"
 
         return result
@@ -259,7 +274,6 @@ class UzMorphAnalyser:
 
                         # exception dan suzlarni tekshirib olish
                         if len(word[i:]) <= 5:  # 3 bu yerda fine-tuning qilingan, yani 3 harfdan katta qushimchalarda xatolik bulmaydi va bundaylarni tugri qirqsak buladi
-
                             result, item_ex = stem_find_exceptions(self, word, pos, i + 1)
                             if result:
                                 found_aff = False
@@ -281,7 +295,6 @@ class UzMorphAnalyser:
 
                                 break  # agar len(affix)<=3 bulsa va stem exception.csv dan topilmasa, bu affixni qirqmay, navbatdagi affixni yasash uchun bu sikl sindiriladi
                                 ###return item_ex  # agar suz exceptionda bor bulsa va unda umuman qushimchasi bulmasa
-                            # end of stem_find_exception
 
                         # 2.1-rule qushimchasi topilgandan keyin oldingi turgan stem small_stemni ichida bormi yuqmi
                         if i <= 2:  # i==2 bulsa 0 va 1 belgini oladi, [:2] da 2 ikkini uzi kirmaydi
@@ -483,7 +496,7 @@ print("--- %s seconds ---" % (time.time() - start_time))
 with open(os.path.join(os.path.dirname(__file__) + "/" + "test_token.txt"), 'r', encoding='utf8') as file:
     for token in file:
         token = token.rstrip()
-        # print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+        #print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
 print("--- %s seconds ---" % (time.time() - start_time))
 
 while (True):
