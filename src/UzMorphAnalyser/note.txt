@@ -58,3 +58,12 @@ alumnae
 https://medium.com/@tusharsri/nlp-a-quick-guide-to-stemming-60f1ca5db49e
 
 Resource: https://www.researchgate.net/publication/340672608_Empirical_evaluation_and_study_of_text_stemming_algorithms
+
+idea for maqola:
+- kiritadi -> kirita oladi, yordamchi felli suz birikmalarini bitta suz bn yozish mumkin. bu esa affixlarni sonini kupaytiradi va turli yangi affixlarni hosil qiladi, disambiguty xatolashishlar sonini oshiradi
+
+Qo'shimchalar vazifasiga ko'ra:
+1) So'z yasovchi qushimchalari:
+2) Shakl yasovchi quchimchalar
+    a) lugaviy shakl yasovchi - asosga qo'shilib, unag quchimcha mano yuklovchi (grammatik mano qushadi), suz yasamaydi va suzlarni bir biriga boglamaydi
+    b) suntaktik shakl yasovchi (Munosabat shakllari deb xam ataladi)  - suzlarga qushilib gapdagi suzlarni bir biriga boglash uchunishlatiladi
