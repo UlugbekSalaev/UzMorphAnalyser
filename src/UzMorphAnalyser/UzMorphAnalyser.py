@@ -193,6 +193,10 @@ class UzMorphAnalyser:
         if affix.startswith("(i)l"):  # -(i)l:  bo'lgan suzida -(i)lgan qushimchasini qirqib yuboryapti, -(i)l qushimchasidan -l quchimchasi faqat unli bn tugagan asosga qushiladi, bu asoslar kamida 4 harfdan iborat buladi katta ehtimol bn: ajra+lgan
             if word[i] == "l" and i < 4:  # bulsa bunda qushimchani qirqmasin
                 return False  # don't chop, break it
+        # 8-rule  -(s)i kitobi dagi -i ni qirqanda to'g'ri dagi -i ni qirqadi, -i qirqilganda undan oldingi harflarni 2tasi unli+undosh bulsa qirqilsin, aksholda otkaz
+        if affix.startswith("(s)i") and word[i] == "i" and i > 2:
+            if not (word[i-2] in self.__vovel and word[i-1] not in self.__vovel):
+                return False  # don't chop, break it
 
         return True  # it is ok, go on chopping
 
