@@ -67,3 +67,13 @@ Qo'shimchalar vazifasiga ko'ra:
 2) Shakl yasovchi quchimchalar
     a) lugaviy shakl yasovchi - asosga qo'shilib, unag quchimcha mano yuklovchi (grammatik mano qushadi), suz yasamaydi va suzlarni bir biriga boglamaydi
     b) suntaktik shakl yasovchi (Munosabat shakllari deb xam ataladi)  - suzlarga qushilib gapdagi suzlarni bir biriga boglash uchunishlatiladi
+
+----------test for small affix is more error that long affix decrease error rate
+iqlim
+iqlim	iql	iql	[{'word': 'iqlim', 'lemma': 'iql', 'pos': '', 'id': '1', 'affix': '(i)m', 'affixed': 'im'}]
+iqlimning
+iqlimning	iql	iql	[{'word': 'iqlimning', 'lemma': 'iql', 'pos': '', 'id': '354', 'affix': '(i)mning', 'affixed': 'imning'}]
+iqlimdagi
+iqlimdagi	iqlimdagi	iqlimdagi	[{'word': 'iqlimdagi', 'lemma': 'iqlimdagi', 'pos': None}]
+iqlimini
+iqlimini	iqlim	iqlim	[{'word': 'iqlimini', 'lemma': 'iqlim', 'pos': '', 'id': '171', 'affix': '(s)ini', 'affixed': 'ini'}]

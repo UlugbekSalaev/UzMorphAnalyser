@@ -150,7 +150,7 @@ class UzMorphAnalyser:
         # 0-rule Suz harflarini joylashuviga kura suz oxirida 2ta unli yoki 2 ta bir xil harfli undosh bilan asos tugamaydi (ikki->ikk), agar bunday hol bulayotgan bulsa, undan bu qushimchani qirqishni otkaz qilamiz. 2 xil undosh bn tugashi mumkin: tort+ib
         buf = word[i-2:i]  # suzni asosidagi oxirgi 2 ta harfni olish
         if len(buf) == 2:
-            if (buf[0] in self.__vovel and buf[1] in self.__vovel) or (buf[0] not in self.__vovel and buf[0] == buf[1]): # asosdagi oxirgi 2 harfni 2lasi xam unli yoki 2ta bir xil harfli undosh bulsa (ikk)
+            if (buf[0] in self.__vovel and buf[1] in self.__vovel) or (buf[0] not in self.__vovel and buf[0] == buf[1]):  # asosdagi oxirgi 2 harfni 2lasi xam unli yoki 2ta bir xil harfli undosh bulsa (ikk)
                 return False
 
         # 1.1-rule
@@ -190,9 +190,6 @@ class UzMorphAnalyser:
         if word[i:].startswith("i") and word[i-3:i] == "dag":  # -dagi qushimchasidan -i qushimchasini qirqauotgan bulsa buni qirqtirmaymiz, chunki dagini tuliq uizni qirqadi yoki tugri kelmasi qirqmaydi
             return False  # don't chop, break it
         # 7-rule
-        if word[i:].startswith("i") and word[i-3:i] == "dag":
-            pass
-
         if affix.startswith("(i)l"):  # -(i)l:  bo'lgan suzida -(i)lgan qushimchasini qirqib yuboryapti, -(i)l qushimchasidan -l quchimchasi faqat unli bn tugagan asosga qushiladi, bu asoslar kamida 4 harfdan iborat buladi katta ehtimol bn: ajra+lgan
             if word[i] == "l" and i < 4:  # bulsa bunda qushimchani qirqmasin
                 return False  # don't chop, break it
@@ -404,7 +401,8 @@ class UzMorphAnalyser:
         #        stem=stem_find(self, word, 3)
 
         #check stem after chopped affixs, if it should be change, corrected it as lemma, for example: [qiyinchilig+i ->qiyinchilik (xarf uzgarishi)], [avzoy+im->avzo, (xarf ortishi)]
-        result = self.__correction_stem(self, result)
+        if is_lemmatize:
+            result = self.__correction_stem(self, result)
 
         return result
         # end of processing
