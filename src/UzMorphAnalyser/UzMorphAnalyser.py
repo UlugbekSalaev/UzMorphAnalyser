@@ -91,7 +91,7 @@ class UzMorphAnalyser:
                     GenAff.append(affix_v2[:uc_v2] + "d" + affix_v2[uc_v2 + 1:])
                 if affix_v2[uc_v2] == "Q":  # Q:g,g',k,q
                     GenAff.append(affix_v2[:uc_v2] + "g" + affix_v2[uc_v2 + 1:])
-                    GenAff.append(affix_v2[:uc_v2] + "gʻ" + affix_v2[uc_v2 + 1:])
+                    GenAff.append(affix_v2[:uc_v2] + "g‘" + affix_v2[uc_v2 + 1:])
                     GenAff.append(affix_v2[:uc_v2] + "k" + affix_v2[uc_v2 + 1:])
                     GenAff.append(affix_v2[:uc_v2] + "q" + affix_v2[uc_v2 + 1:])
                 if affix_v2[uc_v2] == "S":  # S:s,y
@@ -146,10 +146,9 @@ class UzMorphAnalyser:
 
     def __check_affixation_rules(self, affix: str, word: str, i: int):
         # True = affix qirqilsin, aks holda qirqilmasin
-
         # 0-rule Suz harflarini joylashuviga kura suz oxirida 2ta unli yoki 2 ta bir xil harfli undosh bilan asos tugamaydi (ikki->ikk), agar bunday hol bulayotgan bulsa, undan bu qushimchani qirqishni otkaz qilamiz. 2 xil undosh bn tugashi mumkin: tort+ib
         buf = word[i-2:i]  # suzni asosidagi oxirgi 2 ta harfni olish
-        if len(buf) == 2:
+        if len(buf) == 2 and i < 4:
             if (buf[0] in self.__vovel and buf[1] in self.__vovel) or (buf[0] not in self.__vovel and buf[0] == buf[1]):  # asosdagi oxirgi 2 harfni 2lasi xam unli yoki 2ta bir xil harfli undosh bulsa (ikk)
                 return False
 
@@ -193,10 +192,15 @@ class UzMorphAnalyser:
         if affix.startswith("(i)l"):  # -(i)l:  bo'lgan suzida -(i)lgan qushimchasini qirqib yuboryapti, -(i)l qushimchasidan -l quchimchasi faqat unli bn tugagan asosga qushiladi, bu asoslar kamida 4 harfdan iborat buladi katta ehtimol bn: ajra+lgan
             if word[i] == "l" and i < 4:  # bulsa bunda qushimchani qirqmasin
                 return False  # don't chop, break it
-        # 8-rule  -(s)i kitobi dagi -i ni qirqanda to'g'ri dagi -i ni qirqadi, -i qirqilganda undan oldingi harflarni 2tasi unli+undosh bulsa qirqilsin, aksholda otkaz
-        if affix.startswith("(s)i") and word[i] == "i" and i > 2:
-            if not (word[i-2] in self.__vovel and word[i-1] not in self.__vovel):
+        # 4-rule
+        if affix.startswith("iz"):  # iz  qushimchasi q,m harflaridan keyin qushiladi faqat. oqiz, tomiz
+            if word[i-1] not in ["q", "m"]:  # bulsa bunda qushimchani qirqmasin
                 return False  # don't chop, break it
+
+        # 8-rule  -(s)i kitobi dagi -i ni qirqanda to'g'ri dagi -i ni qirqadi, -i qirqilganda undan oldingi harflarni 2tasi unli+undosh bulsa qirqilsin, aksholda otkaz
+        #if affix.startswith("(s)i") and word[i] == "i" and i > 2 and word[i-2:i] not in ['ng','tr','vq','st']: # asosni oxirgi 2 harfi -ng ga teng bulmasa jang+i, metr+i,zavq+i,artist+i da qirqavarsin
+        #    if not (word[i-2] in self.__vovel and word[i-1] not in self.__vovel):
+        #        return False  # don't chop, break it
 
         return True  # it is ok, go on chopping
 

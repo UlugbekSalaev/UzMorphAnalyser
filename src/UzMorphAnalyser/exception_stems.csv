@@ -10,7 +10,7 @@ daftar,NOUN,{(a)r felni gumon shakli}
 opa,NOUN,{}
 barmoq,NOUN,{moq fel qushumchasi}
 muzqaymoq,NOUN,{moq fel qushimchasi}
-qo'ng'iroq,NOUN,{moqni qirqadi}
+qo‘ng‘iroq,NOUN,{moqni qirqadi}
 qaymoq,NOUN,{moq fel qushimchasi}
 kursi,NOUN,{},{kurs+i}
 olma,NOUN,{},{ol+ma VERB}
@@ -21,7 +21,7 @@ qariyb,ADV{(i)b}
 boshqa,ADV,{Ga}
 anjir,NOUN,{(a)r}
 anor,NOUN,{(a)r}
-olxo'ri,NOUN,{(s)i}
+olxo‘ri,NOUN,{(s)i}
 shaftoli,NOUN,{(s)i}
 import,NOUN,{t fel qushimcha}
 qulupnay,NOUN,{(a)y}
@@ -33,9 +33,9 @@ marta,NOUN,{ta son qushimchasi}
 vaqt,NOUN,{t fel qushimchasini qirbaradi}
 yigirma,NUM,{ma bulishsiz quchimchasni qirqbaradi.. lekn yigir+ma},{yigir(V)+ma(neg)}
 qimmat,ADJ,{t fel qushimchasini qirbaradi}
-so'm,NOUN,{(i)m qushimchadagi m ni qirqbaradi}
+so‘m,NOUN,{(i)m qushimchadagi m ni qirqbaradi}
 oddiy,ADJ,{Y(a va y) dagi y ni qirqbaradi}
-ko'chat,NOUN,{t ni qirqbaradi}
+ko‘chat,NOUN,{t ni qirqbaradi}
 noyob,ADJ,{b ni qirqbaradi}
 barcha,ADV,{Y(a/y) dagini qirqadi}
 mart,NOUN,{t ni qirqadi}
@@ -47,24 +47,24 @@ juma,NOUN,{}
 shanba,NOUN,{}
 yakshanba,NOUN,{}
 qanday,ADJ,{}
-ma'lum,ADJ,{}
+ma’lum,ADJ,{}
 harorat,NOUN,{t ni qirqadi}
 daraja,NOUN,{a ni qirqadi}
-bo'yicha,ADV,{a ni qirqadi}
-yomg'ir,NOUN,{r ni qirqadi}
-ba'zi,ADV,{i ni qirqadi}
+bo‘yicha,ADV,{a ni qirqadi}
+yomg‘ir,NOUN,{r ni qirqadi}
+ba’zi,ADV,{i ni qirqadi}
 tezkor,ADJ,{r ni qirqadi}
 katta,ADJ,{a ni qirqadi}
-ro'y,NOUN,{y ni qirqadi}
+ro‘y,NOUN,{y ni qirqadi}
 ayrim,ADJ,{im ni qirqadi}
-ta'sir,NOUN,{r ni qirqadi}
+ta’sir,NOUN,{r ni qirqadi}
 murabbiy,NOUN,{y ni qirqadi}
-yo'riqnoma,NOUN,{ma ni qirqadi}
+yo‘riqnoma,NOUN,{ma ni qirqadi}
 kuchli,ADJ,{i ni qirqadi}
 gacha,ADV,{}
 noma,NOUN,{}
 qaysi,ADJ,{}
-o'tir,VERB,{}
+o‘tir,VERB,{}
 maosh,NOUN,{maoshi, sakra(shi)}
 kutubxona,NOUN,{a ni qirqadi}
 necha,NOUN,{a qirqadi}
@@ -79,3 +79,4 @@ balans,MOUN,{si ni qirqadi}
 aholi,NOUN,{i ni qirqadi}
 ravish,NOUN,{}
 tashqari,ADV,{}
+dollar,NOUN,{}

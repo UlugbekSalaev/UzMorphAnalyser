@@ -77,3 +77,7 @@ iqlimdagi
 iqlimdagi	iqlimdagi	iqlimdagi	[{'word': 'iqlimdagi', 'lemma': 'iqlimdagi', 'pos': None}]
 iqlimini
 iqlimini	iqlim	iqlim	[{'word': 'iqlimini', 'lemma': 'iqlim', 'pos': '', 'id': '171', 'affix': '(s)ini', 'affixed': 'ini'}]
+
+-----------------------
+buloqboshi bunda bosh+i uzi bulsa alohida ajraladi, lekin 2la suz qushilib kelganda buloqboshi buladi, yani -i ajralmaydi
+-----------------------
