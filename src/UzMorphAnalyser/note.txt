@@ -81,3 +81,5 @@ iqlimini	iqlim	iqlim	[{'word': 'iqlimini', 'lemma': 'iqlim', 'pos': '', 'id': '1
 -----------------------
 buloqboshi bunda bosh+i uzi bulsa alohida ajraladi, lekin 2la suz qushilib kelganda buloqboshi buladi, yani -i ajralmaydi
 -----------------------
+
+https://github.com/chomechome/maru
