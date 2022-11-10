@@ -16,6 +16,7 @@ class UzMorphAnalyser:
     __vovel = ['a', 'u', 'e', 'i', 'o',"o'"]
     __consonant_hard = ['b', 'd', 'g', 'j', 'l', 'm', 'n', 'r', 'v', 'y', 'z', "g'", 'ng']  # jarangli undosh
     __consonant_soft = ['f', 'h', 'k', 'p', 'q', 's', 't', 'x', 'sh', 'ch']  # jarangsiz undosh
+    __consonant = ['b', 'd', 'g', 'j', 'l', 'm', 'n', 'r', 'v', 'y', 'z', 'f', 'k', 'p', 'q', 's', 't', 'x', 's', 'c', 'h' ]  # all undosh
 
     # affixes.csv da barcha allomorphlarni qulda generate qilib yozib quyamiz, dastur yordamida qilmaymiz, chalkash joylari kup
     # bu generate funksiya faqat qavs ichida bitta harf (katta/kichik) turganda va bitta katta harf mavjud bulganda tugri keladi.
@@ -99,7 +100,6 @@ class UzMorphAnalyser:
                     GenAff.append(affix_v2[:uc_v2] + "y" + affix_v2[uc_v2 + 1:])
             else:
                 GenAff.append(affix_v2)  # qavsli lekin Katta harfsiz varianti
-
         return GenAff
         # end of Generate Allmorph
 
@@ -110,31 +110,31 @@ class UzMorphAnalyser:
         # url = 'http://u92156l3.beget.tech/affix/export.php', it couldn't be get from url
         dirname = os.path.dirname(__file__) + "/"
 
-        with open(os.path.join(dirname + "affixes.csv"), "r") as f:
+        with open(os.path.join(dirname + "affixes.csv"), "r", encoding='utf-8') as f:
             reader = csv.DictReader(f)
             self.__affixes = list(reader)
 
-        with open(os.path.join(dirname + "small_stems.csv"), "r") as f:
+        with open(os.path.join(dirname + "small_stems.csv"), "r", encoding='utf-8') as f:
             reader = csv.reader(f)
             # self.__small_stems = list(reader)
             self.__small_stems = [item for sublist in list(reader) for item in sublist]
-        with open(os.path.join(dirname + "non_affixed_stems.csv"), "r") as f:
+        with open(os.path.join(dirname + "non_affixed_stems.csv"), "r", encoding='utf-8') as f:
             reader = csv.DictReader(f)
             self.__non_affixed_stems = list(reader)
             # reader = csv.reader(f)
             # self.__non_affixed_stems = [item for sublist in list(reader) for item in sublist]
 
-        with open(os.path.join(dirname + "number_stems.csv"), "r") as f:
+        with open(os.path.join(dirname + "number_stems.csv"), "r", encoding='utf-8') as f:
             reader = csv.reader(f)
             # self.__small_stems = list(reader)
             self.__number_stems = [item for sublist in list(reader) for item in sublist]
         # with open("ambiguity_stems.csv", "r") as f:
         #    reader = csv.DictReader(f)
         #    self.__ambiguity_stems = list(reader)
-        with open(os.path.join(dirname + "exception_stems.csv"), "r") as f:
+        with open(os.path.join(dirname + "exception_stems.csv"), "r", encoding='utf-8') as f:
             reader = csv.DictReader(f)
             self.__exception_stems = list(reader)
-        with open(os.path.join(dirname + "lemma_map.csv"), "r") as f:
+        with open(os.path.join(dirname + "lemma_map.csv"), "r", encoding='utf-8') as f:
             reader = csv.DictReader(f)
             self.__lemma_map = list(reader)
 
@@ -147,10 +147,26 @@ class UzMorphAnalyser:
     def __check_affixation_rules(self, affix: str, word: str, i: int):
         # True = affix qirqilsin, aks holda qirqilmasin
         # 0-rule Suz harflarini joylashuviga kura suz oxirida 2ta unli yoki 2 ta bir xil harfli undosh bilan asos tugamaydi (ikki->ikk), agar bunday hol bulayotgan bulsa, undan bu qushimchani qirqishni otkaz qilamiz. 2 xil undosh bn tugashi mumkin: tort+ib
-        buf = word[i-2:i]  # suzni asosidagi oxirgi 2 ta harfni olish
-        if len(buf) == 2 and i < 4:
-            if (buf[0] in self.__vovel and buf[1] in self.__vovel) or (buf[0] not in self.__vovel and buf[0] == buf[1]):  # asosdagi oxirgi 2 harfni 2lasi xam unli yoki 2ta bir xil harfli undosh bulsa (ikk)
-                return False
+        buf = word[:i]  # suzni asosidagi oxirgi 2 ta harfni olish
+        buf = buf.replace("'", "")
+        buf = buf.replace("‘", "")
+        if len(buf) >= 3:
+            buf1 = buf[-3]  # asosni oxiridan 3-xarfi
+            buf = buf[-2:]  # suzni asosidagi oxirgi 2 ta harfni olish
+
+            if len(buf) == 2 and i < 6:
+                if (buf[0] in self.__vovel and buf[1] in self.__vovel) or (buf[0] in self.__consonant and buf[0] == buf[1]) \
+                        or (buf[0] in self.__consonant and buf[1] in self.__consonant and buf1 not in self.__vovel):  #(buf[0] in self.__consonant and buf[1] in self.__consonant and buf not in ["ch","sh", "tq", "sm"]) or  # asosdagi oxirgi 2 harfni 2lasi xam unli yoki 2ta bir xil harfli undosh bulsa (ikk)
+                    return False
+
+            if (buf[0] in self.__consonant and buf[1] in self.__consonant and buf1 not in self.__vovel):
+                # asosdagi unli va undoshla mutanosibligini tekshirish
+                vovelcnt = sum(c in self.__vovel for c in word[:i])
+                double_char = word[:i].count("ch") + word[:i].count("sh") + word[:i].count("ng") + word[:i].count("sm") + word[:i].count("tq") + word[:i].count("'") + word[:i].count("’") + word[:i].count("‘")
+                if len(word[:i]) - vovelcnt - double_char > 1:
+                    print(len(word[:i]) - vovelcnt - double_char)
+                    if vovelcnt * 2 < len(word[:i]) - vovelcnt - double_char and not (vovelcnt == 1 and len(word[:i]) - vovelcnt - double_char == 3):
+                        return False
 
         # 1.1-rule
         if affix.startswith("(i)m"):  # (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
@@ -158,7 +174,7 @@ class UzMorphAnalyser:
                 return False  # don't chop, break it
         # 1.2-rule
         if affix.startswith("(s)i"):  # (s)i quchimchasidan oldin a,i harfi keladi. bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
-            if word[i] == "s" and word[i-1] not in ['a','i']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
+            if word[i] == "s" and word[i-1] not in ['a','i','o','y','u']:  # agar oldigi harfi a ga teng bulmasa bunda m ni qirqmasin
                 return False  # don't chop, break it
         # 1.3-rule
         if affix.startswith("(i)b"):  # (i)b  qushimchasi a,i harflaridan keyin qushiladi faqat. aytib,kuylab
@@ -175,7 +191,7 @@ class UzMorphAnalyser:
                 return False  # don't chop, break it
         # 3-rule
         if affix.startswith("ir"):  # ir  qushimchasi t,ch,sh harflaridan keyin qushiladi faqat. botir,ichir,shishir
-            if word[i-1] != "t" and word[i-2:i] not in ["ch", "sh"]:  # bulsa bunda qushimchani qirqmasin
+            if word[i-1] not in ["t", "p"] and word[i-2:i] not in ["ch", "sh"]:  # bulsa bunda qushimchani qirqmasin
                 return False  # don't chop, break it
         # 4-rule
         if affix.startswith("iz"):  # iz  qushimchasi q,m harflaridan keyin qushiladi faqat. oqiz, tomiz
@@ -191,6 +207,14 @@ class UzMorphAnalyser:
         # 7-rule
         if affix.startswith("(i)l"):  # -(i)l:  bo'lgan suzida -(i)lgan qushimchasini qirqib yuboryapti, -(i)l qushimchasidan -l quchimchasi faqat unli bn tugagan asosga qushiladi, bu asoslar kamida 4 harfdan iborat buladi katta ehtimol bn: ajra+lgan
             if word[i] == "l" and i < 4:  # bulsa bunda qushimchani qirqmasin
+                return False  # don't chop, break it
+        # 8-rule
+        if affix.startswith("(i)la"):  # (i)la
+            if word[i] == "l" and word[i-1] not in ["a", "i"]:  # bulsa bunda qushimchani qirqmasin
+                return False  # don't chop, break it
+        # 9-rule
+        if affix.startswith("mlar"):  # xurmatlash manosidagi
+            if word[i-1] not in ["a"]:  # bulsa bunda qushimchani qirqmasin
                 return False  # don't chop, break it
         # 4-rule
         if affix.startswith("iz"):  # iz  qushimchasi q,m harflaridan keyin qushiladi faqat. oqiz, tomiz
@@ -208,7 +232,7 @@ class UzMorphAnalyser:
         for item in result:  # result is list
             # I-type: xarf ortishi (avzoy+im->avzo, bun+da->bu)
             # 1-rule [avzoy+im->avzo, (xarf ortishi)] mavqe,azvo,obro',mavzu
-            if item['affixed'].startswith("i") and item['stem'][-2:] in ["ey", "oy", "uy", "'y"]:
+            if item['affixed'].startswith("i") and item['stem'][-2:] in ["ey", "oy", "'y"] and len(item['stem']) > 3:
                 item['stem'] = item['stem'][:-1]
             # 2-rule [bun+da->bu, (xarf ortishi)] unda,unday,bunda,bunday,shunda,shunday, shunga,bunga
             if (item['affixed'].startswith("d") or item['affixed'].startswith("g")) and item['stem'] in ["un", "bun", "shun"]:
@@ -221,6 +245,9 @@ class UzMorphAnalyser:
             # 2-rule [bilag+i ->bilak (xarf uzgarishi)]
             if item['affixed'].startswith("i") and item["stem"][-2:] == "ag": #  [-2:] = oxirgi 2 harfi = "ag" bulsa
                 item['stem'] = item['stem'][:-1] + "k"
+            # 3-rule [o'rtog'+i ->o'rtoq (xarf uzgarishi)]
+            if item['affixed'].startswith("i") and item["stem"][-3:] == "og‘": #  [-3:] = oxirgi 3 harfi = "og`" bulsa
+                item['stem'] = item['stem'][:-2] + "q"
 
         return result
         #end of correction_stem
@@ -369,7 +396,7 @@ class UzMorphAnalyser:
         ##    return word
 
         # 2-step sat faqat ko'rsat bulganda qirqiladi (so'zni boshi ko'rsat ga teng bulganda)
-        if word[:7].casefold() == "ko'rsat":
+        if word[:7].casefold() == "ko‘rsat":
             result_items = []
             for i_affixes in affixes:  # agar kursat topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
                 if word[7:] in i_affixes["allomorphs"]:
@@ -426,6 +453,7 @@ class UzMorphAnalyser:
         list_item = self.__processing(self.__clean_word(word), pos, is_lemmatize=True)
         # print(list_item)
         return list_item[0]['stem']  # .get('stem')
+        # return {'lemma': list_item[0]['stem'], 'pos': list_item[0]['pos']}  # .['stem'] ['pos']
 
     def analyze(self, word: str, pos: str = None):
         # morpheme, bound morpheme [maktablar, maktab=morphem, lar=bound morphem]
@@ -519,39 +547,38 @@ class UzMorphAnalyser:
 
 import time
 start_time = time.time()
-
 obj = UzMorphAnalyser()
-'''
-sent = "olmasi taqgandim olma taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
-with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
-    sent1 = file.read().rstrip()
-sent1 = sent1.replace('	', ' ')
-sent1 = sent1.replace('!', ' ')
-sent1 = sent1.replace('?', ' ')
-sent1 = sent1.replace('“', ' ')
-sent1 = sent1.replace('”', ' ')
-sent1 = sent1.replace(',', ' ')
-sent1 = sent1.replace('.', ' ')
-sent1 = sent1.replace('\n', ' ')
-sent1 = sent1.replace('(', ' ')
-sent1 = sent1.replace(')', ' ')
 
-for token in sent1.split(" "):
-    token = token.lower()
-    if token == "":
-        continue
-    print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
-print("--- %s seconds ---" % (time.time() - start_time))
-'''
-with open(os.path.join(os.path.dirname(__file__) + "/" + "test_token.txt"), 'r', encoding='utf8') as file:
-    for token in file:
-        token = token.rstrip()
-        print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
-print("--- %s seconds ---" % (time.time() - start_time))
+# sent = "olmasi taqgandim olma taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
+# with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
+#     sent1 = file.read().rstrip()
+# sent1 = sent1.replace('	', ' ')
+# sent1 = sent1.replace('!', ' ')
+# sent1 = sent1.replace('?', ' ')
+# sent1 = sent1.replace('“', ' ')
+# sent1 = sent1.replace('”', ' ')
+# sent1 = sent1.replace(',', ' ')
+# sent1 = sent1.replace('.', ' ')
+# sent1 = sent1.replace('\n', ' ')
+# sent1 = sent1.replace('(', ' ')
+# sent1 = sent1.replace(')', ' ')
+#
+# for token in sent1.split(" "):
+#     token = token.lower()
+#     if token == "":
+#         continue
+#     print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+# print("--- %s seconds ---" % (time.time() - start_time))
 
-while (True):
-    s = input()#.lower()
-    print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
+# with open(os.path.join(os.path.dirname(__file__) + "/" + "test_token.txt"), 'r', encoding='utf8') as file:
+#     for token in file:
+#         token = token.rstrip()
+#         # print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+# print("--- %s seconds ---" % (time.time() - start_time))
+
+# while (True):
+#     s = input()#.lower()
+#     print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
 
 # print(analyzer.lemmatize('benim'))
 # [('benim', ['ben'])]
@@ -581,3 +608,4 @@ Parse object fields include:
 # test file statistics:
 # source:daryo.uz, category:4, documents for each category: 10
 # 5,288 unique words of 11,952 total (44.24%):
+

@@ -1,0 +1,16 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+src/UzMorphAnalyser/UzMorphAnalyser.py
+src/UzMorphAnalyser/__init__.py
+src/UzMorphAnalyser/affixes.csv
+src/UzMorphAnalyser/exception_stems.csv
+src/UzMorphAnalyser/lemma_map.csv
+src/UzMorphAnalyser/non_affixed_stems.csv
+src/UzMorphAnalyser/number_stems.csv
+src/UzMorphAnalyser/small_stems.csv
+src/UzMorphAnalyser.egg-info/PKG-INFO
+src/UzMorphAnalyser.egg-info/SOURCES.txt
+src/UzMorphAnalyser.egg-info/dependency_links.txt
+src/UzMorphAnalyser.egg-info/top_level.txt
