@@ -576,9 +576,9 @@ obj = UzMorphAnalyser()
 #         # print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
 # print("--- %s seconds ---" % (time.time() - start_time))
 
-# while (True):
-#     s = input()#.lower()
-#     print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
+while (True):
+    s = input()#.lower()
+    print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
 
 # print(analyzer.lemmatize('benim'))
 # [('benim', ['ben'])]
