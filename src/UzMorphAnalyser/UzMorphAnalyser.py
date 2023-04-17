@@ -550,31 +550,31 @@ start_time = time.time()
 obj = UzMorphAnalyser()
 
 # sent = "olmasi taqgandim olma taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
-# with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
-#     sent1 = file.read().rstrip()
-# sent1 = sent1.replace('	', ' ')
-# sent1 = sent1.replace('!', ' ')
-# sent1 = sent1.replace('?', ' ')
-# sent1 = sent1.replace('“', ' ')
-# sent1 = sent1.replace('”', ' ')
-# sent1 = sent1.replace(',', ' ')
-# sent1 = sent1.replace('.', ' ')
-# sent1 = sent1.replace('\n', ' ')
-# sent1 = sent1.replace('(', ' ')
-# sent1 = sent1.replace(')', ' ')
-#
-# for token in sent1.split(" "):
-#     token = token.lower()
-#     if token == "":
-#         continue
-#     print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
-# print("--- %s seconds ---" % (time.time() - start_time))
+with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
+    sent1 = file.read().rstrip()
+sent1 = sent1.replace('	', ' ')
+sent1 = sent1.replace('!', ' ')
+sent1 = sent1.replace('?', ' ')
+sent1 = sent1.replace('“', ' ')
+sent1 = sent1.replace('”', ' ')
+sent1 = sent1.replace(',', ' ')
+sent1 = sent1.replace('.', ' ')
+sent1 = sent1.replace('\n', ' ')
+sent1 = sent1.replace('(', ' ')
+sent1 = sent1.replace(')', ' ')
 
-# with open(os.path.join(os.path.dirname(__file__) + "/" + "test_token.txt"), 'r', encoding='utf8') as file:
-#     for token in file:
-#         token = token.rstrip()
-#         # print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
-# print("--- %s seconds ---" % (time.time() - start_time))
+for token in sent1.split(" "):
+    token = token.lower()
+    if token == "":
+        continue
+    print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+print("--- %s seconds ---" % (time.time() - start_time))
+
+with open(os.path.join(os.path.dirname(__file__) + "/" + "test_token.txt"), 'r', encoding='utf8') as file:
+    for token in file:
+        token = token.rstrip()
+        # print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+print("--- %s seconds ---" % (time.time() - start_time))
 
 while (True):
     s = input()#.lower()
