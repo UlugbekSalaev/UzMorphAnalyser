@@ -1,0 +1,1 @@
+from .UzMorphAnalyser import UzMorphAnalyser

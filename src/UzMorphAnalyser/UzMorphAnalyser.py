@@ -508,10 +508,10 @@ class UzMorphAnalyser:
         word = word.replace("’", "’")  # boshqa belgilarni ъ ni kodiga utirish
         return word
 
-    def morphemes(self, word: str, pos: str = None):
-        # preprocessing       ['pre', 'process', 'ing']
-        # https://github.com/aboSamoor/polyglot/blob/master/notebooks/MorphologicalAnalysis.ipynb
-        pass
+    # def morphemes(self, word: str, pos: str = None):
+    #     # preprocessing       ['pre', 'process', 'ing']
+    #     # https://github.com/aboSamoor/polyglot/blob/master/notebooks/MorphologicalAnalysis.ipynb
+    #     pass
 
     class POS:
         NOUN = "NOUN"  # Noun
@@ -532,53 +532,53 @@ class UzMorphAnalyser:
         )
 
     # shu yuqoridagi funksiyalarni yozamiz, pastdagilar esa keyinroq
-    def normalize(self, text: str):
-        # normalize text is making stemming and lemmatization
-        # Mening maktabim senikidan chiroyliroq -> men maktab sen chiroyli
-        return "word"
+    # def normalize(self, text: str):
+    #     # normalize text is making stemming and lemmatization
+    #     # Mening maktabim senikidan chiroyliroq -> men maktab sen chiroyli
+    #     return "word"
 
-    def word_tokenize(self, text):
-        tokens = []
-        return tokens
+    # def word_tokenize(self, text):
+    #     tokens = []
+    #     return tokens
 
-    def sent_tokenize(self, text):
-        tokens = []
-        return tokens
+    # def sent_tokenize(self, text):
+    #     tokens = []
+    #     return tokens
 
-import time
-start_time = time.time()
-obj = UzMorphAnalyser()
+# import time
+# start_time = time.time()
+# obj = UzMorphAnalyser()
+#
+# # sent = "olmasi taqgandim olma taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
+# with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
+#     sent1 = file.read().rstrip()
+# sent1 = sent1.replace('	', ' ')
+# sent1 = sent1.replace('!', ' ')
+# sent1 = sent1.replace('?', ' ')
+# sent1 = sent1.replace('“', ' ')
+# sent1 = sent1.replace('”', ' ')
+# sent1 = sent1.replace(',', ' ')
+# sent1 = sent1.replace('.', ' ')
+# sent1 = sent1.replace('\n', ' ')
+# sent1 = sent1.replace('(', ' ')
+# sent1 = sent1.replace(')', ' ')
+#
+# for token in sent1.split(" "):
+#     token = token.lower()
+#     if token == "":
+#         continue
+#     print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+# print("--- %s seconds ---" % (time.time() - start_time))
+#
+# with open(os.path.join(os.path.dirname(__file__) + "/" + "test_token.txt"), 'r', encoding='utf8') as file:
+#     for token in file:
+#         token = token.rstrip()
+#         # print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+# print("--- %s seconds ---" % (time.time() - start_time))
 
-# sent = "olmasi taqgandim olma taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
-with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
-    sent1 = file.read().rstrip()
-sent1 = sent1.replace('	', ' ')
-sent1 = sent1.replace('!', ' ')
-sent1 = sent1.replace('?', ' ')
-sent1 = sent1.replace('“', ' ')
-sent1 = sent1.replace('”', ' ')
-sent1 = sent1.replace(',', ' ')
-sent1 = sent1.replace('.', ' ')
-sent1 = sent1.replace('\n', ' ')
-sent1 = sent1.replace('(', ' ')
-sent1 = sent1.replace(')', ' ')
-
-for token in sent1.split(" "):
-    token = token.lower()
-    if token == "":
-        continue
-    print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
-print("--- %s seconds ---" % (time.time() - start_time))
-
-with open(os.path.join(os.path.dirname(__file__) + "/" + "test_token.txt"), 'r', encoding='utf8') as file:
-    for token in file:
-        token = token.rstrip()
-        # print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
-print("--- %s seconds ---" % (time.time() - start_time))
-
-while (True):
-    s = input()#.lower()
-    print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
+# while (True):
+#     s = input()#.lower()
+#     print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
 
 # print(analyzer.lemmatize('benim'))
 # [('benim', ['ben'])]
