@@ -13,11 +13,11 @@ The tool is focused to make morphological analysis of Uzbek word based on morphe
 
 - [Github](https://github.com/UlugbekSalaev/UzMorphAnalyser)
 - [PyPI](https://pypi.org/project/UzMorphAnalyser/)
-- [Web-UI](https://nlp.urdu.uz/?menu=morphanalyser)
+- [Web-UI](https://nlp.urdu.uz/?page=uzmorphanalyser)
 
 ## Demo
 
-You can use [web interface](http://nlp.urdu.uz/?menu=morphanalyser).
+You can use [web interface](http://nlp.urdu.uz/?page=morphanalyser).
 
 ## Features
 
@@ -49,7 +49,7 @@ After installation, use in python like following:
 # import the library
 from UzMorphAnalyser import UzMorphAnalyser
 # create an object 
-analyzer = UzMorphAnalyser.UzMorphAnalyser()
+analyzer = UzMorphAnalyser()
 # call stem method
 analyzer.stem('maktabimda')
 # call lemmatize method
@@ -68,25 +68,25 @@ API configurations:
  - Response type: <code>string</code>
 
 
- - URL: https://uz-translit.herokuapp.com/stem
+ - URL: https://nlp.urdu.uz:8080/uzmorphanalyser/stem
    - Parameters: <code>word:string</code></code>
-   - Sample Request: https://uztranslit.herokuapp.com/stem?word=maktabimda
+   - Sample Request: https://nlp.urdu.uz:8080/uzmorphanalyser/stem?word=maktabimda
 
 
- - https://uz-translit.herokuapp.com/lemmatize
+ - https://nlp.urdu.uz:8080/uzmorphanalyser/lemmatize
    - Parameters: <code>word:string</code>, <code>pos:string</code>
-   - Sample Request: https://uztranslit.herokuapp.com/lemmatize?word=maktabimda&pos=NOUN
+   - Sample Request: https://nlp.urdu.uz:8080/uzmorphanalyser/lemmatize?word=maktabimda&pos=NOUN
 
 
- - https://uz-translit.herokuapp.com/analyze
+ - https://nlp.urdu.uz:8080/uzmorphanalyser/analyze
    - Parameters: <code>word:string</code>, <code>pos:string</code>
-   - Sample Request: https://uztranslit.herokuapp.com/analyze?word=maktabimda&pos=NOUN
+   - Sample Request: https://nlp.urdu.uz:8080/uzmorphanalyser/analyze?word=maktabimda&pos=NOUN
 
 <i>Note: argument <code>pos</code> is optional in all methods</i>
 ### Web-UI
 
 The web interface created to use easily the library:
-You can use web interface [here](http://nlp.urdu.uz/?menu=morphanalyser).
+You can use web interface [here](http://nlp.urdu.uz/?page=uzmorphanalyser).
 
 ![Demo image](./docs/images/web-interface-ui.png)
 
