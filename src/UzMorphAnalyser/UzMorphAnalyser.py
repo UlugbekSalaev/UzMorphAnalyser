@@ -154,7 +154,7 @@ class UzMorphAnalyser:
             buf1 = buf[-3]  # asosni oxiridan 3-xarfi
             buf = buf[-2:]  # suzni asosidagi oxirgi 2 ta harfni olish
 
-            if len(buf) == 2 and i < 6:
+            if len(buf) == 2 and i < 10: # 10 harfdan kichik suzlarni tekshiradi faqat
                 if (buf[0] in self.__vovel and buf[1] in self.__vovel) or (buf[0] in self.__consonant and buf[0] == buf[1]) \
                         or (buf[0] in self.__consonant and buf[1] in self.__consonant and buf1 not in self.__vovel):  #(buf[0] in self.__consonant and buf[1] in self.__consonant and buf not in ["ch","sh", "tq", "sm"]) or  # asosdagi oxirgi 2 harfni 2lasi xam unli yoki 2ta bir xil harfli undosh bulsa (ikk)
                     return False
@@ -164,7 +164,7 @@ class UzMorphAnalyser:
                 vovelcnt = sum(c in self.__vovel for c in word[:i])
                 double_char = word[:i].count("ch") + word[:i].count("sh") + word[:i].count("ng") + word[:i].count("sm") + word[:i].count("tq") + word[:i].count("'") + word[:i].count("’") + word[:i].count("‘")
                 if len(word[:i]) - vovelcnt - double_char > 1:
-                    print(len(word[:i]) - vovelcnt - double_char)
+                    # print(len(word[:i]) - vovelcnt - double_char)
                     if vovelcnt * 2 < len(word[:i]) - vovelcnt - double_char and not (vovelcnt == 1 and len(word[:i]) - vovelcnt - double_char == 3):
                         return False
 
@@ -197,10 +197,12 @@ class UzMorphAnalyser:
         if affix.startswith("iz"):  # iz  qushimchasi q,m harflaridan keyin qushiladi faqat. oqiz, tomiz
             if word[i-1] not in ["q", "m"]:  # bulsa bunda qushimchani qirqmasin
                 return False  # don't chop, break it
+
         # 5-rule
-        if affix.__contains__("dagi") and not affix.__contains__("dagina"):  # qirqilayotgan affixda -dagi qushimchasi bulsa, tekshiramiz, shu asos bosh harf bn yozilganmi, chunki dagi faqat atoqli otlarga qushilsa lugaviy qushimcha buladi, boshqa xollarda suz yasovchi buladi
-            if not word[0].isupper():  # bulsa bunda qushimchani qirqmasin
-                return False  # don't chop, break it
+        # if affix.__contains__("dagi") and not affix.__contains__("dagina"):  # qirqilayotgan affixda -dagi qushimchasi bulsa, tekshiramiz, shu asos bosh harf bn yozilganmi, chunki dagi faqat atoqli otlarga qushilsa lugaviy qushimcha buladi, boshqa xollarda suz yasovchi buladi
+        #     if not word[0].isupper():  # bulsa bunda qushimchani qirqmasin
+        #         return False  # don't chop, break it
+
         # 6-rule
         if word[i:].startswith("i") and word[i-3:i] == "dag":  # -dagi qushimchasidan -i qushimchasini qirqauotgan bulsa buni qirqtirmaymiz, chunki dagini tuliq uizni qirqadi yoki tugri kelmasi qirqmaydi
             return False  # don't chop, break it
@@ -216,6 +218,7 @@ class UzMorphAnalyser:
         if affix.startswith("mlar"):  # xurmatlash manosidagi
             if word[i-1] not in ["a"]:  # bulsa bunda qushimchani qirqmasin
                 return False  # don't chop, break it
+
         # 4-rule
         if affix.startswith("iz"):  # iz  qushimchasi q,m harflaridan keyin qushiladi faqat. oqiz, tomiz
             if word[i-1] not in ["q", "m"]:  # bulsa bunda qushimchani qirqmasin
@@ -228,26 +231,26 @@ class UzMorphAnalyser:
 
         return True  # it is ok, go on chopping
 
-    def __correction_stem(self, self1, result):
+    def __correction_stem_lemma(self, self1, result):
         for item in result:  # result is list
             # I-type: xarf ortishi (avzoy+im->avzo, bun+da->bu)
             # 1-rule [avzoy+im->avzo, (xarf ortishi)] mavqe,azvo,obro',mavzu
             if item['affixed'].startswith("i") and item['stem'][-2:] in ["ey", "oy", "'y"] and len(item['stem']) > 3:
-                item['stem'] = item['stem'][:-1]
+                item['stem'], item['lemma'] = item['stem'][:-1], item['stem'][:-1]
             # 2-rule [bun+da->bu, (xarf ortishi)] unda,unday,bunda,bunday,shunda,shunday, shunga,bunga
             if (item['affixed'].startswith("d") or item['affixed'].startswith("g")) and item['stem'] in ["un", "bun", "shun"]:
-                item['stem'] = item['stem'][:-1] # remove last letter which is n from stem
+                item['stem'], item['lemma'] = item['stem'][:-1], item['stem'][:-1] # remove last letter which is n from stem
 
             # II-type: Xarf uzgarishi
             # 1-rule [qiyinchilig+i ->qiyinchilik (xarf uzgarishi)]
             if item['affixed'].startswith("i") and item["stem"][-3:] == "lig": # [-3:] = oxirgi 3 harf = "lig" bulsa
-                item['stem'] = item['stem'][:-1] + "k"
+                item['lemma'] = item['stem'][:-1] + "k" # item['stem'] ga tegmaymiz uz holicha qoladi "lig" xolida qoladi
             # 2-rule [bilag+i ->bilak (xarf uzgarishi)]
             if item['affixed'].startswith("i") and item["stem"][-2:] == "ag": #  [-2:] = oxirgi 2 harfi = "ag" bulsa
-                item['stem'] = item['stem'][:-1] + "k"
+                item['lemma'] = item['stem'][:-1] + "k"
             # 3-rule [o'rtog'+i ->o'rtoq (xarf uzgarishi)]
             if item['affixed'].startswith("i") and item["stem"][-3:] == "og‘": #  [-3:] = oxirgi 3 harfi = "og`" bulsa
-                item['stem'] = item['stem'][:-2] + "q"
+                item['lemma'] = item['stem'][:-2] + "q"
 
         return result
         #end of correction_stem
@@ -258,6 +261,8 @@ class UzMorphAnalyser:
         affixes = []
         ex_stem_list = []
 
+        affixes_temp = []
+
         if pos is not None:  # if "pos" argument is given, "pos" argument may be given in lemmatize
             affixes = [i for i in self.__affixes if i['pos'] == pos]
             ex_stem_list = [i for i in self.__exception_stems if i['pos'] == pos]
@@ -266,12 +271,14 @@ class UzMorphAnalyser:
             ex_stem_list = self.__exception_stems
             # print(affixes)
 
-        def stem_find_exceptions(self, word: str, pos: str, position: int):
+        # bu stem_find_exceptions funksiyasi kerak emas, ishlatilmaydi. buni vazifasini boshqa yerda yozdik
+        def stem_find_exceptions(self, word: str, position: int):
             for i in range(position, len(word) + 1):  # +1 bu word[:i] i+1 yani oxirgisigacha olishi uchun
                 # print("find from excp == " + word[:i])
                 ex_stem_find = list(filter(lambda ex_stem: ex_stem['stem'].casefold() == word[:i].casefold(), ex_stem_list))  # pythonic way -> https://stackoverflow.com/questions/8653516/python-list-of-dictionaries-search
                 if ex_stem_find:
                     ex_stem_find[0]['stem'] = word[:i]
+                    ex_stem_find[0]['lemma'] = word[:i]
                     ex_stem_find[0]['affixed'] = word[i:]
                     #print('found from excp')
                     #print(ex_stem_find)
@@ -280,16 +287,31 @@ class UzMorphAnalyser:
                 #    return True, {'stem': word[:i], 'pos':}  #return two value, stem from exception
             return False, ""
 
-        def stem_find(self, word: str, pos: str, position: int = 1):
+        def stem_find(self, word: str, pos: str, position: int = 1, res_exist: bool = False): # position = 1 adi
             for i in range(position, len(word)):
                 # predict_as_stem = word[:i]
                 # predict_as_affix = word[i:]
-                result_items = []  # list of dictionary [{'stem':'biz', 'affixed':'lar', ...},{...}]
+                result_items1 = []  # list of dictionary [{'stem':'biz', 'affixed':'lar', ...},{...}] bundagi javoblar shunga yigiladi
 
-                for item in affixes:
+                # small_stem ni tekshirib olamiz
+                affixes_temp = affixes
+                if i <= 2:  # i==2 bulsa 0 va 1 belgini oladi, [:2] da 2 ikkini uzi kirmaydi
+                    if word[:i].casefold() in self.__small_stems:
+                        for item in affixes_temp:
+                            if word[i:] in item['allomorphs']:
+                                item['stem'], item['lemma'], item['affixed'] = word[:i], word[:i], word[i:]
+                                result_items1.append(item)
+                    else:
+                        continue # 3dan kichik bulgan asosni small_stemdan topmasa qirqmasdan utiramiz, va yana harf qushib asos hosil qiliadi
+
+                if result_items1:
+                    return result_items1 # resultni qaytarib beramiz, bu yerdan xam topildi, small_stemdan topildi xarflar buyicha sikl aylanishni tuxtatsak buladi
+
+
+                affixes_temp = affixes
+                for item in affixes_temp:
                     # if word[i:] in self.__GeneratedAllomorph(item["affix"]):
                     if word[i:] in item["allomorphs"]:
-
                         # print(self.__GeneratedAllomorph(item["affix"]))
                         # print(position)
                         # print(self.__GeneratedAllomorph(item["affix"]))
@@ -302,60 +324,53 @@ class UzMorphAnalyser:
                         # 6-rule Ga{ga,ka,qa,} bulardan ka, qa g'a uchun undan oldingi xarf shu affixni birinchi harfi bn tugagan bulishi kerak
 
                         # 1-support rule:
+                        '''  bu tashqariga chiqarildi
                         if item['pos'] == self.POS.NUM:
                             if word[:i] in self.__number_stems:
-                                item['stem'], item['affixed'] = word[:i], word[i:]  # add stem key_value to item dictionary from affixes
-                                result_items.append(item)
-                                if not multi_item:  # bu kod stem va lemmatize metodlari chaqirlganda faqat bitta asosni topsa bulgani va shuni qaytaradi, anaylyse metodi orqali kirganda barcha affixeslarni kurib chiqin multi_item xolida chiqarish uchun yozildi, agar multi_item bulsa sikl aylanaveradi, aks holda return bub tuxtaydi
-                                    return result_items
-                            continue
-                                ###return item
-                                ###break
+                                item['stem'], item['lemma'], item['affixed'] = word[:i], word[:i], word[i:]  # add stem key_value to item dictionary from affixes
+                                result_items1.append(item)
+                        '''
 
                         # check different kind of affixation rules
                         if not self.__check_affixation_rules(item['affix'], word, i):  # xar xil qoidalar, biron qushimchalar buyicha, masalan, (i)m egalik qushimchasida, m dan oldin kupincha a harfi keladi, agar bunday bulmasa, bu m qushimchasini qirqamay utirib yuboramiz
-                           continue
+                            continue # qirqmasdan utkazib yuboramiz, keyingi affixlarni tekshirishga
 
+                        # buni xam yuqoriga chiqardik
                         # exception dan suzlarni tekshirib olish
+                        '''
                         if len(word[i:]) <= 5:  # 3 bu yerda fine-tuning qilingan, yani 3 harfdan katta qushimchalarda xatolik bulmaydi va bundaylarni tugri qirqsak buladi
-                            result, item_ex = stem_find_exceptions(self, word, pos, i + 1)
-                            if result:
-                                found_aff = False
-                                for i_affixes in affixes:  # agar exception.csv dan topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
-                                    if item_ex['affixed'] in i_affixes["allomorphs"]:
-                                        i_affixes['stem'], i_affixes['affixed'] = item_ex['stem'], item_ex['affixed']
-                                        result_items.append(i_affixes)
-                                        found_aff = True
-                                        if not multi_item:
-                                            return result_items
+                            found_ex, item_ex = stem_find_exceptions(self, word, i + 1)
+                            if found_ex:
+                                # found_aff = False
+                                # for i_affixes in affixes:  # agar exception.csv dan topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
+                                #     if item_ex['affixed'] in i_affixes["allomorphs"]:
+                                #         i_affixes['stem'], i_affixes['lemma'], i_affixes['affixed'] = item_ex['stem'], item_ex['lemma'], item_ex['affixed']
+                                #         result_items.append(i_affixes)
+                                #         found_aff = True
+                                #         if not multi_item:
+                                #             return result_items
 
-                                        #####break
-                                        ###return i_affixes
-                                if found_aff:
-                                    return result_items
-                                else:
-                                    result_items.append(item_ex)
-                                    return result_items
+                                result_items1.append(item_ex)
 
-                                break  # agar len(affix)<=3 bulsa va stem exception.csv dan topilmasa, bu affixni qirqmay, navbatdagi affixni yasash uchun bu sikl sindiriladi
+                                # break  # agar len(affix)<=3 bulsa va stem exception.csv dan topilmasa, bu affixni qirqmay, navbatdagi affixni yasash uchun bu sikl sindiriladi
                                 ###return item_ex  # agar suz exceptionda bor bulsa va unda umuman qushimchasi bulmasa
+                        '''
 
+                        # buni tashqariga chiqardik
                         # 2.1-rule qushimchasi topilgandan keyin oldingi turgan stem small_stemni ichida bormi yuqmi
+                        '''
                         if i <= 2:  # i==2 bulsa 0 va 1 belgini oladi, [:2] da 2 ikkini uzi kirmaydi
                             if word[:i].casefold() in self.__small_stems:
-                                item['stem'], item['affixed'] = word[:i], word[i:]
+                                item['stem'], item['lemma'], item['affixed'] = word[:i], word[:i], word[i:]
                                 result_items.append(item)
-                                if not multi_item:
-                                    return result_items
-                                continue
-                                ###return item
-                            else:
-                                break  # agar len(stem)<=2 bulsa-yu, lekin smal_stem ichidan topilmasa, u xolda stemni uzunligini oshirishi uchun bu yerdan tuliq chiqib ketishi kerak
+
+                                # agar len(stem)<=2 bulsa-yu, lekin smal_stem ichidan topilmasa, u xolda stemni uzunligini oshirishi uchun bu yerdan tuliq chiqib ketishi kerak
                                 ###break
+                        '''
 
                         # 2.2-rule confidence past bulgan suzlarni exception_words dan qaraydi.
                         # exwords da faqat affix bn tugaydigan suzlar turadi.
-                        # agar suz exwordda bulsa qirqmaydi va alternativini qaraydi,
+                        # agar suz exwordda bulsa qirqmaydi va shu exword yonidagi alternativini qaraydi,
                         # aks holda yani suz exwordda bulmasa qirqib tashlaydi
 
                         #if float(item["confidence"]) <= 0.1 and False:
@@ -372,115 +387,134 @@ class UzMorphAnalyser:
                             else:
                                 break  # confidence past bulgan qushimchasi bn borib ex_stemni qidiradi, buni ichida bundin stem bulmasa qirqmay utib ketadi
 
-                        item['stem'], item['affixed'] = word[:i], word[i:]
-                        result_items.append(item)
-                        if not multi_item:
-                            return result_items
+                        # xech qayerdan muammo bulmay, csv fayllarga xam tushmasdan, shu yerga keldi, yani affixes ruyhatdan topildi va resultga qushamiz
+                        item['stem'], item['lemma'], item['affixed'] = word[:i], word[:i], word[i:]
+                        result_items1.append(item)
                         ###return item  # chopping with 100% confidence
 
-                if result_items:  # if not empty
-                    return result_items
+                if result_items1:  # if not empty
+                    return result_items1  # agar bir harfni uchirib qolganlarini qushincha deb faraz qilib, affixes listdan qidirib topgan bulsa, buldi, hsuni chiqaradi, yana bir harfni qirqib tekshirib utirmaymiz
 
-            return [{'stem': word, 'affixed': '', 'pos': None}]
-            # end of stem_find
+            # agar __processing metod ichidagi qadamlardan xech birida bu suz/affix topilmagan bulsagina bu yerda xech nima qirqaolmay uzini chiqarishimiz kerak, agar oldingi steplarda topilgan bulsa buni chiqarmaymiz
+            if not res_exist:
+                return [{'stem': word, 'lemma': word, 'affixed': '', 'pos': "Undefined"}]
+
+            return [] # agar xech nima topmasa va qirqmasa bush list qaytaramiz, chunki bu bush list boshqa listga qushiladi
+        # end of stem_find
 
         # algorithm for stem
+        result_items = [] # barcha variantlarni (item) larni topib shu listga qushib chiqamiz, stem va lemmatize da birinchisini qaytaramiz, analyse da xammasini qaytaramiz
+
         # 1-step: check non affixed words list
-        for na_stem in self.__non_affixed_stems: #stem,pos,affixed
+        non_affixed_stems_temp = self.__non_affixed_stems
+        for na_stem in non_affixed_stems_temp: #stem,pos,affixed
             if word.casefold() == na_stem['stem'].casefold():
-                na_stem['stem'] = word
-                na_stem['affixed'] = ''
-                return [na_stem]
+                na_stem['lemma'] = word #bu maydon qushiladi
+                na_stem['affixed'] = '' # bu maydon qushiladi
+                result_items.append(na_stem)
+                return result_items  # result qilib shuni qaytaramiz, boshqa tekshirib utirmaydi
 
-        ##if word in [na_stem['stem'] for na_stem in self.__non_affixed_stems]: # in self.__non_affixed_stems
-        ##    return word
-
+        # agar affix sast bn boshlansa u holda uni asosi ko'r ekanligini tekshirish kerak. yani bu stepni urniga
         # 2-step sat faqat ko'rsat bulganda qirqiladi (so'zni boshi ko'rsat ga teng bulganda)
+        affixes_temp = affixes
         if word[:7].casefold() == "ko‘rsat":
-            result_items = []
-            for i_affixes in affixes:  # agar kursat topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
+            found = False
+            for i_affixes in affixes_temp:  # agar kursat topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
                 if word[7:] in i_affixes["allomorphs"]:
-                    i_affixes['stem'], i_affixes['affixed'] = word[:4], word[4:]  # bu dictga kursat felini nisbati haqidagi informatsiyani qushib yuborsa xam buladi
+                    i_affixes['stem'], i_affixes['lemma'], i_affixes['affixed'] = word[:4], word[:4], word[4:]  # bu dictga kursat felini nisbati haqidagi informatsiyani qushib yuborsa xam buladi
                     result_items.append(i_affixes)
-                    if not multi_item:
-                        return result_items
-                    ###return [i_affixes]
-            if result_items:  # if not empty
-                return result_items
-            return [{'stem': word[:4], 'affixed': "sat", 'pos': self.POS.VERB}]
+                    found = True
+            if not found:
+                result_items.append({'stem': word[:4], 'lemma': word[:4], 'affixed': word[4:], 'pos': self.POS.VERB})
+            return result_items  # result qilib shuni qaytaramiz, boshqa tekshirib utirmaydi
 
-        if is_lemmatize or True:
+        # 3-step number listdan tekshirish
+        affixes_temp = affixes
+        for item_number in self.__number_stems:  # agar number.csv dan topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
+            if word.casefold().startswith(item_number):
+                lemma = item_number
+                if word[0].isupper():
+                    lemma = lemma.capitalize()
+                full_affix = word[len(item_number):]  # [-n:] bunda suzdagi qolganlar harflarni oxirigacha olamiz
+
+                # 1. sonda quhsimcha bulsa qushimchani ruyhatdan qaridi, bulsa resultga qushadi
+                found = False
+                for i_affixes in affixes_temp:  # qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
+                    if full_affix in i_affixes["allomorphs"] and i_affixes['pos'] == self.POS.NUM:
+                        i_affixes['stem'], i_affixes['lemma'], i_affixes['affixed'] = lemma, lemma, full_affix
+                        result_items.append(i_affixes)
+                        found = True
+
+                #2. agar suz tochni numberdagi suzni uziga teng bulsa, yani qushimchasi yuq bulsa unda buni resultga qushamiz
+                if word.casefold() == item_number:
+                    result_items.append({'stem': word, 'lemma': word, 'affixed': '', 'pos': self.POS.NUM})
+                    found = True
+                if found:
+                    return result_items  # result qilib shuni qaytaramiz, boshqa tekshirib utirmaydi
+
+        # 4-step exception_stem listdan tekshirish
+        affixes_temp = affixes
+        for item_ex in ex_stem_list:  # agar exception_stem list dan topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
+            if word.casefold().startswith(item_ex['stem']):
+                stem = item_ex['stem']
+                if word[0].isupper():
+                    stem = stem.capitalize()
+                full_affix = word[len(stem):]  # [-n:] bunda suzdagi qolganlar harflarni oxirigacha olamiz
+
+                # 1. exception listda quhsimcha bulsa qushimchani ruyhatdan qaridi, bulsa resultga qushadi
+                for i_affixes in affixes_temp:  # qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
+                    if full_affix in i_affixes["allomorphs"] and i_affixes['pos'] == item_ex['pos']:
+                        i_affixes['stem'], i_affixes['lemma'], i_affixes['affixed'], i_affixes['note'] = stem, stem, full_affix, item_ex['note']
+                        result_items.append(i_affixes)
+
+                #2. agar suzni tochni uzi exceptiondagi suzni uziga teng bulsa, yani qushimchasi yuq bulsa unda buni resultga qushamiz
+                if word.casefold() == item_ex['stem']:
+                    result_items.append({'stem': word, 'lemma': word, 'affixed': '', 'pos': item_ex['pos'], 'note': item_ex['note']})
+
+        # bundan keyin resultni qaytarib yubormaymiz, yana bunga taluqlilari bulishi mumkin, ularni pastda yana tekshirib resultga qushib keyin chiqaramiz
+
+        # 5-step
+        affixes_temp = affixes
+        if is_lemmatize: # bu yerga lemmatize va analyze dan kelganda kiradi
             for item_lemma in self.__lemma_map:  # agar exception.csv dan topilsa, undan qolgan qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
                 if word.casefold().startswith(item_lemma['word']):
                     lemma = item_lemma['lemma']
                     if word[0].isupper():
                         lemma = lemma.capitalize()
-                    full_affix = item_lemma['affix'] + word[len(item_lemma['word']):]  # [-n:] bunda suzdagi qolganlar harflarni oxirigacha olamiz
-                    result_items = []
-                    for i_affixes in affixes:  # qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
-                        if full_affix in i_affixes["allomorphs"]:
-                            i_affixes['stem'], i_affixes['affixed'] = lemma, full_affix
-                            result_items.append(i_affixes)
-                            if multi_item:
-                                return result_items
-                            ###return i_affixes
-                    if result_items:  # if not empty
-                        return result_items
-            # enf of is_lemmatize
 
-        # 3-step find stem by affix checking from affixes list
-        # print("stem_find")
-        result = stem_find(self, word, pos)
+                    full_affix = item_lemma['affix'] + word[len(item_lemma['word']):]  # [-n:] bunda suzdagi qolganlar harflarni oxirigacha olamiz
+
+                    found = False
+                    for i_affixes in affixes_temp:  # qushimchani affixes dan qidirib topib, undagi malumotlarni olamiz
+                        if full_affix in i_affixes["allomorphs"]:
+                            i_affixes['stem'], i_affixes['lemma'], i_affixes['affixed'] = lemma, lemma, full_affix
+                            result_items.append(i_affixes)
+                            found = True
+                    if found:
+                        return result_items  # result qilib shuni qaytaramiz, boshqa tekshirib utirmaydi
+
+        # enf of is_lemmatize
+        # last step find stem by affix checking from affixes list
+        # oxirgi qadam suzni bitta harfdan tashqari xammasini qushimcha deb qarab, affixes listdan qidirib, yana bir xarfni uchirib qidirib topib chiqadi
+        result_exist = False
+        if result_items:
+            result_exist = True
+
+        result_items = result_items + stem_find(self, word, pos, 1, result_exist)  # stem_find() ni ichidan topib yasalgan listni bundan oldingi qadamlarda yasalgan list ustiga qushamiz, qaysidir birlari bush buladi katta ehtimo l bilan
+
+
         # if len(stem)<=2:    #checking the small stem is exist or not
         #    if not stem in self.__small_stems:
         #        stem=stem_find(self, word, 3)
 
         #check stem after chopped affixs, if it should be change, corrected it as lemma, for example: [qiyinchilig+i ->qiyinchilik (xarf uzgarishi)], [avzoy+im->avzo, (xarf ortishi)]
-        if is_lemmatize:
-            result = self.__correction_stem(self, result)
-
-        return result
+        # if is_lemmatize:
+        #     result = self.__correction_stem_lemma(self, result_items)
+        return result_items
         # end of processing
 
-    def stem(self, word: str):
-        list_item = self.__processing(self.__clean_word(word))
-        #print(list_item)
-        # return str([d['stem'] for d in list_item])
-        return list_item[0]['stem']    # dict['stem] == dict.get('stem')
-
-    def lemmatize(self, word: str, pos: str = None):
-        # print(self.__lemma_map)
-        list_item = self.__processing(self.__clean_word(word), pos, is_lemmatize=True)
-        # print(list_item)
-        return list_item[0]['stem']  # .get('stem')
-        # return {'lemma': list_item[0]['stem'], 'pos': list_item[0]['pos']}  # .['stem'] ['pos']
-
-    def analyze(self, word: str, pos: str = None):
-        # morpheme, bound morpheme [maktablar, maktab=morphem, lar=bound morphem]
-        list_item = self.__processing(self.__clean_word(word), pos, is_lemmatize=True, multi_item=True)
-        # print(list_item)
-        res_list_item = []
-        for item in list_item:
-            res_dict = {'word': word, 'lemma': item['stem'], 'pos': item['pos']}
-            for key in ['id','affix','affixed','tense','person','possession','cases','verb_voice','verb_func','impulsion','copula','singular','plural','question','negative']:   # impulsion=mayl, copula=boglama
-                if key in item:
-                    if item[key] != "":
-                        res_dict[key] = item[key]
-            res_list_item.append(res_dict)
-
-        # genetive case - qaratqich kelishigi
-        # Accusative -tushum
-        # Dative - jo'nalish
-        # Ablative - chiqish
-        # Locative o'rin payt
-
-        #  Parse(word='benim', lemma='ben', pos='Noun', morphemes=['Noun', 'A3sg', 'P1sg'], formatted='[ben:Noun] ben:Noun+A3sg+im:P1sg')
-        return res_list_item
-        # {'affix': 'larni', 'pos': '', 'tense': '', 'person': '', 'cases': 'Tushum', 'singular': '', 'plural': '1', 'question': '', 'negative': '',
-        # 'lexical_affixes': '', 'syntactical_affixes': '', 'stem': 'maktab', 'affixed': 'larni'}
-
     def __clean_word(self, word: str):  # correct form [’]-a’zo, [‘]-o‘,g‘
-        if word.isalpha():
+        if word.isalpha(): # faqat harflardan iborat bulsa, yani apostrof bulmasa
             return word
 
         word = word.split()[0]  # if word has space take first word
@@ -508,6 +542,70 @@ class UzMorphAnalyser:
         word = word.replace("’", "’")  # boshqa belgilarni ъ ni kodiga utirish
         return word
 
+    def stem(self, word: str):
+        list_item = self.__processing(self.__clean_word(word))
+        #print(list_item)
+        # return str([d['stem'] for d in list_item])
+
+        # return list_item[0]['stem']    # dict['stem] == dict.get('stem')
+        return list_item[0]['stem']
+
+    def lemmatize(self, word: str, pos: str = None):
+        # print(self.__lemma_map)
+        list_item = self.__processing(self.__clean_word(word), pos, is_lemmatize=True)
+        # print(list_item)
+        # return {'lemma': list_item[0]['stem'], 'pos': list_item[0]['pos']}  # .['stem'] ['pos']
+
+        # return list_item[0]['lemma']  # .get('stem')
+        return list_item[0]['lemma']
+
+    def analyze(self, word: str, pos: str = None):
+        # morpheme, bound morpheme [maktablar, maktab=morphem, lar=bound morphem]
+        list_item = self.__processing(self.__clean_word(word), pos, is_lemmatize=True, multi_item=True)
+        # print(list_item)
+        res_list_item = []
+        for item in list_item:
+            res_dict = {'word': word, 'stem': item['stem'], 'lemma': item['lemma'], 'pos': item['pos']}
+            for key in ['id','affix','affixed','tense','person','possession','cases','verb_voice1','verb_voice2','verb_voice3','verb_func','impulsion','copula','singular','plural','question','negative', 'note']:   # impulsion=mayl, copula=boglama
+                if key in item:
+                    if item[key] != "":
+                        res_dict[key] = item[key]
+            res_list_item.append(res_dict)
+
+        # genetive case - qaratqich kelishigi
+        # Accusative -tushum
+        # Dative - jo'nalish
+        # Ablative - chiqish
+        # Locative o'rin payt
+
+        #  Parse(word='benim', lemma='ben', pos='Noun', morphemes=['Noun', 'A3sg', 'P1sg'], formatted='[ben:Noun] ben:Noun+A3sg+im:P1sg')
+        return res_list_item
+        # {'affix': 'larni', 'pos': '', 'tense': '', 'person': '', 'cases': 'Tushum', 'singular': '', 'plural': '1', 'question': '', 'negative': '',
+        # 'lexical_affixes': '', 'syntactical_affixes': '', 'stem': 'maktab', 'affixed': 'larni'}
+
+    def morph_info(self, word: str, pos: str = None):
+        # morpheme, bound morpheme [maktablar, maktab=morphem, lar=bound morphem]
+        list_item = self.__processing(self.__clean_word(word), pos, is_lemmatize=True, multi_item=True)
+        info = ""
+        for item in list_item:
+            for key in ['tense','person','possession','cases','verb_voice1','verb_voice2','verb_voice3','verb_func','impulsion']:   # impulsion=mayl, copula=boglama
+                if key in item:
+                    if item[key] != "":
+                        if info != "":
+                            info += "|"
+                        info += key + "=" + item[key]
+
+            for key in ['copula','singular','plural','question','negative']:   # impulsion=mayl, copula=boglama
+                if key in item:
+                    if item[key] != "":
+                        if info != "":
+                            info += "|"
+                        info += key + "=True"
+
+            return info # faqat 0-chi itemni olamiz
+
+
+    # future methods for dividing into morhpemes
     # def morphemes(self, word: str, pos: str = None):
     #     # preprocessing       ['pre', 'process', 'ing']
     #     # https://github.com/aboSamoor/polyglot/blob/master/notebooks/MorphologicalAnalysis.ipynb
@@ -547,38 +645,54 @@ class UzMorphAnalyser:
 
 # import time
 # start_time = time.time()
-# obj = UzMorphAnalyser()
-#
+
+obj = UzMorphAnalyser()
+
 # # sent = "olmasi taqgandim olma taqdimmi kurs kursi gacha namuna ko'plab ular bular sizlar kuchli shanba yuztagacha yuztaga kursi eksport eksportidan masjid masjidi tuman tumani tumanimizni taqdim taqdimi barmoqi barmoq muzqaymoq"
-# with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
-#     sent1 = file.read().rstrip()
-# sent1 = sent1.replace('	', ' ')
-# sent1 = sent1.replace('!', ' ')
-# sent1 = sent1.replace('?', ' ')
-# sent1 = sent1.replace('“', ' ')
-# sent1 = sent1.replace('”', ' ')
-# sent1 = sent1.replace(',', ' ')
-# sent1 = sent1.replace('.', ' ')
-# sent1 = sent1.replace('\n', ' ')
-# sent1 = sent1.replace('(', ' ')
-# sent1 = sent1.replace(')', ' ')
-#
-# for token in sent1.split(" "):
-#     token = token.lower()
-#     if token == "":
-#         continue
-#     print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
-# print("--- %s seconds ---" % (time.time() - start_time))
-#
+'''
+with open(os.path.join(os.path.dirname(__file__) + "/" + "test.txt"), 'r', encoding='utf8') as file:
+    sent1 = file.read().rstrip()
+sent1 = sent1.replace('	', ' ')
+sent1 = sent1.replace('!', ' ')
+sent1 = sent1.replace('?', ' ')
+sent1 = sent1.replace('“', ' ')
+sent1 = sent1.replace('”', ' ')
+sent1 = sent1.replace(',', ' ')
+sent1 = sent1.replace('.', ' ')
+sent1 = sent1.replace('\n', ' ')
+sent1 = sent1.replace('(', ' ')
+sent1 = sent1.replace(')', ' ')
+
+for token in sent1.split(" "):
+    token = token.lower()
+    if token == "":
+        continue
+    print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
+print("--- %s seconds ---" % (time.time() - start_time))
+'''
 # with open(os.path.join(os.path.dirname(__file__) + "/" + "test_token.txt"), 'r', encoding='utf8') as file:
 #     for token in file:
 #         token = token.rstrip()
 #         # print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
 # print("--- %s seconds ---" % (time.time() - start_time))
 
-# while (True):
-#     s = input()#.lower()
-#     print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
+while (True):
+    s = input('word pos =')#.lower()
+    s1 = s.split()
+    s = s1[0]
+    if len(s1)>1:
+        p = s1[1]
+    else:
+        p = None
+    # p = input('pos=')
+
+    #print(s + '\t' + obj.stem(s) + '\t' + obj.lemmatize(s) + '\t' + str(obj.analyze(s)))
+    print(obj.stem(s))
+    print(obj.lemmatize(s, p))
+    res_analyze = obj.analyze(s, p)
+    for i in res_analyze:
+        print(i)
+    print(obj.morph_info(s, p))
 
 # print(analyzer.lemmatize('benim'))
 # [('benim', ['ben'])]
@@ -608,4 +722,3 @@ Parse object fields include:
 # test file statistics:
 # source:daryo.uz, category:4, documents for each category: 10
 # 5,288 unique words of 11,952 total (44.24%):
-

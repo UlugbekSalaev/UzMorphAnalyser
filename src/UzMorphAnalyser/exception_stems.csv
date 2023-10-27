@@ -1,9 +1,9 @@
-stem,pos,note,alternate
+stem,pos,note
 masjid,NOUN,{masjidi bulsa di fel qushimchasi di dab qirqadi}
 tuman,NOUN,{}
 eksport,NOUN,{t fel qushimcha}
-taqdim,NOUN,{},{taq+dim VERB}
-talab,NOUN,{},{VERB tala+b ketdi}
+taqdim,NOUN,{taq+dim VERB}
+talab,NOUN,{VERB tala+b ketdi}
 igna,NOUN,{}
 afandi,NOUN,{di qushimchasi}
 daftar,NOUN,{(a)r felni gumon shakli}
@@ -12,12 +12,12 @@ barmoq,NOUN,{moq fel qushumchasi}
 muzqaymoq,NOUN,{moq fel qushimchasi}
 qo‘ng‘iroq,NOUN,{moqni qirqadi}
 qaymoq,NOUN,{moq fel qushimchasi}
-kursi,NOUN,{},{kurs+i}
-olma,NOUN,{},{ol+ma VERB}
+kursi,NOUN,{kurs+i}
+olma,NOUN,{ol+ma VERB}
 chiroyli,ADJ,{(s)i egalik qushimchasi}
 sara,ADJ,{a}
 yarim,ADJ,{im egalik}
-qariyb,ADV{(i)b}
+qariyb,ADV,{(i)b}
 boshqa,ADV,{Ga}
 anjir,NOUN,{(a)r}
 anor,NOUN,{(a)r}
@@ -85,3 +85,5 @@ shaxsan,NOUN,{}
 qancha,NOUN,{}
 kelgusi,NOUN,{}
 kengash,NOUN,{i(shi) ni qirqadi}
+metall,NOUN,{l ni qirqadi}
+yangi,ADJ,{i ni qirqbaradi}
