@@ -118,13 +118,15 @@ See [here](https://github.com/UlugbekSalaev/UzMorphAnalyser).
 ## Citation
 
 ```tex
-@misc{UzMorphAnalyser,
-  title={{UzMorphAnalyser}: Morphological Analyser Tool for Uzbek},
-  url={https://github.com/UlugbekSalaev/UzMorphAnalyser},
-  note={Software available from https://github.com/UlugbekSalaev/UzMorphAnalyser},
-  author={
-    Ulugbek Salaev},
-  year={2022},
+@misc{ulugbek_salaev_2023_10155225,
+  author       = {Ulugbek Salaev},
+  title        = {{MODELING MORPHOLOGICAL ANALYSIS BASED ON WORD- 
+                   ENDING FOR UZBEK LANGUAGE}},
+  month        = nov,
+  year         = 2023,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.10155225},
+  url          = {https://doi.org/10.5281/zenodo.10155225}
 }
 ```
 
