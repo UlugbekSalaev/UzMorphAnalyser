@@ -141,6 +141,8 @@ class UzMorphAnalyser:
         # generate all allomorphs for each affix and allomorph list to affixes list
         for item in self.__affixes:
             item['allomorphs'] = self.__GeneratedAllomorph(item['affix'])
+            # for tt in range(len(item["allomorphs"])):
+            #     print(item["allomorphs"][tt])
 
         # enf of read_data
 
@@ -387,6 +389,16 @@ class UzMorphAnalyser:
                             else:
                                 break  # confidence past bulgan qushimchasi bn borib ex_stemni qidiradi, buni ichida bundin stem bulmasa qirqmay utib ketadi
 
+                        # affiks fayldan qirqiladigan affiks topildi, lekin buni qirqmasdan oldin tekshiramiz, agar qirqilganidan sung 2 ta belgi qoladigan bulsa qirqmasdan utirib yuboramiz, yuqorida kichik stemlar faylidan 2 yo undan kam stem bomi dab qidirvadik, lekin so‘ng dagi suz uchun so degani yuq, lekin,so‘ ni qoldirib ng ni qirqyapti, bunda ‘ belgi bn 3 ta bulyapti, ‘ ni uchirganda 2 belgi qolganda xam bazadan yuqligini bildiradi, va qirqtirmimiz
+                        if len(word[:i].replace('‘', '')) <= 2:
+                            continue
+
+                        # chiq suzi uchun -ar qushimchasi mavjud, bu yugurar/ishlar dagi -(a)r qushimchasi emas, yani chiqar... kabi suzlardagi -ar qushimchasi faqat chiq suzidan keyin keladi, shuni uchun bundan oldin chiq suzi kelganligini tekshiramiz
+                        if item["affix"].startswith("ar"):
+                            if word[:i].casefold() != "chiq":
+                                continue
+                        # print(item)
+                        # print(item["affix"].startswith("ar"))
                         # xech qayerdan muammo bulmay, csv fayllarga xam tushmasdan, shu yerga keldi, yani affixes ruyhatdan topildi va resultga qushamiz
                         item['stem'], item['lemma'], item['affixed'] = word[:i], word[:i], word[i:]
                         result_items1.append(item)
@@ -539,7 +551,7 @@ class UzMorphAnalyser:
 
         word = word.replace("'", "’")  # boshqa belgilarni ъ ni kodiga utirish
         word = word.replace("ʼ", "’")  # boshqa belgilarni ъ ni kodiga utirish
-        word = word.replace("’", "’")  # boshqa belgilarni ъ ni kodiga utirish
+        # word = word.replace("’", "’")  # boshqa belgilarni ъ ni kodiga utirish
         return word
 
     def stem(self, word: str):
@@ -566,10 +578,16 @@ class UzMorphAnalyser:
         res_list_item = []
         for item in list_item:
             res_dict = {'word': word, 'stem': item['stem'], 'lemma': item['lemma'], 'pos': item['pos']}
-            for key in ['id','affix','affixed','tense','person','possession','cases','verb_voice1','verb_voice2','verb_voice3','verb_func','impulsion','copula','singular','plural','question','negative', 'note']:   # impulsion=mayl, copula=boglama
+
+            for key in ['affix','affixed','tense','person','possession','cases','verb_voice1','verb_voice2','verb_voice3','verb_func','impulsion']:   # 'id', 'note', impulsion=mayl, copula=boglama
                 if key in item:
                     if item[key] != "":
                         res_dict[key] = item[key]
+
+            for key in ['copula','singular','plural','question','negative']:   # 'id', 'note', impulsion=mayl, copula=boglama
+                if key in item:
+                    if item[key] != "":
+                        res_dict[key] = True
             res_list_item.append(res_dict)
 
         # genetive case - qaratqich kelishigi
@@ -602,7 +620,7 @@ class UzMorphAnalyser:
                             info += "|"
                         info += key + "=True"
 
-            return info # faqat 0-chi itemni olamiz
+            return info  # faqat 0-chi itemni olamiz
 
 
     # future methods for dividing into morhpemes
@@ -676,6 +694,7 @@ print("--- %s seconds ---" % (time.time() - start_time))
 #         # print(token + '\t' + obj.stem(token) + '\t' + obj.lemmatize(token) + '\t' + str(obj.analyze(token)))
 # print("--- %s seconds ---" % (time.time() - start_time))
 
+'''
 while (True):
     s = input('word pos =')#.lower()
     s1 = s.split()
@@ -693,7 +712,7 @@ while (True):
     for i in res_analyze:
         print(i)
     print(obj.morph_info(s, p))
-
+'''
 # print(analyzer.lemmatize('benim'))
 # [('benim', ['ben'])]
 
