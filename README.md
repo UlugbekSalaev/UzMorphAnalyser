@@ -118,15 +118,16 @@ See [here](https://github.com/UlugbekSalaev/UzMorphAnalyser).
 ## Citation
 
 ```tex
-@misc{ulugbek_salaev_2023_10155225,
-  author       = {Ulugbek Salaev},
-  title        = {{MODELING MORPHOLOGICAL ANALYSIS BASED ON WORD- 
-                   ENDING FOR UZBEK LANGUAGE}},
-  month        = nov,
-  year         = 2023,
-  publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.10155225},
-  url          = {https://doi.org/10.5281/zenodo.10155225}
+@CONFERENCE{Salaev2024,
+	author = {Salaev, Ulugbek},
+	title = {UzMorphAnalyser: A Morphological Analysis Model for the Uzbek Language Using Inflectional Endings},
+	year = {2024},
+	journal = {AIP Conference Proceedings},
+	volume = {3244},
+	number = {1},
+	doi = {10.1063/5.0241461},
+	url = {https://www.scopus.com/inward/record.uri?eid=2-s2.0-85212084325&doi=10.1063%2f5.0241461&partnerID=40&md5=2aebf2ea03ea0a3a7850c4fb867480ba},
+	source = {Scopus},
 }
 ```
 
